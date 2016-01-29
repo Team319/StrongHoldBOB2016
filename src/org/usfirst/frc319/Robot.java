@@ -92,6 +92,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.leftShooterSpeed());
         SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.rightShooterSpeed());
+        SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
     }
 
     /**

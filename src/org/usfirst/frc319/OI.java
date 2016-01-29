@@ -34,13 +34,13 @@ public class OI {
         startButton = new JoystickButton(xBoxController, 8);
         startButton.whenPressed(new ShooterStop());
         leftBumper = new JoystickButton(xBoxController, 5);
-        leftBumper.whenPressed(new ShooterGo());
+        leftBumper.whenPressed(new ArmStop());
         rightBumper = new JoystickButton(xBoxController, 6);
         rightBumper.whenPressed(new ShiftToggle());
         bButton = new JoystickButton(xBoxController, 2);
         bButton.whenPressed(new ClimberStop());
-       // aButton = new JoystickButton(xBoxController, 1);
-       // aButton.whenPressed(new CollectorIn());
+        aButton = new JoystickButton(xBoxController, 1);
+        aButton.whenPressed(new CollectorIn());
         //aButton is being used for PID shooter Testing (Derrick 1/28/15)
         
         yButton = new JoystickButton(xBoxController, 4);

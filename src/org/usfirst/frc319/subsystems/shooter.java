@@ -25,15 +25,16 @@ public class shooter extends Subsystem {
     public shooter(){
     	rightShooter.changeControlMode(TalonControlMode.Speed);
     	rightShooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
-    	rightShooter.reverseSensor(true);
+    	rightShooter.reverseSensor(false);
     	//when installed check to make sure encoder and voltage are matched  	
     	rightShooter.configNominalOutputVoltage(+0.0f, +0.0f);
-    	rightShooter.configPeakOutputVoltage(+12.0f,  0.0f);
+    	rightShooter.configPeakOutputVoltage(+0.0f,  -12.0f);
     	rightShooter.setProfile(0);
     	rightShooter.setF(0.02997);
-    	rightShooter.setP(0.1133);
-    	rightShooter.setI(0);
-    	rightShooter.setD(0);
+    	rightShooter.setP(0.11);
+    	rightShooter.setI(.0011);//.0011-original//
+    	rightShooter.setD(1.1);
+    	rightShooter.setIZone(50);
     	
     	leftShooter.changeControlMode(TalonControlMode.Speed);
     	leftShooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
@@ -51,16 +52,16 @@ public class shooter extends Subsystem {
     }
 
     public void initDefaultCommand() {     
-        setDefaultCommand(new ShooterPIDTest());
+        setDefaultCommand(new ShooterStop());
     }
     
     public void rightShooterSpin(){
-    	rightShooter.set(3000);
+    	rightShooter.set(-3000);
     	
     }
     
     public void leftShooterSpin(){
-    	leftShooter.set(-3000);
+    	leftShooter.set(3000);
     }
     
     public void rightShooterStop(){
@@ -102,10 +103,10 @@ public class shooter extends Subsystem {
     	_sb.append("\tspd:");
     	_sb.append(motorSpeed);
     	
-    if(Robot.oi.xBoxController.getRawButton(1)){
+    if(Robot.oi.xBoxController.getRawButton(2)){
     	/*Speed mode*/
     	
-    	double rightFixedTargetSpeed = 3000;
+    	double rightFixedTargetSpeed = -3000;
     	//double targetSpeed = Robot.oi.xBoxController.getRawAxis(0) * 1500.0;
     	rightShooter.changeControlMode(TalonControlMode.Speed);
     	rightShooter.set(rightFixedTargetSpeed);
@@ -117,7 +118,7 @@ public class shooter extends Subsystem {
 		
     }else{
     	rightShooter.changeControlMode(TalonControlMode.PercentVbus);
-    	rightShooter.set(Robot.oi.xBoxController.getRawAxis(0));
+    	rightShooter.set(Robot.oi.xBoxController.getRawAxis(5));
     
     }
     
@@ -142,7 +143,7 @@ public class shooter extends Subsystem {
     	
     if(Robot.oi.xBoxController.getRawButton(1)){
     	
-    	double leftFixedTargetSpeed =4000;
+    	double leftFixedTargetSpeed =3000;
     	double targetSpeed = Robot.oi.xBoxController.getRawAxis(0) * 1500.0;
     	
     	leftShooter.changeControlMode(TalonControlMode.Speed);

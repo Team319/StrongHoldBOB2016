@@ -21,7 +21,7 @@ public class ShooterPIDTest extends Command {
 
     protected void execute() {
 
-    	//Robot.shooter.rightShooterpIDTest();
+    	Robot.shooter.rightShooterpIDTest();
     	Robot.shooter.leftShooterpIDTest();
     	
     }
