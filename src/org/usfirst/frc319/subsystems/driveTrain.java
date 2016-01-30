@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,6 +20,9 @@ public class driveTrain extends Subsystem {
 
 	public boolean shift;
 
+	public String highGear = "High Gear";
+	public String lowGear = "Low Gear";
+	
     private final DoubleSolenoid shifter = RobotMap.driveTrainshifter;
     private final CANTalon rightDriveLead = RobotMap.driveTrainrightDriveLead;
     private final CANTalon leftDriveLead = RobotMap.driveTrainleftDriveLead;
@@ -51,7 +55,7 @@ public class driveTrain extends Subsystem {
     public void shiftUp(){
     	Robot.driveTrain.shifter.set(DoubleSolenoid.Value.kForward);
     	shift = false;
-    
+    	
     }
     
     public void shiftDown(){

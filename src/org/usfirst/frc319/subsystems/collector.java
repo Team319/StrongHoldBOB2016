@@ -2,6 +2,7 @@
 
 package org.usfirst.frc319.subsystems;
 
+import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
 
@@ -22,6 +23,15 @@ public class collector extends Subsystem {
         setDefaultCommand(new CollectorStop());
 
     }
+    public boolean getBoulderSensor(){
+  	 	
+    	return Robot.collector.getBoulderSensor();
+    	
+    	
+    }
+    
+    
+    
     
 }
 

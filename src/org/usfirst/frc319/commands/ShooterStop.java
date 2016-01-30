@@ -20,8 +20,9 @@ public class ShooterStop extends Command {
     }
 
     protected void execute() {
-    	Robot.shooter.leftShooterStop();
-    	Robot.shooter.rightShooterStop();
+    	double speed = 0;
+    	Robot.shooter.setLeftShooterStop(speed);
+    	Robot.shooter.setRightShooterStop(speed);
     }
 
     protected boolean isFinished() {

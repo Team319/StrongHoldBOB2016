@@ -16,13 +16,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class shooter extends Subsystem {
 	
-	StringBuilder _sb = new StringBuilder();
-	int _loops = 0;
-	
-    private final CANTalon leftShooter = RobotMap.shooterleftShooter;
+	private final CANTalon leftShooter = RobotMap.shooterleftShooter;
     private final CANTalon rightShooter = RobotMap.shooterrightShooter;
 
+	//---- used IN PID TUNING----//
+	StringBuilder _sb = new StringBuilder();
+	int _loops = 0;
+	//---------------------------//
+	
     public shooter(){
+    	
     	rightShooter.changeControlMode(TalonControlMode.Speed);
     	rightShooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
     	rightShooter.reverseSensor(false);
@@ -34,7 +37,7 @@ public class shooter extends Subsystem {
     	rightShooter.setP(0.11);
     	rightShooter.setI(.0011);//.0011-original//
     	rightShooter.setD(1.1);
-    	rightShooter.setIZone(50);
+    	rightShooter.setIZone(50);//might be increased to 100 (Derrick -1/29/16)
     	
     	leftShooter.changeControlMode(TalonControlMode.Speed);
     	leftShooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
@@ -44,10 +47,10 @@ public class shooter extends Subsystem {
     	leftShooter.configPeakOutputVoltage(+12.0f,  0.0f);
     	leftShooter.setProfile(0);
     	leftShooter.setF(0.02997); //0.02997
-    	leftShooter.setP(0.11); //0.1133
+    	leftShooter.setP(0.11); //0.11
     	leftShooter.setI(.0011);
     	leftShooter.setD(1.1); //1.133
-    	leftShooter.setIZone(50);
+    	leftShooter.setIZone(50);//(Derrick -1/29/16)
     	
     }
 
@@ -55,54 +58,50 @@ public class shooter extends Subsystem {
         setDefaultCommand(new ShooterStop());
     }
     
-    public void rightShooterSpin(){
-    	rightShooter.set(-3000);
-    	
+    public void setRightShooterSpeed(double speed){
+    	rightShooter.set(-speed);	
     }
     
-    public void leftShooterSpin(){
-    	leftShooter.set(3000);
+    public void setLeftShooterSpeed(double speed){
+    	leftShooter.set(speed);
     }
     
-    public void rightShooterStop(){
-    	rightShooter.set(0);
-    	
+    public void setRightShooterStop(double speed){
+    	rightShooter.set(speed);
     }
     
-    public void leftShooterStop(){
-    	leftShooter.set(0);
-    	
+    public void setLeftShooterStop(double speed){
+    	leftShooter.set(speed);
     }
     
-    public double leftShooterSpeed(){
+    public double getLeftShooterSpeed(){
     	return leftShooter.getSpeed();
     }
     
-    public double rightShooterSpeed(){
+    public double getRightShooterSpeed(){
     	return rightShooter.getSpeed();
-    	
     }
     
     public double leftMotorOutputVoltage(){
-    	
-    return leftShooter.getOutputVoltage();
+    	return leftShooter.getOutputVoltage();
     }
     
     public double leftMotorBusVoltage(){
-    
-    return leftShooter.getBusVoltage();
+    	return leftShooter.getBusVoltage();
     }
     
-    		
+    //---------TUNING PID SHOOTER MOTORS----USED FOR GETTING SHOOTERS TO BE CONSISTENT-----//
     public void rightShooterpIDTest(){
     	double motorOutput = rightShooter.getOutputVoltage()/rightShooter.getBusVoltage();
     	double motorSpeed = rightShooter.getSpeed();
-    	
+    
+    //OPEN THE CONSOLE FROM THE DRIVER STATION TO READ OUT PUT VALUES
     	_sb.append("\tout:");
     	_sb.append(motorOutput);
     	_sb.append("\tspd:");
     	_sb.append(motorSpeed);
-    	
+    
+    //--IF YOU PUSH A BCUTTON THE SHOOTER WILL ATTEMPT TO GET TO "Right Fixed Target Speed"
     if(Robot.oi.xBoxController.getRawButton(2)){
     	/*Speed mode*/
     	
@@ -115,11 +114,10 @@ public class shooter extends Subsystem {
 		_sb.append(rightShooter.getClosedLoopError());
 		_sb.append("ttrg:");
 		_sb.append(rightFixedTargetSpeed);
-		
-    }else{
+	}//OTHERWISE IT WILL DRIVE THE MOTOR OFF THE LEFT JOYSTICK X-AXIS
+    else{
     	rightShooter.changeControlMode(TalonControlMode.PercentVbus);
     	rightShooter.set(Robot.oi.xBoxController.getRawAxis(5));
-    
     }
     
     if(++_loops >= 10){
@@ -132,19 +130,23 @@ public class shooter extends Subsystem {
     
     }
     
+  //---------TUNING PID SHOOTER MOTORS----USED FOR GETTING SHOOTERS TO BE CONSISTENT-----//
     public void leftShooterpIDTest(){
     	double motorOutput = leftShooter.getOutputVoltage()/leftShooter.getBusVoltage();
     	double motorSpeed = leftShooter.getSpeed();
-    	
+   
+   //OPEN THE CONSOLE FROM THE DRIVER STATION TO READ OUT PUT VALUES
     	_sb.append("\tout:");
     	_sb.append(motorOutput);
     	_sb.append("\tspd:");
     	_sb.append(motorSpeed);
     	
     if(Robot.oi.xBoxController.getRawButton(1)){
+  
+   //--IF YOU PUSH A BCUTTON THE SHOOTER WILL ATTEMPT TO GET TO "Right Fixed Target Speed"
     	
     	double leftFixedTargetSpeed =3000;
-    	double targetSpeed = Robot.oi.xBoxController.getRawAxis(0) * 1500.0;
+    	//double targetSpeed = Robot.oi.xBoxController.getRawAxis(0) * 1500.0;
     	
     	leftShooter.changeControlMode(TalonControlMode.Speed);
     	leftShooter.set(leftFixedTargetSpeed); //leftFixedTargetSpeed
@@ -154,21 +156,19 @@ public class shooter extends Subsystem {
     	_sb.append("ttrg:");
     	_sb.append(leftFixedTargetSpeed); //leftFixedTargetSpeed
     	
-    	} else{
+    	}//OTHERWISE IT WILL DRIVE THE MOTOR OFF THE LEFT JOYSTICK X-AXIS 
+    	else{
     	
     	leftShooter.changeControlMode(TalonControlMode.PercentVbus);
     	leftShooter.set(Robot.oi.xBoxController.getRawAxis(0));
-    
     	}
     
     if(++_loops >=10){
     	_loops = 0;
     	System.out.println(_sb.toString());
-   
     	}
   
     _sb.setLength(0);
-    
     }    
 }
 

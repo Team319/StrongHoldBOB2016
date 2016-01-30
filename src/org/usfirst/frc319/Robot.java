@@ -1,3 +1,4 @@
+
 // Strong Hold BOB 2016 Robot
 
 
@@ -90,9 +91,22 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.leftShooterSpeed());
-        SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.rightShooterSpeed());
+        SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.getLeftShooterSpeed());
+        SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRightShooterSpeed());
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
+        SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
+        
+        
+        
+        //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
+        /*if(Robot.driveTrain.shift){
+        	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);
+        	
+        }else{
+        	SmartDashboard.putString("Gear", Robot.driveTrain.lowGear);
+        }
+        // SmartDashboard.putString("Gear", value);
+  		*/
     }
 
     /**
