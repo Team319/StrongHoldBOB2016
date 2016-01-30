@@ -20,6 +20,7 @@ public class CollectorOut extends Command {
     }
 
     protected void execute() {
+    	Robot.collector.collectorGoOut();
     }
 
     protected boolean isFinished() {

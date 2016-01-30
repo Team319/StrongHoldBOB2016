@@ -20,6 +20,8 @@ public class CollectAndStop extends Command {
     }
 
     protected void execute() {
+    	Robot.collector.collectorGoIn();
+    	
     	
     
     }

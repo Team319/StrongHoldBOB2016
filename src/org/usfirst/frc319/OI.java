@@ -3,9 +3,11 @@
 package org.usfirst.frc319;
 
 import org.usfirst.frc319.commands.*;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
+
 import org.usfirst.frc319.subsystems.*;
 
 
@@ -32,15 +34,15 @@ public class OI {
         selectButton = new JoystickButton(xBoxController, 7);
         selectButton.whenPressed(new ShooterPIDTest());
         startButton = new JoystickButton(xBoxController, 8);
-        startButton.whenPressed(new ShooterStop());
+        startButton.whenPressed(new FollowMotionProfile());
         leftBumper = new JoystickButton(xBoxController, 5);
-        leftBumper.whenPressed(new ArmStop());
+        leftBumper.whenPressed(new CollectorOut());
         rightBumper = new JoystickButton(xBoxController, 6);
         rightBumper.whenPressed(new ShiftToggle());
         bButton = new JoystickButton(xBoxController, 2);
-        bButton.whenPressed(new ClimberStop());
+        bButton.whenPressed(new CollectorStop());
         aButton = new JoystickButton(xBoxController, 1);
-        aButton.whenPressed(new CollectorIn());
+        aButton.whenPressed(new CollectAndStop());
         //aButton is being used for PID shooter Testing (Derrick 1/28/15)
         
         yButton = new JoystickButton(xBoxController, 4);

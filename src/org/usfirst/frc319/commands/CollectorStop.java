@@ -20,6 +20,7 @@ public class CollectorStop extends Command {
     }
 
     protected void execute() {
+    	Robot.collector.collectorStop();
     }
 
     protected boolean isFinished() {

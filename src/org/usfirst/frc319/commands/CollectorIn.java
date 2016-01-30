@@ -20,6 +20,7 @@ public class CollectorIn extends Command {
     }
 
     protected void execute() {
+    	Robot.collector.collectorGoIn();
     }
 
     protected boolean isFinished() {

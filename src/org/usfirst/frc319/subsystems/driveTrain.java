@@ -2,11 +2,15 @@
 
 package org.usfirst.frc319.subsystems;
 
+import org.usfirst.frc319.MotionProfileExample;
+import org.usfirst.frc319.RightExampleMotionProfile;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.MotionProfileStatus;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -29,7 +33,8 @@ public class driveTrain extends Subsystem {
     private final CANTalon rightDriveFollow = RobotMap.driveTrainrightDriveFollow;
     private final CANTalon leftDriveFollow = RobotMap.driveTrainleftDriveFollow;    
     private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
-
+    private MotionProfileExample _example = new MotionProfileExample(rightDriveLead);
+    
     public driveTrain(){
  	   rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
  	   rightDriveFollow.changeControlMode(TalonControlMode.Follower);
@@ -37,7 +42,7 @@ public class driveTrain extends Subsystem {
  	   leftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
  	   leftDriveFollow.changeControlMode(TalonControlMode.Follower);
  	   leftDriveFollow.set(leftDriveLead.getDeviceID());
-    
+ 	   
     }
     
     public void initDefaultCommand() {
@@ -64,5 +69,40 @@ public class driveTrain extends Subsystem {
      
     }
     
+    public void followMotionProfile(){
+    	    	
+    	_example.control();
+    	CANTalon.SetValueMotionProfile setOutput = _example.getSetValue();
+    	rightDriveLead.set(setOutput.value);
+    	
+    	
+    }
+    
+    public void enableMotionProfileMode(){
+    	rightDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	rightDriveLead.configEncoderCodesPerRev(1024);
+    	rightDriveLead.reverseSensor(true);
+    	rightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	
+    	leftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	leftDriveLead.configEncoderCodesPerRev(1024);
+    	leftDriveLead.reverseSensor(false);
+    	leftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	
+    }
+    
+    public void startMotionProfile(){
+    	_example.startMotionProfile();
+    }
+    public void resetMotionProfile(){
+    	_example.reset();
+    }
+    
+    public boolean isMotionProfileFinished(){
+    	MotionProfileStatus rightMPStatus = new MotionProfileStatus();
+    	rightDriveLead.getMotionProfileStatus(rightMPStatus);
+    	
+    	return rightMPStatus.activePoint.isLastPoint;
+    }
 }
 
