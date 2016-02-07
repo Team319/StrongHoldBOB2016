@@ -10,7 +10,8 @@ import org.usfirst.frc319.Robot;
  */
 public class FollowMotionProfile extends Command {
 
-   
+	public boolean motionProfileStarted;
+	
     public FollowMotionProfile() {
   
         requires(Robot.driveTrain);
@@ -18,25 +19,41 @@ public class FollowMotionProfile extends Command {
     }
 
     protected void initialize() {
-    	Robot.driveTrain.enableMotionProfileMode();
-    	Robot.driveTrain.startMotionProfile();
+    motionProfileStarted = false;	
+    System.out.println("initialized");
+    //Robot.driveTrain.setRightEncoderToZero();//No good
     }
 
     protected void execute() {
-    	Robot.driveTrain.followMotionProfile();
+    	Robot.driveTrain.enableMotionProfileMode();
+    	Robot.driveTrain.rightFollowMotionProfile();
+    	
+    	//System.out.println("Motion Profilestarted: " +motionProfileStarted);
+    	
+    	if(motionProfileStarted == false){
+    	Robot.driveTrain.startRightMotionProfile();
+    	motionProfileStarted = true;
+    	}
+    	
+    	System.out.println("Executing");
     }
 
     protected boolean isFinished() {
-    	return Robot.driveTrain.isMotionProfileFinished();
+    	return Robot.driveTrain.isRightMotionProfileFinished();
+    	//return Robot.driveTrain.shift;
     	
     }
 
     protected void end() {
-    	Robot.driveTrain.resetMotionProfile();
+    	 System.out.println("Ended");
+    	Robot.driveTrain.resetRightMotionProfile();
+    	
+    	Robot.driveTrain.setModeToVBus();
     	
     }
 
     protected void interrupted() {
+    	 System.out.println("interrupted");
     }
     
 }

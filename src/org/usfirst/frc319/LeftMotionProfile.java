@@ -27,8 +27,9 @@ package org.usfirst.frc319;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import org.usfirst.frc319.motionProfiles.*;
 
-public class MotionProfileExample {
+public class LeftMotionProfile {
 
 	/**
 	 * The status of the motion profile executer and buffer inside the Talon.
@@ -101,7 +102,7 @@ public class MotionProfileExample {
 	 * @param talon
 	 *            reference to Talon object to fetch motion profile status from.
 	 */
-	public MotionProfileExample(CANTalon talon) {
+	public LeftMotionProfile(CANTalon talon) {
 		_talon = talon;
 		/*
 		 * since our MP is 10ms per point, set the control frame rate and the
@@ -234,7 +235,8 @@ public class MotionProfileExample {
 	/** Start filling the MPs to all of the involved Talons. */
 	private void startFilling() {
 		/* since this example only has one talon, just update that one */
-		startFilling(RightExampleMotionProfile.Points, RightExampleMotionProfile.kNumPoints);
+		//startFilling(RightExampleMotionProfile.Points, RightExampleMotionProfile.kNumPoints);
+		startFilling(GeneratedMotionProfileLeft.Points,GeneratedMotionProfileLeft.kNumPoints);
 	}
 
 	private void startFilling(double[][] profile, int totalCnt) {

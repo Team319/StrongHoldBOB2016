@@ -39,8 +39,8 @@ public class RobotMap {
     public static void init() {
         
     	//-----   Drive Train   -----
-    	driveTrainleftDriveLead = new CANTalon(0);
-        driveTrainleftDriveFollow = new CANTalon(1);
+    	driveTrainleftDriveLead = new CANTalon(7);
+        driveTrainleftDriveFollow = new CANTalon(6);
         driveTrainrightDriveLead = new CANTalon(2);
         driveTrainrightDriveFollow = new CANTalon(3);
         
@@ -58,29 +58,29 @@ public class RobotMap {
         driveTraindriveTrain.setSensitivity(0.5);
         driveTraindriveTrain.setMaxOutput(1.0);
 
-        driveTrainshifter = new DoubleSolenoid(1, 0, 1);
+        driveTrainshifter = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("driveTrain", "shifter", driveTrainshifter);
         
         //-----   Collector   -----
-        collectorcollectorMotor = new CANTalon(6);
+        collectorcollectorMotor = new CANTalon(8);
         LiveWindow.addActuator("collector", "collectorMotor", collectorcollectorMotor);
         
         collectorboulderSensor = new DigitalInput(0);
         LiveWindow.addSensor("collector", "boulderSensor", collectorboulderSensor);
         
         //-----   Shooter   -----
-        shooterleftShooter = new CANTalon(4);
+        shooterleftShooter = new CANTalon(9);
         LiveWindow.addActuator("shooter", "leftShooter", shooterleftShooter);
         
-        shooterrightShooter = new CANTalon(5);
+        shooterrightShooter = new CANTalon(0);
         LiveWindow.addActuator("shooter", "rightShooter", shooterrightShooter);
         
         //-----   Arm   -----
-        armarmMotor = new CANTalon(7);
+        armarmMotor = new CANTalon(1);
         LiveWindow.addActuator("arm", "armMotor", armarmMotor);
         
         //-----   Climber   -----
-        climberclimberMotor = new CANTalon(8);
+        climberclimberMotor = new CANTalon(4);
         LiveWindow.addActuator("climber", "climberMotor", climberclimberMotor);
         
         //-----   Camera   -----
@@ -88,7 +88,7 @@ public class RobotMap {
         LiveWindow.addActuator("towerCamera", "towerRelay", towerCameratowerRelay);
         
         //-----   Compressor   -----
-        compressorcompressor = new Compressor(1);
+        compressorcompressor = new Compressor(0);
         compressorpressureSensor = new AnalogInput(0);
         
         LiveWindow.addSensor("compressor", "pressureSensor", compressorpressureSensor);

@@ -13,6 +13,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.subsystems.*;
+import org.usfirst.frc319.motionProfiles.*;
+import org.usfirst.frc319.RightMotionProfile;
+/*--added a package to put all of our Motion Profiles so they don't--
+    clutter up the src package (Derrick 2/3/16)
+*/
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -95,13 +100,14 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRightShooterSpeed());
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
         SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
-        
-        
+        SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
+        Robot.driveTrain.controlRightMotionProfile();
+
         
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
         	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);
-        	
+        
         }else{
         	SmartDashboard.putString("Gear", Robot.driveTrain.lowGear);
         }

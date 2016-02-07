@@ -2,11 +2,12 @@
 
 package org.usfirst.frc319.subsystems;
 
-import org.usfirst.frc319.MotionProfileExample;
-import org.usfirst.frc319.RightExampleMotionProfile;
+import org.usfirst.frc319.LeftMotionProfile;
+import org.usfirst.frc319.RightMotionProfile;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.motionProfiles.*;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -33,7 +34,9 @@ public class driveTrain extends Subsystem {
     private final CANTalon rightDriveFollow = RobotMap.driveTrainrightDriveFollow;
     private final CANTalon leftDriveFollow = RobotMap.driveTrainleftDriveFollow;    
     private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
-    private MotionProfileExample _example = new MotionProfileExample(rightDriveLead);
+    
+    private LeftMotionProfile leftProfile = new LeftMotionProfile(rightDriveLead);
+    private RightMotionProfile rightProfile = new RightMotionProfile(rightDriveLead);
     
     public driveTrain(){
  	   rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
@@ -55,7 +58,24 @@ public class driveTrain extends Subsystem {
 
 		// true is a boolean for "squared inputs" - derrick 1/20/16
 		
+    	//moved two lines below to teleop Periodic 3:20 pm 2/6/16
+    	//leftProfile.control();
+		rightProfile.control();
+		//leftProfile.reset();
+		//rightProfile.reset();
+		
+		
     }
+    
+    public int getLeftDrivetrainPosition(){
+    	return leftDriveLead.getEncPosition();
+    	
+    }
+    
+    public void setRightEncoderToZero(){
+    	rightDriveLead.setEncPosition(0);
+    }
+    
     //Output Shift to Smart Dash Board as a boolean (Wyatt- 1/27/16)
     public void shiftUp(){
     	Robot.driveTrain.shifter.set(DoubleSolenoid.Value.kForward);
@@ -69,14 +89,22 @@ public class driveTrain extends Subsystem {
      
     }
     
-    public void followMotionProfile(){
-    	    	
-    	_example.control();
-    	CANTalon.SetValueMotionProfile setOutput = _example.getSetValue();
-    	rightDriveLead.set(setOutput.value);
-    	
-    	
+    public void controlRightMotionProfile(){
+    	rightProfile.control();
     }
+    
+    public void rightFollowMotionProfile(){
+    	    	
+    	//leftProfile.control();//I think this may need to be moved to the default Command of the subsystem (Derrick 2/6/15)
+    	CANTalon.SetValueMotionProfile setOutput = rightProfile.getSetValue();
+    	rightDriveLead.set(setOutput.value);	
+    }
+    
+    public void leftFollowMotinProfile(){
+    	CANTalon.SetValueMotionProfile setOutput = leftProfile.getSetValue();
+    	leftDriveLead.set(setOutput.value);
+    }
+    
     
     public void enableMotionProfileMode(){
     	rightDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -84,25 +112,59 @@ public class driveTrain extends Subsystem {
     	rightDriveLead.reverseSensor(true);
     	rightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
     	
+    	rightDriveLead.setF(0.15); //not sure where to tune PID -DErrick 1/29/15
+		rightDriveLead.setP(0);
+		rightDriveLead.setI(0);
+		rightDriveLead.setD(0);
+		rightDriveLead.setIZone(0);
+		rightDriveLead.setCloseLoopRampRate(0);
+		
+    	
+    	
+    	
+    	
     	leftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftDriveLead.configEncoderCodesPerRev(1024);
-    	leftDriveLead.reverseSensor(false);
+    	leftDriveLead.reverseSensor(true);
     	leftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
     	
     }
     
-    public void startMotionProfile(){
-    	_example.startMotionProfile();
+    public void startLeftMotionProfile(){
+    	leftProfile.startMotionProfile();
     }
-    public void resetMotionProfile(){
-    	_example.reset();
+    public void startRightMotionProfile(){
+    	rightProfile.startMotionProfile();
     }
     
-    public boolean isMotionProfileFinished(){
+    public void resetLeftMotionProfile(){
+    	leftProfile.reset();
+    }
+    public void resetRightMotionProfile(){
+    	rightProfile.reset();
+    }
+    
+    public boolean isRightMotionProfileFinished(){
     	MotionProfileStatus rightMPStatus = new MotionProfileStatus();
     	rightDriveLead.getMotionProfileStatus(rightMPStatus);
     	
     	return rightMPStatus.activePoint.isLastPoint;
     }
+    public boolean isLeftMotionProfileFinished(){
+    	MotionProfileStatus leftMPStatus = new MotionProfileStatus();
+    	leftDriveLead.getMotionProfileStatus(leftMPStatus);
+    	
+    	return leftMPStatus.activePoint.isLastPoint;
+    }
+    
+   public void setModeToVBus(){
+	   rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+ 	   rightDriveFollow.changeControlMode(TalonControlMode.Follower);
+ 	   rightDriveFollow.set(rightDriveLead.getDeviceID());
+ 	   leftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+ 	   leftDriveFollow.changeControlMode(TalonControlMode.Follower);
+ 	   leftDriveFollow.set(leftDriveLead.getDeviceID());
+   }
+
 }
 

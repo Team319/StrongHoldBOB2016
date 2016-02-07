@@ -1,6 +1,6 @@
-package org.usfirst.frc319;
+package org.usfirst.frc319.motionProfiles;
 
-public class RightExampleMotionProfile {
+public class RightMotionProfile {
 	
 	
 						

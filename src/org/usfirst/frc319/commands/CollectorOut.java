@@ -20,7 +20,8 @@ public class CollectorOut extends Command {
     }
 
     protected void execute() {
-    	Robot.collector.collectorGoOut();
+    	double speed = 1;
+    	Robot.collector.collectorGoOut(speed);
     }
 
     protected boolean isFinished() {

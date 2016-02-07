@@ -34,15 +34,15 @@ public class collector extends Subsystem {
     	return Robot.collector.boulderSensor.get();
     }
    
-    public void collectorGoIn(){
+    public void collectorGoIn(double speed){
     	
-    	Robot.collector.collectorMotor.set(1);
+    	Robot.collector.collectorMotor.set(speed);
     }
-    public void collectorStop(){
-    	Robot.collector.collectorMotor.set(0);
+    public void collectorStop(double speed){
+    	Robot.collector.collectorMotor.set(speed);
     }
-    public void collectorGoOut(){
-    	Robot.collector.collectorMotor.set(-1);
+    public void collectorGoOut(double speed){
+    	Robot.collector.collectorMotor.set(-speed);
     }
     
     
