@@ -9,8 +9,12 @@ import org.usfirst.frc319.Robot;
  *
  */
 public class FollowMotionProfile extends Command {
+	
+	int loops = 0;
 
 	public boolean motionProfileStarted;
+	
+	
 	
     public FollowMotionProfile() {
   
@@ -27,11 +31,12 @@ public class FollowMotionProfile extends Command {
     protected void execute() {
     	Robot.driveTrain.enableMotionProfileMode();
     	Robot.driveTrain.rightFollowMotionProfile();
-    	
+    	//Robot.driveTrain.leftFollowMotinProfile();
     	//System.out.println("Motion Profilestarted: " +motionProfileStarted);
     	
     	if(motionProfileStarted == false){
     	Robot.driveTrain.startRightMotionProfile();
+    	//Robot.driveTrain.startLeftMotionProfile();
     	motionProfileStarted = true;
     	}
     	
@@ -40,6 +45,7 @@ public class FollowMotionProfile extends Command {
 
     protected boolean isFinished() {
     	return Robot.driveTrain.isRightMotionProfileFinished();
+    	//return Robot.driveTrain.isLeftMotionProfileFinished();
     	//return Robot.driveTrain.shift;
     	
     }
@@ -47,6 +53,7 @@ public class FollowMotionProfile extends Command {
     protected void end() {
     	 System.out.println("Ended");
     	Robot.driveTrain.resetRightMotionProfile();
+    	//Robot.driveTrain.resetLeftMotionProfile();
     	
     	Robot.driveTrain.setModeToVBus();
     	

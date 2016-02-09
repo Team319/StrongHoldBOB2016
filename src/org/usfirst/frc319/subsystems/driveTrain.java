@@ -35,8 +35,8 @@ public class driveTrain extends Subsystem {
     private final CANTalon leftDriveFollow = RobotMap.driveTrainleftDriveFollow;    
     private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
     
-    private LeftMotionProfile leftProfile = new LeftMotionProfile(rightDriveLead);
-    private RightMotionProfile rightProfile = new RightMotionProfile(rightDriveLead);
+    LeftMotionProfile leftProfile = new LeftMotionProfile(leftDriveLead);
+    RightMotionProfile rightProfile = new RightMotionProfile(rightDriveLead);
     
     public driveTrain(){
  	   rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
@@ -59,7 +59,7 @@ public class driveTrain extends Subsystem {
 		// true is a boolean for "squared inputs" - derrick 1/20/16
 		
     	//moved two lines below to teleop Periodic 3:20 pm 2/6/16
-    	//leftProfile.control();
+    	leftProfile.control();
 		rightProfile.control();
 		//leftProfile.reset();
 		//rightProfile.reset();
@@ -92,6 +92,10 @@ public class driveTrain extends Subsystem {
     public void controlRightMotionProfile(){
     	rightProfile.control();
     }
+    public void controlLeftMotionProfile(){
+    	leftProfile.control();
+    }
+    
     
     public void rightFollowMotionProfile(){
     	    	
@@ -119,14 +123,17 @@ public class driveTrain extends Subsystem {
 		rightDriveLead.setIZone(0);
 		rightDriveLead.setCloseLoopRampRate(0);
 		
-    	
-    	
-    	
-    	
     	leftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftDriveLead.configEncoderCodesPerRev(1024);
     	leftDriveLead.reverseSensor(true);
     	leftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	
+    	leftDriveLead.setF(0.15); //not sure where to tune PID -DErrick 1/29/15
+		leftDriveLead.setP(0);
+		leftDriveLead.setI(0);
+		leftDriveLead.setD(0);
+		leftDriveLead.setIZone(0);
+		leftDriveLead.setCloseLoopRampRate(0);
     	
     }
     
@@ -142,6 +149,10 @@ public class driveTrain extends Subsystem {
     }
     public void resetRightMotionProfile(){
     	rightProfile.reset();
+    }
+    
+    public int getRightTimeout(){
+    	return rightProfile.getTimeoutCnt();
     }
     
     public boolean isRightMotionProfileFinished(){

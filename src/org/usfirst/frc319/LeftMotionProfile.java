@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import org.usfirst.frc319.motionProfiles.*;
 
+
 public class LeftMotionProfile {
 
 	/**
@@ -95,6 +96,9 @@ public class LeftMotionProfile {
 	}
 	Notifier _notifer = new Notifier(new PeriodicRunnable());
 	
+	private boolean _bFin = false;
+	private int _timeouts = 0;
+	
 
 	/**
 	 * C'tor
@@ -156,6 +160,7 @@ public class LeftMotionProfile {
 				 * tripped
 				 */
 				instrumentation.OnNoProgress();
+				++_timeouts;
 			} else {
 				--_loopTimeout;
 			}
@@ -288,6 +293,16 @@ public class LeftMotionProfile {
 	 */
 	public void startMotionProfile() {
 		_bStart = true;
+		_bFin = false;
+		_timeouts = 0;
+	}
+	
+	public boolean isFinished(){
+		return _bFin;
+	}
+	
+	public int getTimeout(){
+		return _timeouts;
 	}
 
 	/**

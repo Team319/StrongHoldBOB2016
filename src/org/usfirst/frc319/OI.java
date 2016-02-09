@@ -34,7 +34,7 @@ public class OI {
         selectButton = new JoystickButton(xBoxController, 7);
         selectButton.whenPressed(new ShooterPIDTest());
         startButton = new JoystickButton(xBoxController, 8);
-        startButton.whenPressed(new FollowMotionProfile());
+        startButton.whenPressed(new FollowBothMotionProfiles());
         leftBumper = new JoystickButton(xBoxController, 5);
         leftBumper.whenPressed(new CollectorOut());
         rightBumper = new JoystickButton(xBoxController, 6);

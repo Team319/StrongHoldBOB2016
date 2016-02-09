@@ -102,7 +102,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
         SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         Robot.driveTrain.controlRightMotionProfile();
-
+        Robot.driveTrain.controlLeftMotionProfile();
         
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
