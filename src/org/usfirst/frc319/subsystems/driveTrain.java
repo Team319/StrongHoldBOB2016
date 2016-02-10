@@ -54,6 +54,7 @@ public class driveTrain extends Subsystem {
     }
     
     public void arcadeDrive(double moveValue, double rotateValue){
+    	
     	drivetrain.arcadeDrive(moveValue, rotateValue, true);
 
 		// true is a boolean for "squared inputs" - derrick 1/20/16
@@ -100,11 +101,13 @@ public class driveTrain extends Subsystem {
     public void rightFollowMotionProfile(){
     	    	
     	//leftProfile.control();//I think this may need to be moved to the default Command of the subsystem (Derrick 2/6/15)
+    	rightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
     	CANTalon.SetValueMotionProfile setOutput = rightProfile.getSetValue();
     	rightDriveLead.set(setOutput.value);	
     }
     
-    public void leftFollowMotinProfile(){
+    public void leftFollowMotionProfile(){
+    	leftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
     	CANTalon.SetValueMotionProfile setOutput = leftProfile.getSetValue();
     	leftDriveLead.set(setOutput.value);
     }
@@ -114,7 +117,7 @@ public class driveTrain extends Subsystem {
     	rightDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	rightDriveLead.configEncoderCodesPerRev(1024);
     	rightDriveLead.reverseSensor(true);
-    	rightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	//rightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
     	
     	rightDriveLead.setF(0.15); //not sure where to tune PID -DErrick 1/29/15
 		rightDriveLead.setP(0);
@@ -126,7 +129,7 @@ public class driveTrain extends Subsystem {
     	leftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	leftDriveLead.configEncoderCodesPerRev(1024);
     	leftDriveLead.reverseSensor(true);
-    	leftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	//leftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
     	
     	leftDriveLead.setF(0.15); //not sure where to tune PID -DErrick 1/29/15
 		leftDriveLead.setP(0);
@@ -151,8 +154,12 @@ public class driveTrain extends Subsystem {
     	rightProfile.reset();
     }
     
-    public int getRightTimeout(){
+    public int getRightTimeoutCnt(){
     	return rightProfile.getTimeoutCnt();
+    }
+   
+    public int getLeftTimeoutCnt(){
+    	return leftProfile.getTimeout();
     }
     
     public boolean isRightMotionProfileFinished(){

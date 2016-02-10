@@ -52,7 +52,7 @@ public class FollowBothMotionProfiles extends Command {
     	leftProfile.control();
     	
     	Robot.driveTrain.rightFollowMotionProfile();
-    	Robot.driveTrain.leftFollowMotinProfile();
+    	Robot.driveTrain.leftFollowMotionProfile();
     	//System.out.println("Motion Profilestarted: " +motionProfileStarted);
     	
     	if(motionProfileStarted){
@@ -61,16 +61,14 @@ public class FollowBothMotionProfiles extends Command {
     	motionProfileStarted = false;
     	}
     	
-    	//System.out.println("Executing");
+    	System.out.println("Executing");
     }
 
     protected boolean isFinished() {
     	
-    	if( rightProfile.getTimeoutCnt() >2 || leftProfile.getTimeout()>2){
+    	if( Robot.driveTrain.getRightTimeoutCnt() >2 || Robot.driveTrain.getLeftTimeoutCnt()>2){
     	return true;
     	}
-    	//return rightProfile.isFinished();
-    	
     	else if (rightProfile.isFinished()==true && leftProfile.isFinished()==true){
         return true;
     	}
@@ -84,8 +82,10 @@ public class FollowBothMotionProfiles extends Command {
     }
 
     protected void end() {
-    	 System.out.println("Ended");
-    	 Robot.driveTrain.setModeToVBus();
+    	System.out.println("Ended");
+    	Robot.driveTrain.setModeToVBus();
+    	leftDriveLead.set(0);
+    	rightDriveLead.set(0);
     	Robot.driveTrain.resetRightMotionProfile();
     	Robot.driveTrain.resetLeftMotionProfile();
     	
