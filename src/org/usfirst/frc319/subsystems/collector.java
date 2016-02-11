@@ -2,6 +2,8 @@
 
 package org.usfirst.frc319.subsystems;
 
+import java.util.Set;
+
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
@@ -45,6 +47,20 @@ public class collector extends Subsystem {
     	Robot.collector.collectorMotor.set(-speed);
     }
     
+    public void centerBoulder(double centeringDeltal){
+    	collectorMotor.changeControlMode(TalonControlMode.Position);
+    	collectorMotor.set(centeringDeltal);
+    }
+    
+    public void setCollectorEncoderToZero(){
+    	collectorMotor.setEncPosition(0);
+    	//?? this was .setPosition last year... wyatt (2/11/2016)
+    }
+    
+    public void loadBoulder(double loadDelta){
+    	collectorMotor.changeControlMode(TalonControlMode.Position);
+    	collectorMotor.set(loadDelta);
+    }
     
 }
 

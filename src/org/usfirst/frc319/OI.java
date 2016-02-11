@@ -27,6 +27,8 @@ public class OI {
     public JoystickButton selectButton;
     public Joystick xBoxController;
 
+  
+    
     public OI() {
 
         xBoxController = new Joystick(0);
@@ -40,15 +42,15 @@ public class OI {
         rightBumper = new JoystickButton(xBoxController, 6);
         rightBumper.whenPressed(new ShiftToggle());
         bButton = new JoystickButton(xBoxController, 2);
-        bButton.whenPressed(new CollectorStop());
+        bButton.whenPressed(new ArmGoToStorage());
         aButton = new JoystickButton(xBoxController, 1);
         aButton.whenPressed(new CollectAndStop());
         //aButton is being used for PID shooter Testing (Derrick 1/28/15)
         
         yButton = new JoystickButton(xBoxController, 4);
-        yButton.whenPressed(new ShooterStop());
+        yButton.whenPressed(new ArmGoToCollect());
         xButton = new JoystickButton(xBoxController, 3);
-        xButton.whenPressed(new ShooterGo());
+        xButton.whenPressed(new ArmGoToShootUnderTower());
 
     }
 
