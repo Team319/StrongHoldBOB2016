@@ -1,5 +1,5 @@
 /**
- * Example logic for firing and managing motion profiles.
+  * Example logic for firing and managing motion profiles.
  * This example sends MPs, waits for them to finish
  * Although this code uses a CANTalon, nowhere in this module do we changeMode() or call set() to change the output.
  * This is done in Robot.java to demonstrate how to change control modes on the fly.
@@ -229,6 +229,8 @@ public class LeftMotionProfile {
 						_setValue = CANTalon.SetValueMotionProfile.Hold;
 						_state = 0;
 						_loopTimeout = -1;
+						_bFin= true;
+						System.out.println("left entered hold");
 					}
 					break;
 			}
@@ -298,10 +300,12 @@ public class LeftMotionProfile {
 	}
 	
 	public boolean isFinished(){
+		System.out.println("Left_bFin"+_bFin);
 		return _bFin;
+		
 	}
 	
-	public int getTimeout(){
+	public int getTimeoutCnt(){
 		return _timeouts;
 	}
 

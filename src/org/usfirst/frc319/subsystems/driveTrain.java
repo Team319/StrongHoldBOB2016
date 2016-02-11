@@ -159,7 +159,7 @@ public class driveTrain extends Subsystem {
     }
    
     public int getLeftTimeoutCnt(){
-    	return leftProfile.getTimeout();
+    	return leftProfile.getTimeoutCnt();
     }
     
     public boolean isRightMotionProfileFinished(){

@@ -228,6 +228,7 @@ public class RightMotionProfile {
 						_state = 0;
 						_loopTimeout = -1;
 						_bFin = true;
+						System.out.println("Right Entered Hold");
 					}
 					break;
 			}
@@ -240,7 +241,7 @@ public class RightMotionProfile {
 	private void startFilling() {
 		/* since this example only has one talon, just update that one */
 		//startFilling(RightExampleMotionProfile.Points, RightExampleMotionProfile.kNumPoints);
-		startFilling(GeneratedMotionProfileRight.Points,GeneratedMotionProfileRight.kNumPoints);
+		startFilling(GeneratedMotionProfileLeft.Points,GeneratedMotionProfileLeft.kNumPoints);
 	}
 
 	private void startFilling(double[][] profile, int totalCnt) {
@@ -298,6 +299,7 @@ public class RightMotionProfile {
 		
 	}
 	public boolean isFinished () {
+		//System.out.println("right bfin"+_bFin);
 		return _bFin;
 	}
 	public int getTimeoutCnt () {

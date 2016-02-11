@@ -3,6 +3,7 @@
 package org.usfirst.frc319.commands;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,13 +20,13 @@ public class FollowBothMotionProfiles extends Command {
 	
 	int loops = 0;
 
-	CANTalon rightDriveLead = RobotMap.driveTrainrightDriveLead;
-	CANTalon leftDriveLead = RobotMap.driveTrainleftDriveLead;
+	//CANTalon rightDriveLead = RobotMap.driveTrainrightDriveLead;
+	//CANTalon leftDriveLead = RobotMap.driveTrainleftDriveLead;
 	
 	boolean motionProfileStarted = true;
 	
-	LeftMotionProfile leftProfile = new LeftMotionProfile(leftDriveLead);
-    RightMotionProfile rightProfile = new RightMotionProfile(rightDriveLead);
+	LeftMotionProfile leftProfile = new LeftMotionProfile(RobotMap.driveTrainleftDriveLead);
+    RightMotionProfile rightProfile = new RightMotionProfile(RobotMap.driveTrainrightDriveLead);
 	
     public FollowBothMotionProfiles() {
   
@@ -36,7 +37,22 @@ public class FollowBothMotionProfiles extends Command {
     protected void initialize() {
     
     loops = 0;
-    Robot.driveTrain.enableMotionProfileMode();
+//    Robot.driveTrain.enableMotionProfileMode();
+    RobotMap.driveTrainrightDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    RobotMap.driveTrainrightDriveLead.configEncoderCodesPerRev(1024);
+    RobotMap.driveTrainrightDriveLead.reverseSensor(false);
+    RobotMap.driveTrainrightDriveLead.reverseOutput(true);
+    
+    RobotMap.driveTrainrightDriveLead.setF(0.15);
+    RobotMap.driveTrainrightDriveLead.setP(0.28);
+    
+    RobotMap.driveTrainleftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    RobotMap.driveTrainleftDriveLead.configEncoderCodesPerRev(1024);
+    RobotMap.driveTrainleftDriveLead.reverseSensor(true);
+    
+    RobotMap.driveTrainleftDriveLead.setF(0.15);
+    RobotMap.driveTrainleftDriveLead.setP(0.28);
+    
     
     rightProfile.reset();
     leftProfile.reset();
@@ -51,25 +67,39 @@ public class FollowBothMotionProfiles extends Command {
     	rightProfile.control();
     	leftProfile.control();
     	
-    	Robot.driveTrain.rightFollowMotionProfile();
-    	Robot.driveTrain.leftFollowMotionProfile();
+    	//Robot.driveTrain.rightFollowMotionProfile();
+    	//Robot.driveTrain.leftFollowMotionProfile();
     	//System.out.println("Motion Profilestarted: " +motionProfileStarted);
+    	RobotMap.driveTrainrightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	CANTalon.SetValueMotionProfile setLeftOutput = rightProfile.getSetValue();
+    	RobotMap.driveTrainrightDriveLead.set(setLeftOutput.value);
+    	
+    	RobotMap.driveTrainleftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
+    	CANTalon.SetValueMotionProfile setRightOutput = leftProfile.getSetValue();
+    	RobotMap.driveTrainleftDriveLead.set(setRightOutput.value);
+    	
+    	
+    	
     	
     	if(motionProfileStarted){
-    	Robot.driveTrain.startRightMotionProfile();
-    	Robot.driveTrain.startLeftMotionProfile();
+    	rightProfile.startMotionProfile();
+    	leftProfile.startMotionProfile();
+    		
+    	//Robot.driveTrain.startRightMotionProfile();
+    	//Robot.driveTrain.startLeftMotionProfile();
     	motionProfileStarted = false;
     	}
     	
-    	System.out.println("Executing");
+    	//System.out.println("Executing");
     }
 
     protected boolean isFinished() {
     	
-    	if( Robot.driveTrain.getRightTimeoutCnt() >2 || Robot.driveTrain.getLeftTimeoutCnt()>2){
+    	if( rightProfile.getTimeoutCnt() >2 || leftProfile.getTimeoutCnt() >2){
     	return true;
     	}
     	else if (rightProfile.isFinished()==true && leftProfile.isFinished()==true){
+    		System.out.println("Command Finished");
         return true;
     	}
     	else{
@@ -83,11 +113,23 @@ public class FollowBothMotionProfiles extends Command {
 
     protected void end() {
     	System.out.println("Ended");
-    	Robot.driveTrain.setModeToVBus();
-    	leftDriveLead.set(0);
-    	rightDriveLead.set(0);
-    	Robot.driveTrain.resetRightMotionProfile();
-    	Robot.driveTrain.resetLeftMotionProfile();
+    	
+    	RobotMap.driveTrainrightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.driveTrainrightDriveFollow.changeControlMode(TalonControlMode.Follower);
+    	RobotMap.driveTrainrightDriveFollow.set(RobotMap.driveTrainrightDriveLead.getDeviceID());
+     	RobotMap.driveTrainleftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+     	RobotMap.driveTrainleftDriveFollow.changeControlMode(TalonControlMode.Follower);
+     	RobotMap.driveTrainleftDriveFollow.set(RobotMap.driveTrainleftDriveLead.getDeviceID());
+    	
+    	
+    	RobotMap.driveTrainleftDriveLead.set(0);
+    	RobotMap.driveTrainrightDriveLead.set(0);
+    	
+    	rightProfile.reset();
+    	leftProfile.reset();
+    	
+    	//Robot.driveTrain.resetRightMotionProfile();
+    	//Robot.driveTrain.resetLeftMotionProfile();
     	
     	
     	
