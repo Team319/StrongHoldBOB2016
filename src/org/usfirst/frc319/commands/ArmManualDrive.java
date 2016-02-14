@@ -20,11 +20,7 @@ public class ArmManualDrive extends Command {
     }
 
     protected void execute() {
-    	double leftTriggerValue = -Robot.oi.xBoxController.getRawAxis(2);
-    	double rightTriggerValue = Robot.oi.xBoxController.getRawAxis(3);
-    
-    	double triggerValue = leftTriggerValue + rightTriggerValue;
-    	Robot.arm.armManualDrive(triggerValue);
+    	Robot.arm.armManualDrive(Robot.oi.operatorController.getRightStickY());
     }
 
     protected boolean isFinished() {

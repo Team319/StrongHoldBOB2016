@@ -35,24 +35,25 @@ public class FollowBothMotionProfiles extends Command {
     }
 
     protected void initialize() {
-    
+    Robot.driveTrain.shiftDown();
     loops = 0;
 //    Robot.driveTrain.enableMotionProfileMode();
+    /*
     RobotMap.driveTrainrightDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     RobotMap.driveTrainrightDriveLead.configEncoderCodesPerRev(1024);
     RobotMap.driveTrainrightDriveLead.reverseSensor(false);
     RobotMap.driveTrainrightDriveLead.reverseOutput(true);
     
-    RobotMap.driveTrainrightDriveLead.setF(0.15);
-    RobotMap.driveTrainrightDriveLead.setP(0.28);
+    RobotMap.driveTrainrightDriveLead.setF(0.312);
+    RobotMap.driveTrainrightDriveLead.setP(0);//0.28);
     
     RobotMap.driveTrainleftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     RobotMap.driveTrainleftDriveLead.configEncoderCodesPerRev(1024);
     RobotMap.driveTrainleftDriveLead.reverseSensor(true);
     
-    RobotMap.driveTrainleftDriveLead.setF(0.15);
-    RobotMap.driveTrainleftDriveLead.setP(0.28);
-    
+    RobotMap.driveTrainleftDriveLead.setF(0.333);
+    RobotMap.driveTrainleftDriveLead.setP(0);//0.28);
+    */
     
     rightProfile.reset();
     leftProfile.reset();
@@ -71,12 +72,13 @@ public class FollowBothMotionProfiles extends Command {
     	//Robot.driveTrain.leftFollowMotionProfile();
     	//System.out.println("Motion Profilestarted: " +motionProfileStarted);
     	RobotMap.driveTrainrightDriveLead.changeControlMode(TalonControlMode.MotionProfile);
-    	CANTalon.SetValueMotionProfile setLeftOutput = rightProfile.getSetValue();
-    	RobotMap.driveTrainrightDriveLead.set(setLeftOutput.value);
-    	
     	RobotMap.driveTrainleftDriveLead.changeControlMode(TalonControlMode.MotionProfile);
-    	CANTalon.SetValueMotionProfile setRightOutput = leftProfile.getSetValue();
-    	RobotMap.driveTrainleftDriveLead.set(setRightOutput.value);
+    	
+    	CANTalon.SetValueMotionProfile setRightOutput = rightProfile.getSetValue();
+        CANTalon.SetValueMotionProfile setLeftOutput = leftProfile.getSetValue();
+    	
+        RobotMap.driveTrainrightDriveLead.set(setRightOutput.value);
+    	RobotMap.driveTrainleftDriveLead.set(setLeftOutput.value);
     	
     	
     	

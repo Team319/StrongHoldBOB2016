@@ -241,7 +241,7 @@ public class RightMotionProfile {
 	private void startFilling() {
 		/* since this example only has one talon, just update that one */
 		//startFilling(RightExampleMotionProfile.Points, RightExampleMotionProfile.kNumPoints);
-		startFilling(GeneratedMotionProfileLeft.Points,GeneratedMotionProfileLeft.kNumPoints);
+		startFilling(GeneratedMotionProfileRight.Points,GeneratedMotionProfileRight.kNumPoints);
 	}
 
 	private void startFilling(double[][] profile, int totalCnt) {

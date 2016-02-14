@@ -21,8 +21,8 @@ public class ArcadeDrive extends Command {
     }
 
     protected void execute() {
-    	double moveValue = Robot.oi.xBoxController.getRawAxis(1);
-    	double rotateValue = Robot.oi.xBoxController.getRawAxis(4);
+    	double moveValue = Robot.oi.driverController.getLeftStickY();
+    	double rotateValue = Robot.oi.driverController.getRightStickX();
     	
     	Robot.driveTrain.arcadeDrive(moveValue, rotateValue);
     }

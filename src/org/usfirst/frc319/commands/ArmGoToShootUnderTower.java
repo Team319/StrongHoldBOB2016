@@ -11,20 +11,19 @@ import org.usfirst.frc319.Robot;
 public class ArmGoToShootUnderTower extends Command {
 
     public ArmGoToShootUnderTower() {
-
         requires(Robot.arm);
-
     }
 
     protected void initialize() {
-    }
-
-    protected void execute() {
     	Robot.arm.gotToShootFromTower();
     }
 
+    protected void execute() {
+    	
+    }
+
     protected boolean isFinished() {
-        return Robot.arm.isFinished();
+        return Robot.arm.isOnTarget();
     }
 
     protected void end() {

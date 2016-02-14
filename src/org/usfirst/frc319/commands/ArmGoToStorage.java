@@ -24,7 +24,7 @@ public class ArmGoToStorage extends Command {
     }
 
     protected boolean isFinished() {
-    	return Robot.arm.isFinished();
+    	return Robot.arm.isOnTarget();
         
     }
 

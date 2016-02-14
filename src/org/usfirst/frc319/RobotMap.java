@@ -28,10 +28,12 @@ public class RobotMap {
     public static DoubleSolenoid driveTrainshifter;
     public static CANTalon collectorcollectorMotor;
     public static DigitalInput collectorboulderSensor;
+    public static AnalogInput leftBoulderIRSensor;
+    public static AnalogInput rightBoulderIRSensor;
     public static CANTalon shooterleftShooter;
     public static CANTalon shooterrightShooter;
-    public static CANTalon armarmMotor;
-    public static CANTalon climberclimberMotor;
+    public static CANTalon armMotor;
+    public static CANTalon climberMotor;
     public static Relay towerCameratowerRelay;
     public static Compressor compressorcompressor;
     public static AnalogInput compressorpressureSensor;
@@ -68,6 +70,13 @@ public class RobotMap {
         collectorboulderSensor = new DigitalInput(0);
         LiveWindow.addSensor("collector", "boulderSensor", collectorboulderSensor);
         
+        leftBoulderIRSensor = new AnalogInput(1);
+        LiveWindow.addSensor("collector", "leftBoulderIRSensor", leftBoulderIRSensor);
+        //Also Map the AnalogIR sensor to AnalogInput(0);
+        
+        rightBoulderIRSensor = new AnalogInput(2);
+        LiveWindow.addActuator("collector", "rightBoulderIRSensor", rightBoulderIRSensor);
+        
         //-----   Shooter   -----
         shooterleftShooter = new CANTalon(9);
         LiveWindow.addActuator("shooter", "leftShooter", shooterleftShooter);
@@ -76,12 +85,12 @@ public class RobotMap {
         LiveWindow.addActuator("shooter", "rightShooter", shooterrightShooter);
         
         //-----   Arm   -----
-        armarmMotor = new CANTalon(1);
-        LiveWindow.addActuator("arm", "armMotor", armarmMotor);
+        armMotor = new CANTalon(1);
+        LiveWindow.addActuator("arm", "armMotor", armMotor);
         
         //-----   Climber   -----
-        climberclimberMotor = new CANTalon(4);
-        LiveWindow.addActuator("climber", "climberMotor", climberclimberMotor);
+        climberMotor = new CANTalon(4);
+        LiveWindow.addActuator("climber", "climberMotor", climberMotor);
         
         //-----   Camera   -----
         towerCameratowerRelay = new Relay(0);

@@ -20,8 +20,7 @@ public class CollectorStop extends Command {
     }
 
     protected void execute() {
-    	double speed = 0;
-    	Robot.collector.collectorStop(speed);
+    	Robot.collector.stop();
     }
 
     protected boolean isFinished() {

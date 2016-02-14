@@ -24,7 +24,7 @@ public class ArmGoToCollect extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.arm.isFinished();
+        return Robot.arm.isOnTarget();
         
         
     }

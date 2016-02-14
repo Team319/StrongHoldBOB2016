@@ -20,12 +20,19 @@ public class LoadBoulder extends Command {
     }
 
     protected void execute() {
-    	double loadDelta = -1;
-    	Robot.collector.loadBoulder(loadDelta);
+    	double speed = -.3;
+    	Robot.collector.collectorGoOut(speed);
+    	//drive the collector out at a slow speed 
+    	//Robot.collector.loadBoulder(loadDelta);
+    	
+    	
     }
 
     protected boolean isFinished() {
-        return false;
+    	double loadDistance = .8;
+        return Robot.collector.loadIsFinished(loadDistance);
+        
+        //Call the isfinished from the Collector Subsystem pass it the loadDelta
     }
 
     protected void end() {
