@@ -1,7 +1,7 @@
 package org.usfirst.frc319.commands.auto;
 
-import org.usfirst.frc319.commands.ArmGoToCollect;
 import org.usfirst.frc319.commands.FollowBothMotionProfiles;
+import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.camera.CameraDrive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

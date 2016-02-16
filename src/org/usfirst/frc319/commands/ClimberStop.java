@@ -1,4 +1,4 @@
-// Strong Hold BOB 2016 Commands (Climber Stop)
+// Strong Hold BOB 2016 Commands (Collector In)
 
 package org.usfirst.frc319.commands;
 
@@ -20,6 +20,7 @@ public class ClimberStop extends Command {
     }
 
     protected void execute() {
+    	
     }
 
     protected boolean isFinished() {

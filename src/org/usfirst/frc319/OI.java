@@ -3,9 +3,17 @@
 package org.usfirst.frc319;
 
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.arm.ArmGoToCollect;
+import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
+import org.usfirst.frc319.commands.arm.ArmGoToStorage;
 import org.usfirst.frc319.commands.auto.DriveAutoSpline;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.camera.CameraDrive;
+import org.usfirst.frc319.commands.collector.CollectorIn;
+import org.usfirst.frc319.commands.collector.CollectorOut;
+import org.usfirst.frc319.commands.collector.LoadBoulder;
+import org.usfirst.frc319.commands.shooter.ShooterGo;
+import org.usfirst.frc319.commands.commandGroups.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,8 +34,8 @@ public class OI {
 
     	driverController = new BobController(0);
     	driverController.startButton.whenPressed(new FollowBothMotionProfiles());
-    	driverController.leftBumper.whileHeld(new CollectorOut());
-    	driverController.rightBumper.whileHeld(new CollectorIn());
+    	driverController.leftBumper.whenPressed(new CollectAndLoad());
+    	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new ShooterGo());
     	driverController.aButton.whenPressed(new ArcadeDrive());

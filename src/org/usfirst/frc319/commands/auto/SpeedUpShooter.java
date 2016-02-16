@@ -19,7 +19,7 @@ public class SpeedUpShooter extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.shooter.speedUp();
+		Robot.shooter.speedUp();;
 	}
 
 	@Override

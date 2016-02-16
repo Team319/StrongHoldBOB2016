@@ -113,13 +113,19 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.getLeftShooterSpeed());
         SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRightShooterSpeed());
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
-        SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
-        SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
-        SmartDashboard.putDouble("Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
+        //SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
+        //SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
+        SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
+        SmartDashboard.putInt("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
+        SmartDashboard.putInt("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIRSensor());
+        
+        
         SmartDashboard.putInt("arm position",Robot.arm.getArmPosition());
         Robot.driveTrain.controlRightMotionProfile();
         Robot.driveTrain.controlLeftMotionProfile();
         SmartDashboard.putInt("Right Drivevtrain Encoder Position (revs)", Robot.driveTrain.getRightDrivetrainPosition());
+        
+        
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
         	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);

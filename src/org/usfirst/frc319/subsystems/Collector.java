@@ -7,6 +7,7 @@ import java.util.Set;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.collector.CollectorStop;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -50,18 +51,17 @@ public class Collector extends Subsystem {
     	motor.set(speed);
     }
     
-    public void centerBoulder(double centeringDeltal){
-    	motor.changeControlMode(TalonControlMode.Position);
-    	//we will also need to set quadfeedbackmode and other things here
-    	motor.set(centeringDeltal);
+   
+    public int getleftBoulderIRSensor(){
+    	return leftBoulderIRSensor.getValue();
     }
     
-    public double getleftBoulderIRSensor(){
-    	return leftBoulderIRSensor.getVoltage();
+    public int getrightBoulderIRSensor(){
+    	return rightBoulderIRSensor.getValue();
     }
     
-    public double getrightBoulderIRSensor(){
-    	return rightBoulderIRSensor.getVoltage();
+    public double getAverageLeftAndRightBoulderIRSensor(){
+    	return (leftBoulderIRSensor.getAverageVoltage()+rightBoulderIRSensor.getVoltage())/2;
     }
     //add a getter for The BoulderIRSensor
     
@@ -70,8 +70,22 @@ public class Collector extends Subsystem {
     	//?? this was .setPosition last year... wyatt (2/11/2016)
     }
     
+    public boolean CenterBoulderIsFinished(double loadDistance){
+    	
+    	//further away is lower
+    	if (getAverageLeftAndRightBoulderIRSensor() < loadDistance){
+    		
+    	return true;	
+    	
+    	}else{
+    		return false;
+    	}
+    }	
+    
     public boolean loadIsFinished(double loadDistance){
-    	if (getleftBoulderIRSensor() > loadDistance){
+    	
+    	//close is a higher value
+    	if (getAverageLeftAndRightBoulderIRSensor() > loadDistance){
     		
     	return true;	
     	
@@ -80,7 +94,18 @@ public class Collector extends Subsystem {
     	}
     	
     }
-    //make an isfinished that gets passed a double from the Load Boulder Command
+    
+    public boolean ballIsGone(double ballIsGoneThreshold){
+    	if (getAverageLeftAndRightBoulderIRSensor() > ballIsGoneThreshold){
+    		
+    	return true;	
+    	
+    	}else{
+    		return false;
+    	}
+    	
+    }
+    
     
     public void loadBoulder(double loadDelta){
     	motor.changeControlMode(TalonControlMode.Position);
@@ -88,6 +113,9 @@ public class Collector extends Subsystem {
     	
     	motor.set(loadDelta);
     }
+    
+    
+    
 
 	public void shoot() {
 		motor.set(1);

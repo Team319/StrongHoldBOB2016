@@ -5,6 +5,7 @@ package org.usfirst.frc319.subsystems;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.shooter.ShooterStop;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -182,6 +183,18 @@ public class Shooter extends Subsystem {
 		double speed = 4000;
     	Robot.shooter.setLeftShooterSpeed(speed);
     	Robot.shooter.setRightShooterSpeed(speed);
-	}    
+	}
+	
+	public boolean isShooterAtSpeed(){
+		double leftSetPoint = leftShooter.getSetpoint();
+		double rightSetPoint = rightShooter.getSetpoint();
+		double shootingErrorThreshold = 120; 
+		
+		if((Math.abs(leftShooter.getSpeed())-leftSetPoint)<shootingErrorThreshold && (Math.abs(rightShooter.getSpeed())-rightSetPoint)<shootingErrorThreshold){
+			return true;
+		}
+		else return false;
+	}
+	
 }
 

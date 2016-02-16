@@ -4,6 +4,7 @@ package org.usfirst.frc319.subsystems;
 
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.arm.ArmManualDrive;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -17,12 +18,12 @@ public class Arm extends Subsystem {
 
 	private final CANTalon motor = RobotMap.armMotor;
 
-	double p = 25;
+	double p = 24;//
 	double i = .25;
 	double d = 0;
 	double f = 0;
 
-	int iZone = 5;
+	int iZone = 20;
 	double rampRate = 0;
 	int profile = 0;
 
@@ -95,24 +96,40 @@ public class Arm extends Subsystem {
 		}
 	}
 
-	public void goToCollect() {
-		setArmPosition(1240); //1250
-	}
+	
 
+	//------ARM POSITIONS------//
+	
+	public double armStoragePosition = 0;
+	public double armShootFromTowerPosition = 1063;
+	public double armAutoSearchPosition = 680;
+	public double armAutoShootPosition = 1021;
+	public double armShootFromCleatPosition = 900;
+	public double armCollectPosition = 1230;
+	
+	
 	public void goToStorage() {
-		setArmPosition(0);
+		setArmPosition(armStoragePosition);
+	}
+	
+	public void goToCollect() {
+		setArmPosition(armCollectPosition); //1250
 	}
 
 	public void gotToShootFromTower() {
-		setArmPosition(1063);
+		setArmPosition(armShootFromTowerPosition);
 	}
 	
 	public void goToAutoSearchPosition(){
-		setArmPosition(680);
+		setArmPosition(armShootFromTowerPosition);
 	}
 	
 	public void goToAutoShootPosition() {
-		setArmPosition(1021);
+		setArmPosition(armAutoShootPosition);
+	}
+	
+	public void goToAutoCleatPosition(){
+		setArmPosition(armShootFromCleatPosition);
 	}
 	
 	public int getArmPosition(){
