@@ -13,6 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.subsystems.*;
+import org.usfirst.frc319.motionProfiles.*;
+import org.usfirst.frc319.RightMotionProfile;
+
+/*--added a package to put all of our Motion Profiles so they don't--
+    clutter up the src package (Derrick 2/3/16)
+*/
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,13 +33,13 @@ public class Robot extends IterativeRobot {
 
     public static OI oi;
 
-    public static driveTrain driveTrain;
-    public static collector collector;
-    public static shooter shooter;
-    public static arm arm;
-    public static climber climber;
-    public static towerCamera towerCamera;
-    public static compressor compressor;
+    public static DriveTrain driveTrain;
+    public static Collector collector;
+    public static Shooter shooter;
+    public static Arm arm;
+    public static Climber climber;
+    public static TowerCamera towerCamera;
+    public static Pneumatics compressor;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -43,13 +49,13 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     RobotMap.init();
         
-        driveTrain = new driveTrain();
-        collector = new collector();
-        shooter = new shooter();
-        arm = new arm();
-        climber = new climber();
-        towerCamera = new towerCamera();
-        compressor = new compressor();
+        driveTrain = new DriveTrain();
+        collector = new Collector();
+        shooter = new Shooter();
+        arm = new Arm();
+        climber = new Climber();
+        towerCamera = new TowerCamera();
+        compressor = new Pneumatics();
         
         oi = new OI();
 
@@ -95,13 +101,16 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRightShooterSpeed());
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
         SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
-        
-        
-        
+        SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
+        SmartDashboard.putDouble("Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
+        SmartDashboard.putInt("arm position",Robot.arm.getArmPosition());
+        Robot.driveTrain.controlRightMotionProfile();
+        Robot.driveTrain.controlLeftMotionProfile();
+        SmartDashboard.putInt("Right Drivevtrain Encoder Position (revs)", Robot.driveTrain.getRightDrivetrainPosition());
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
         	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);
-        	
+        
         }else{
         	SmartDashboard.putString("Gear", Robot.driveTrain.lowGear);
         }

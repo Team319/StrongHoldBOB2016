@@ -20,7 +20,7 @@ public class ShooterGo extends Command {
     }
 
     protected void execute() {
-    	double speed = 3000;
+    	double speed = 4000;
     	Robot.shooter.setLeftShooterSpeed(speed);
     	Robot.shooter.setRightShooterSpeed(speed);
     	

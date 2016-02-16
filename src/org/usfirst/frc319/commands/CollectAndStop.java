@@ -20,7 +20,8 @@ public class CollectAndStop extends Command {
     }
 
     protected void execute() {
-    	Robot.collector.collectorGoIn();
+    	double speed = 1;
+    	Robot.collector.collectorGoIn(speed);
     	
     	
     
@@ -28,6 +29,8 @@ public class CollectAndStop extends Command {
 
     protected boolean isFinished() {
         return Robot.collector.getBoulderSensor();
+        ///return the isfinished from the IRcollector sensor pass it a smaller value than in the 
+        
     }
 
     protected void end() {

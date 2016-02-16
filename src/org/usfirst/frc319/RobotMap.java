@@ -28,10 +28,12 @@ public class RobotMap {
     public static DoubleSolenoid driveTrainshifter;
     public static CANTalon collectorcollectorMotor;
     public static DigitalInput collectorboulderSensor;
+    public static AnalogInput leftBoulderIRSensor;
+    public static AnalogInput rightBoulderIRSensor;
     public static CANTalon shooterleftShooter;
     public static CANTalon shooterrightShooter;
-    public static CANTalon armarmMotor;
-    public static CANTalon climberclimberMotor;
+    public static CANTalon armMotor;
+    public static CANTalon climberMotor;
     public static Relay towerCameratowerRelay;
     public static Compressor compressorcompressor;
     public static AnalogInput compressorpressureSensor;
@@ -39,8 +41,8 @@ public class RobotMap {
     public static void init() {
         
     	//-----   Drive Train   -----
-    	driveTrainleftDriveLead = new CANTalon(0);
-        driveTrainleftDriveFollow = new CANTalon(1);
+    	driveTrainleftDriveLead = new CANTalon(7);
+        driveTrainleftDriveFollow = new CANTalon(6);
         driveTrainrightDriveLead = new CANTalon(2);
         driveTrainrightDriveFollow = new CANTalon(3);
         
@@ -58,37 +60,44 @@ public class RobotMap {
         driveTraindriveTrain.setSensitivity(0.5);
         driveTraindriveTrain.setMaxOutput(1.0);
 
-        driveTrainshifter = new DoubleSolenoid(1, 0, 1);
+        driveTrainshifter = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("driveTrain", "shifter", driveTrainshifter);
         
         //-----   Collector   -----
-        collectorcollectorMotor = new CANTalon(6);
+        collectorcollectorMotor = new CANTalon(8);
         LiveWindow.addActuator("collector", "collectorMotor", collectorcollectorMotor);
         
         collectorboulderSensor = new DigitalInput(0);
         LiveWindow.addSensor("collector", "boulderSensor", collectorboulderSensor);
         
+        leftBoulderIRSensor = new AnalogInput(1);
+        LiveWindow.addSensor("collector", "leftBoulderIRSensor", leftBoulderIRSensor);
+        //Also Map the AnalogIR sensor to AnalogInput(0);
+        
+        rightBoulderIRSensor = new AnalogInput(2);
+        LiveWindow.addActuator("collector", "rightBoulderIRSensor", rightBoulderIRSensor);
+        
         //-----   Shooter   -----
-        shooterleftShooter = new CANTalon(4);
+        shooterleftShooter = new CANTalon(9);
         LiveWindow.addActuator("shooter", "leftShooter", shooterleftShooter);
         
-        shooterrightShooter = new CANTalon(5);
+        shooterrightShooter = new CANTalon(0);
         LiveWindow.addActuator("shooter", "rightShooter", shooterrightShooter);
         
         //-----   Arm   -----
-        armarmMotor = new CANTalon(7);
-        LiveWindow.addActuator("arm", "armMotor", armarmMotor);
+        armMotor = new CANTalon(1);
+        LiveWindow.addActuator("arm", "armMotor", armMotor);
         
         //-----   Climber   -----
-        climberclimberMotor = new CANTalon(8);
-        LiveWindow.addActuator("climber", "climberMotor", climberclimberMotor);
+        climberMotor = new CANTalon(4);
+        LiveWindow.addActuator("climber", "climberMotor", climberMotor);
         
         //-----   Camera   -----
         towerCameratowerRelay = new Relay(0);
         LiveWindow.addActuator("towerCamera", "towerRelay", towerCameratowerRelay);
         
         //-----   Compressor   -----
-        compressorcompressor = new Compressor(1);
+        compressorcompressor = new Compressor(0);
         compressorpressureSensor = new AnalogInput(0);
         
         LiveWindow.addSensor("compressor", "pressureSensor", compressorpressureSensor);
