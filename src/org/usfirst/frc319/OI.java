@@ -3,6 +3,9 @@
 package org.usfirst.frc319;
 
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.auto.DriveAutoSpline;
+import org.usfirst.frc319.commands.auto.LowBarAuto;
+import org.usfirst.frc319.commands.camera.CameraDrive;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,6 +30,7 @@ public class OI {
     	driverController.rightBumper.whileHeld(new CollectorIn());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new ShooterGo());
+    	driverController.aButton.whenPressed(new ArcadeDrive());
     	
     	
     	operatorController = new BobController(1);
@@ -35,6 +39,17 @@ public class OI {
     	operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());   
       //  operatorController.startButton.whenPressed(new ExampleCommandGroup());
+    	
+    	//MIKE'S CODE
+    	/*driverController.selectButton.whenPressed(new DriveAutoSpline());
+    	driverController.leftTriggerButton.whileHeld(new ShooterGo());
+    	driverController.rightTriggerButton.whileHeld(new CollectorIn());
+    	driverController.leftBumper.whileHeld(new CollectorOut());
+    	driverController.rightBumper.whileHeld(new CollectorIn());
+    	driverController.xButton.whenPressed(new ArmGoToShootUnderTower());
+    	driverController.bButton.whenPressed(new ArmGoToCollect()); 
+    	driverController.aButton.whenPressed(new ArmGoToStorage());
+    	*/
     }
 
     public Joystick getDriverController() {

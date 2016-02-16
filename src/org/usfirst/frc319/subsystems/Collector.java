@@ -88,6 +88,10 @@ public class Collector extends Subsystem {
     	
     	motor.set(loadDelta);
     }
+
+	public void shoot() {
+		motor.set(1);
+	}
     
 }
 

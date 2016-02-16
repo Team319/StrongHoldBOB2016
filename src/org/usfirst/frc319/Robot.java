@@ -16,6 +16,9 @@ import org.usfirst.frc319.subsystems.*;
 import org.usfirst.frc319.motionProfiles.*;
 import org.usfirst.frc319.RightMotionProfile;
 
+import com.team319.web.LoggerServer;
+import com.team319.web.trajectory.client.TrajectoryClient;
+
 /*--added a package to put all of our Motion Profiles so they don't--
     clutter up the src package (Derrick 2/3/16)
 */
@@ -54,13 +57,23 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
         arm = new Arm();
         climber = new Climber();
-        towerCamera = new TowerCamera();
+        //towerCamera = new TowerCamera();
         compressor = new Pneumatics();
         
         oi = new OI();
 
         autonomousCommand = new AutonomousCommand();
-
+        
+        //LoggerServer.startServer();
+        
+        try {
+        	// this is the trajectory server url
+			TrajectoryClient.start("10.3.19.191");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
 
     /**

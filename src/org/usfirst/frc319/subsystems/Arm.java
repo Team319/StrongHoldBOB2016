@@ -95,8 +95,8 @@ public class Arm extends Subsystem {
 		}
 	}
 
-	public void goToCollect(double position) {
-		setArmPosition(1250);
+	public void goToCollect() {
+		setArmPosition(1240); //1250
 	}
 
 	public void goToStorage() {
@@ -106,6 +106,15 @@ public class Arm extends Subsystem {
 	public void gotToShootFromTower() {
 		setArmPosition(1063);
 	}
+	
+	public void goToAutoSearchPosition(){
+		setArmPosition(680);
+	}
+	
+	public void goToAutoShootPosition() {
+		setArmPosition(1021);
+	}
+	
 	public int getArmPosition(){
 		return motor.getEncPosition();
 	}

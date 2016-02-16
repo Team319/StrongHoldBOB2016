@@ -20,7 +20,7 @@ public class ArmGoToCollect extends Command {
     }
 
     protected void execute() {
-    	Robot.arm.goToCollect(1000);
+    	Robot.arm.goToCollect();
     }
 
     protected boolean isFinished() {
