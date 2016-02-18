@@ -61,6 +61,7 @@ public class Arm extends Subsystem {
 	public void armManualDrive(double triggerValue) {
 		//System.out.println("forward limit: "+ getArmForwardLimit());
 		//System.out.println("reverse limit: "+ getArmReverseLimit());
+
 		if (triggerValue < 0.1 && triggerValue > -0.1) {
 
 			motor.changeControlMode(TalonControlMode.Position);
@@ -128,7 +129,7 @@ public class Arm extends Subsystem {
 		setArmPosition(armAutoShootPosition);
 	}
 	
-	public void goToAutoCleatPosition(){
+	public void goToCleatPosition(){
 		setArmPosition(armShootFromCleatPosition);
 	}
 	

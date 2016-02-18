@@ -31,13 +31,14 @@ public class LoadBoulder extends Command {
     protected boolean isFinished() {
     	
     	//higher number is closer to shooter wheels
-    	double loadDistance = 1.1;
+    	double loadDistance = 2.3;
         return Robot.collector.CenterBoulderIsFinished(loadDistance);
         
         //Call the isfinished from the Collector Subsystem pass it the loadDelta
     }
 
     protected void end() {
+    	Robot.collector.stop();
     }
 
     protected void interrupted() {

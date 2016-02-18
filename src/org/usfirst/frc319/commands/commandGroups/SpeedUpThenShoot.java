@@ -19,6 +19,7 @@ public class SpeedUpThenShoot extends CommandGroup {
 
     public SpeedUpThenShoot() {
     	
+    	addSequential(new LoadBoulder());
     	addSequential(new ShooterSpeedUp());
     	addParallel(new ShooterSpeedUp());
     	addSequential(new CollectorInUntilBallIsGone());

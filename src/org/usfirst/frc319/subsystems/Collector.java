@@ -20,106 +20,114 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Collector extends Subsystem {
 
-    private final CANTalon motor = RobotMap.collectorcollectorMotor;
-    private final DigitalInput boulderSensor = RobotMap.collectorboulderSensor;
-    private final AnalogInput leftBoulderIRSensor = RobotMap.leftBoulderIRSensor;
-    private final AnalogInput rightBoulderIRSensor = RobotMap.rightBoulderIRSensor;
-    //link the AnalogInput to the RobotMap
+	private final CANTalon motor = RobotMap.collectorcollectorMotor;
+	private final DigitalInput boulderSensor = RobotMap.collectorboulderSensor;
+	private final AnalogInput leftBoulderIRSensor = RobotMap.leftBoulderIRSensor;
+	private final AnalogInput rightBoulderIRSensor = RobotMap.rightBoulderIRSensor;
 
-    public void initDefaultCommand() {
+	// link the AnalogInput to the RobotMap
 
-        setDefaultCommand(new CollectorStop());
+	public void initDefaultCommand() {
 
-    }
-    
-    public Collector(){
-    	motor.changeControlMode(TalonControlMode.PercentVbus);
-    }
-    
-    public boolean getBoulderSensor(){
-  	 	
-    	return boulderSensor.get();
-    }
-   
-    public void collectorGoIn(double speed){    	
-    	motor.set(-speed);
-    }
-    public void stop(){
-    	motor.set(0);
-    }
-    public void collectorGoOut(double speed){
-    	motor.set(speed);
-    }
-    
-   
-    public int getleftBoulderIRSensor(){
-    	return leftBoulderIRSensor.getValue();
-    }
-    
-    public int getrightBoulderIRSensor(){
-    	return rightBoulderIRSensor.getValue();
-    }
-    
-    public double getAverageLeftAndRightBoulderIRSensor(){
-    	return (leftBoulderIRSensor.getAverageVoltage()+rightBoulderIRSensor.getVoltage())/2;
-    }
-    //add a getter for The BoulderIRSensor
-    
-    public void setCollectorEncoderToZero(){
-    	motor.setEncPosition(0);
-    	//?? this was .setPosition last year... wyatt (2/11/2016)
-    }
-    
-    public boolean CenterBoulderIsFinished(double loadDistance){
-    	
-    	//further away is lower
-    	if (getAverageLeftAndRightBoulderIRSensor() < loadDistance){
-    		
-    	return true;	
-    	
-    	}else{
-    		return false;
-    	}
-    }	
-    
-    public boolean loadIsFinished(double loadDistance){
-    	
-    	//close is a higher value
-    	if (getAverageLeftAndRightBoulderIRSensor() > loadDistance){
-    		
-    	return true;	
-    	
-    	}else{
-    		return false;
-    	}
-    	
-    }
-    
-    public boolean ballIsGone(double ballIsGoneThreshold){
-    	if (getAverageLeftAndRightBoulderIRSensor() > ballIsGoneThreshold){
-    		
-    	return true;	
-    	
-    	}else{
-    		return false;
-    	}
-    	
-    }
-    
-    
-    public void loadBoulder(double loadDelta){
-    	motor.changeControlMode(TalonControlMode.Position);
-    	//we will also need to set quadfeedbackmode and other things here
-    	
-    	motor.set(loadDelta);
-    }
-    
-    
-    
+		setDefaultCommand(new CollectorStop());
+
+	}
+
+	public Collector() {
+		motor.changeControlMode(TalonControlMode.PercentVbus);
+	}
+
+	public boolean getBoulderSensor() {
+
+		return boulderSensor.get();
+	}
+
+	public void collectorGoIn(double speed) {
+		motor.set(-speed);
+	}
+
+	public void stop() {
+		motor.set(0);
+	}
+
+	public void collectorGoOut(double speed) {
+		motor.set(speed);
+	}
+
+	public double getleftBoulderIRSensor() {
+		return leftBoulderIRSensor.getVoltage();
+	}
+
+	public double getrightBoulderIRSensor() {
+		return rightBoulderIRSensor.getVoltage();
+	}
+
+	public double getAverageLeftAndRightBoulderIRSensor() {
+		return (leftBoulderIRSensor.getVoltage() + rightBoulderIRSensor
+				.getVoltage()) / 2;
+	}
+
+	// add a getter for The BoulderIRSensor
+
+	public void setCollectorEncoderToZero() {
+		motor.setEncPosition(0);
+		// ?? this was .setPosition last year... wyatt (2/11/2016)
+	}
+
+	public boolean CenterBoulderIsFinished(double loadDistance) {
+
+		// further away is lower
+		if (getAverageLeftAndRightBoulderIRSensor() < loadDistance) {
+
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	public boolean loadIsFinished(double loadDistance) {
+
+		// close is a higher value
+		if (getAverageLeftAndRightBoulderIRSensor() > loadDistance) {
+
+			return true;
+
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean bothIRSensorsCloseEnough(double threshold) {
+		if (rightBoulderIRSensor.getVoltage() > threshold
+				&& leftBoulderIRSensor.getVoltage() > threshold) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean ballIsGone(double ballIsGoneThreshold) {
+		if (getAverageLeftAndRightBoulderIRSensor() > ballIsGoneThreshold) {
+
+			return true;
+
+		} else {
+			return false;
+		}
+
+	}
+
+	public void loadBoulder(double loadDelta) {
+		motor.changeControlMode(TalonControlMode.Position);
+		// we will also need to set quadfeedbackmode and other things here
+
+		motor.set(loadDelta);
+	}
 
 	public void shoot() {
 		motor.set(1);
 	}
-    
-}
 
+}

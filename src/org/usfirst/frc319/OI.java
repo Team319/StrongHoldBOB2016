@@ -9,8 +9,10 @@ import org.usfirst.frc319.commands.arm.ArmGoToStorage;
 import org.usfirst.frc319.commands.auto.DriveAutoSpline;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.camera.CameraDrive;
+import org.usfirst.frc319.commands.collector.CollectAndStop;
 import org.usfirst.frc319.commands.collector.CollectorIn;
 import org.usfirst.frc319.commands.collector.CollectorOut;
+import org.usfirst.frc319.commands.collector.CollectorStop;
 import org.usfirst.frc319.commands.collector.LoadBoulder;
 import org.usfirst.frc319.commands.shooter.ShooterGo;
 import org.usfirst.frc319.commands.commandGroups.*;
@@ -34,18 +36,23 @@ public class OI {
 
     	driverController = new BobController(0);
     	driverController.startButton.whenPressed(new FollowBothMotionProfiles());
-    	driverController.leftBumper.whenPressed(new CollectAndLoad());
+    	driverController.leftBumper.whenPressed(new CollectAndStop());
     	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new ShooterGo());
     	driverController.aButton.whenPressed(new ArcadeDrive());
-    	
+    	driverController.xButton.whenPressed(new ShiftToggle());
+
     	
     	operatorController = new BobController(1);
     	operatorController.selectButton.whenPressed(new LoadBoulder());
-    	operatorController.yButton.whenPressed(new ArmGoToStorage());
-    	operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
-    	operatorController.aButton.whenPressed(new ArmGoToCollect());   
+    	operatorController.yButton.whenPressed(new ArmGoToShootUnderTower());
+    	operatorController.xButton.whenPressed(new ArmGoToStorage());
+    	operatorController.bButton.whenPressed(new ArmGoToCollect());  
+    	operatorController.rightBumper.whenPressed(new CollectorIn());
+    	operatorController.leftBumper.whenPressed(new CollectorOut());
+    	operatorController.aButton.whenPressed(new CollectorStop());
+    	
       //  operatorController.startButton.whenPressed(new ExampleCommandGroup());
     	
     	//MIKE'S CODE

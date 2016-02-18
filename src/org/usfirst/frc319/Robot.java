@@ -66,13 +66,13 @@ public class Robot extends IterativeRobot {
         
         //LoggerServer.startServer();
         
-        try {
+       /* try {
         	// this is the trajectory server url
 			TrajectoryClient.start("10.3.19.191");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         
     }
 
@@ -116,8 +116,9 @@ public class Robot extends IterativeRobot {
         //SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
         //SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
-        SmartDashboard.putInt("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
-        SmartDashboard.putInt("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIRSensor());
+        SmartDashboard.putDouble("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
+        SmartDashboard.putDouble("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIRSensor());
+     //   SmartDashboard.putDouble("Gyro Angle", Robot.driveTrain.getGyroAngle());
         
         
         SmartDashboard.putInt("arm position",Robot.arm.getArmPosition());

@@ -20,7 +20,7 @@ public class CollectorIn extends Command {
     }
 
     protected void execute() {
-    	double speed = 1;
+    	double speed = -1;
     	Robot.collector.collectorGoIn(speed);
     }
 

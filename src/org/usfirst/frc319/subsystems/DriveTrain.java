@@ -21,6 +21,7 @@ import com.team319.robot.logging.LoggableSensor;
 import com.team319.trajectory.CombinedSrxMotionProfile;
 import com.team319.trajectory.TrajectoryChangeListener;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.MotionProfileStatus;
@@ -47,8 +48,11 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	private final CANTalon rightDriveFollow = RobotMap.driveTrainrightDriveFollow;
 	private final CANTalon leftDriveFollow = RobotMap.driveTrainleftDriveFollow;
 	private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
+	//private final AnalogGyro gyro = RobotMap.gyro;
 	public static AHRS imu; 
 
+	
+	
 	LeftMotionProfile leftProfile = new LeftMotionProfile(leftDriveLead);
 	RightMotionProfile rightProfile = new RightMotionProfile(rightDriveLead);
 	
@@ -97,6 +101,7 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		SmartDashboard.putNumber("IMU Angle", imu.getAngle());
 
 		drivetrain.arcadeDrive(-moveValue, rotateValue, true);
+		
 
 		// true is a boolean for "squared inputs" - derrick 1/20/16
 
@@ -105,11 +110,17 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		rightProfile.control();
 		// leftProfile.reset();
 		// rightProfile.reset();
-		
-		
-
 	}
-
+	
+	/*public void driveStraight(){
+		double angle = gyro.getAngle();
+		double angleCorrectionFactor = .05;
+		drivetrain.drive(.6, -angle*angleCorrectionFactor);
+	}*
+	public double getGyroAngle(){
+		return gyro.getAngle();
+	}*/
+	
 	public int getLeftDrivetrainPosition() {
 		return leftDriveLead.getEncPosition();
 	}
@@ -121,6 +132,15 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 
 	public void setRightEncoderToZero() {
 		rightDriveLead.setEncPosition(0);
+	}
+	
+	public void setLeftEncodertoZero(){
+		leftDriveLead.setEncPosition(0);
+	}
+	
+	public void setDTEncodersToZero(){
+		rightDriveLead.setEncPosition(0);
+		leftDriveLead.setEncPosition(0);
 	}
 
 	// Output Shift to Smart Dash Board as a boolean (Wyatt- 1/27/16)

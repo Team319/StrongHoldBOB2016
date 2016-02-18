@@ -3,6 +3,7 @@
 
 package org.usfirst.frc319;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -37,6 +39,7 @@ public class RobotMap {
     public static Relay towerCameratowerRelay;
     public static Compressor compressorcompressor;
     public static AnalogInput compressorpressureSensor;
+    public static AnalogGyro gyro;
 
     public static void init() {
         
@@ -63,6 +66,8 @@ public class RobotMap {
         driveTrainshifter = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("driveTrain", "shifter", driveTrainshifter);
         
+       // = new AnalogGyro(3);
+        
         //-----   Collector   -----
         collectorcollectorMotor = new CANTalon(8);
         LiveWindow.addActuator("collector", "collectorMotor", collectorcollectorMotor);
@@ -78,10 +83,10 @@ public class RobotMap {
         LiveWindow.addActuator("collector", "rightBoulderIRSensor", rightBoulderIRSensor);
         
         //-----   Shooter   -----
-        shooterleftShooter = new CANTalon(9);
+        shooterleftShooter = new CANTalon(5);//changed from 9 - orange bot complete - to switch on blue bot 
         LiveWindow.addActuator("shooter", "leftShooter", shooterleftShooter);
         
-        shooterrightShooter = new CANTalon(0);
+        shooterrightShooter = new CANTalon(4); //changing from 0 - orange bot complete - to switch on blue bot
         LiveWindow.addActuator("shooter", "rightShooter", shooterrightShooter);
         
         //-----   Arm   -----
@@ -89,7 +94,7 @@ public class RobotMap {
         LiveWindow.addActuator("arm", "armMotor", armMotor);
         
         //-----   Climber   -----
-        climberMotor = new CANTalon(4);
+        climberMotor = new CANTalon(4);//changing to 0
         LiveWindow.addActuator("climber", "climberMotor", climberMotor);
         
         //-----   Camera   -----
