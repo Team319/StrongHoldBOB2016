@@ -180,7 +180,7 @@ public class Shooter extends Subsystem {
     }
 
 	public void speedUp() {
-		double speed = 4000;
+		double speed = 2500;
     	Robot.shooter.setLeftShooterSpeed(speed);
     	Robot.shooter.setRightShooterSpeed(speed);
 	}

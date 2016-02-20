@@ -20,6 +20,8 @@ public class ArmStop extends Command {
     }
 
     protected void execute() {
+    	
+    	Robot.arm.armStop();	
     }
 
     protected boolean isFinished() {

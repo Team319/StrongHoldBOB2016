@@ -48,8 +48,8 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	private final CANTalon rightDriveFollow = RobotMap.driveTrainrightDriveFollow;
 	private final CANTalon leftDriveFollow = RobotMap.driveTrainleftDriveFollow;
 	private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
-	//private final AnalogGyro gyro = RobotMap.gyro;
-	public static AHRS imu; 
+	private final AnalogGyro gyro = RobotMap.gyro;
+	//public static AHRS imu; 
 
 	
 	
@@ -59,8 +59,7 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	private CombinedSrxMotionProfile currentProfile;
 
 	public DriveTrain() {
-		imu = new AHRS(SPI.Port.kMXP);
-		imu.reset();
+		
 		
 		rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
 		rightDriveFollow.changeControlMode(TalonControlMode.Follower);
@@ -97,9 +96,7 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 
 	public void arcadeDrive(double moveValue, double rotateValue) {
 		
-		SmartDashboard.putBoolean("IMU Connected", imu.isConnected());
-		SmartDashboard.putNumber("IMU Angle", imu.getAngle());
-
+	
 		drivetrain.arcadeDrive(-moveValue, rotateValue, true);
 		
 
@@ -112,14 +109,21 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		// rightProfile.reset();
 	}
 	
-	/*public void driveStraight(){
+	public void driveStraight(double speed){
 		double angle = gyro.getAngle();
 		double angleCorrectionFactor = .05;
-		drivetrain.drive(.6, -angle*angleCorrectionFactor);
-	}*
+		drivetrain.drive(speed, -angle*angleCorrectionFactor);
+	}
+	
+	
 	public double getGyroAngle(){
-		return gyro.getAngle();
-	}*/
+		return  gyro.getAngle();
+	}
+	
+	public void resetGyro(){
+	gyro.reset();	
+	}
+	
 	
 	public int getLeftDrivetrainPosition() {
 		return leftDriveLead.getEncPosition();
@@ -142,10 +146,19 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		rightDriveLead.setEncPosition(0);
 		leftDriveLead.setEncPosition(0);
 	}
+	
+	
+	//------used for drive straight command-----//
+	public double getDistanceFromEncoderValues(){
+		double leftDistance = Math.abs(leftDriveLead.getEncPosition());
+		double rightDistance = Math.abs(rightDriveLead.getEncPosition());
+		double robotDistance = (leftDistance +rightDistance)/2;
+		return robotDistance;
+	}
 
 	// Output Shift to Smart Dash Board as a boolean (Wyatt- 1/27/16)
 	public void shiftUp() {
-		Robot.driveTrain.shifter.set(DoubleSolenoid.Value.kForward);
+		Robot.driveTrain.shifter.set(DoubleSolenoid.Value.kForward);//need to verify that shift up is shift up
 		shift = false;
 
 	}
@@ -164,10 +177,7 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		leftProfile.control();
 	}
 	
-	public boolean imuIsConnected(){
-		return imu.isConnected();
-		
-	}
+	
 	
 	//all of this is now in the FollowBothMotion Profiles Command
 /*

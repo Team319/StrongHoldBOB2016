@@ -20,7 +20,7 @@ public class ArmManualDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.arm.armManualDrive(Robot.oi.operatorController.getRightStickY());
+    	Robot.arm.armManualDrive(Robot.oi.driverController.getTriggerTwist());
     }
 
     protected boolean isFinished() {

@@ -2,6 +2,7 @@
 
 package org.usfirst.frc319.subsystems;
 
+import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.arm.ArmManualDrive;
@@ -102,10 +103,10 @@ public class Arm extends Subsystem {
 	//------ARM POSITIONS------//
 	
 	public double armStoragePosition = 0;
-	public double armShootFromTowerPosition = 1063;
+	public double armShootFromTowerPosition = 1065;//original-1063//works consistently-1039//
 	public double armAutoSearchPosition = 680;
 	public double armAutoShootPosition = 1021;
-	public double armShootFromCleatPosition = 900;
+	public double armShootFromCleatPosition = 1025;
 	public double armCollectPosition = 1230;
 	
 	
@@ -142,4 +143,8 @@ public class Arm extends Subsystem {
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.set(position);
 	}
+	public void armStop() {
+		motor.set(0);
+	}
+	
 }

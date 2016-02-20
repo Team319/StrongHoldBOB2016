@@ -66,7 +66,9 @@ public class RobotMap {
         driveTrainshifter = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("driveTrain", "shifter", driveTrainshifter);
         
-       // = new AnalogGyro(3);
+        gyro= new AnalogGyro(0);// Must be on input 0!
+        gyro.setSensitivity(0.0067);//tuned to 360 for gyro on blue bot
+        
         
         //-----   Collector   -----
         collectorcollectorMotor = new CANTalon(8);
@@ -94,7 +96,7 @@ public class RobotMap {
         LiveWindow.addActuator("arm", "armMotor", armMotor);
         
         //-----   Climber   -----
-        climberMotor = new CANTalon(4);//changing to 0
+        climberMotor = new CANTalon(8);//changing to 0
         LiveWindow.addActuator("climber", "climberMotor", climberMotor);
         
         //-----   Camera   -----
@@ -103,7 +105,7 @@ public class RobotMap {
         
         //-----   Compressor   -----
         compressorcompressor = new Compressor(0);
-        compressorpressureSensor = new AnalogInput(0);
+        compressorpressureSensor = new AnalogInput(3);
         
         LiveWindow.addSensor("compressor", "pressureSensor", compressorpressureSensor);
         

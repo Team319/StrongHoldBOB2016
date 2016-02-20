@@ -62,7 +62,7 @@ public class instrumentation {
 			if(--count <= 0){
 				count = 8;
 				/* every 8 loops, print our columns */
-				
+				/*//Commented Out to clean up system.out
 				System.out.format("%-9s\t", "topCnt");
 				System.out.format("%-9s\t", "btmCnt");
 				System.out.format("%-9s\t", "set val");
@@ -75,8 +75,10 @@ public class instrumentation {
 				System.out.format("%-9s\t", "Vel");
 
 				System.out.format("\n");
+				*/
 			}
 			/* every loop, print our values */
+			/*//commented out to cleanup system.out
 			System.out.format("%-9s\t", status1.topBufferCnt);
 			System.out.format("%-9s\t", status1.btmBufferCnt);
 			System.out.format("%-9s\t", StrOutputEnable(status1.outputEnable));
@@ -89,6 +91,8 @@ public class instrumentation {
 			System.out.format("%-9s\t", round(status1.activePoint.velocity));
 
 			System.out.format("\n");
+			*/
 		}
 	}
+
 }

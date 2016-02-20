@@ -3,6 +3,7 @@ package org.usfirst.frc319.commands.auto;
 import org.usfirst.frc319.commands.FollowBothMotionProfiles;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.camera.CameraDrive;
+import org.usfirst.frc319.commands.commandGroups.SpeedUpThenShoot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -12,11 +13,11 @@ public class LowBarAuto extends CommandGroup {
 		addParallel(new ArmGoToCollect());
 		addSequential(new FollowBothMotionProfiles());
 		//addSequential(new FollowBothMotionProfilesTurnToTower());
-		addSequential(new SpeedUpShooter());
-		addParallel(new SpeedUpShooter());
-		addParallel(new Shoot());
+		addSequential(new SpeedUpThenShoot());
 		
 		
+		
+		//Final Desired
 		//Arm to Collect
 		//Drive Low Bar Spline (end at 60 degrees)
 		//Gyro to 60

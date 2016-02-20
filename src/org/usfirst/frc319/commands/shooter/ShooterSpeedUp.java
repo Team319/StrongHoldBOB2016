@@ -14,7 +14,7 @@ import org.usfirst.frc319.Robot;
 public class ShooterSpeedUp extends Command {
 
 	private static int atSpeedCounter =0;
-	private static int numberOfSamplesAtSpeed= 20;
+	private static int numberOfSamplesAtSpeed= 40;
 	
     public ShooterSpeedUp() {
 
@@ -35,7 +35,7 @@ public class ShooterSpeedUp extends Command {
     	}
     	//possibly add an elseif its not at speed reset the counter
     	
-    	double speed = 4000;
+    	double speed = 3500;
     	Robot.shooter.setLeftShooterSpeed(speed);
     	Robot.shooter.setRightShooterSpeed(speed);
     	

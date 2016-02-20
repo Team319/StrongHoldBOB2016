@@ -21,10 +21,10 @@ public class CollectAndStop extends Command {
     }
 
     protected void execute() {
-    	double speed = 1;
+    	double speed = .8;
     	
     	if(Robot.collector.getAverageLeftAndRightBoulderIRSensor() <1){
-    		speed=1;
+    		speed=.8;
     	}
     	else{
     		speed =.3;

@@ -29,8 +29,8 @@ public class BobController extends Joystick {
 
 	public double getTriggerTwist()
 	{
-		double leftTriggerValue =  -1 * this.getRawAxis(2); //derrick would prefer to not use "this."
-    	double rightTriggerValue = this.getRawAxis(3);
+		double leftTriggerValue =   this.getRawAxis(2); //derrick would prefer to not use "this."
+    	double rightTriggerValue = -1 * this.getRawAxis(3);
 
     	return leftTriggerValue + rightTriggerValue;
 

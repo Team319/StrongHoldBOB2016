@@ -118,14 +118,14 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
         SmartDashboard.putDouble("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
         SmartDashboard.putDouble("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIRSensor());
-     //   SmartDashboard.putDouble("Gyro Angle", Robot.driveTrain.getGyroAngle());
+        SmartDashboard.putDouble("Gyro Angle", Robot.driveTrain.getGyroAngle());
         
         
         SmartDashboard.putInt("arm position",Robot.arm.getArmPosition());
         Robot.driveTrain.controlRightMotionProfile();
         Robot.driveTrain.controlLeftMotionProfile();
         SmartDashboard.putInt("Right Drivevtrain Encoder Position (revs)", Robot.driveTrain.getRightDrivetrainPosition());
-        
+        SmartDashboard.putInt("Left Drivevtrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
