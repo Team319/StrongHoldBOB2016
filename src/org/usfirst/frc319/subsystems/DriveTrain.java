@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 
 	public boolean shift;
+	public boolean isBrakeModeEnabled;
 
 	public String highGear = "High Gear";
 	public String lowGear = "Low Gear";
@@ -309,4 +310,12 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		this.currentProfile = currentProfile;
 	}
 
+	public void enableBrakeMode(boolean brake){
+		this.leftDriveLead.enableBrakeMode(brake);
+		this.leftDriveFollow.enableBrakeMode(brake);
+		this.rightDriveLead.enableBrakeMode(brake);
+		this.rightDriveFollow.enableBrakeMode(brake);
+		this.isBrakeModeEnabled = brake;
+		
+	}
 }

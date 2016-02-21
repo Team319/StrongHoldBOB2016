@@ -11,6 +11,7 @@ import com.team319.trajectory.PathManager;
 import com.team319.trajectory.TrajectoryChangeListener;
 import com.team319.trajectory.TrajectoryManager;
 import com.team319.trajectory.Waypoint;
+import com.team319.web.trajectory.client.TrajectoryClient;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -38,7 +39,15 @@ public class BuildSingleTowerSpline extends Command implements TrajectoryChangeL
 		
 		waypoints.add(new Waypoint(21,-9,radians));
 	*/
-		PathManager.getInstance().setWaypoints(waypoints);
+		
+		try {
+	    	// this is the trajectory server url
+			TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
+			PathManager.getInstance().setWaypoints(waypoints);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

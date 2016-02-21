@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.auto.LowBarAuto;
+import org.usfirst.frc319.commands.auto.LowBarAutoWeekZero;
+import org.usfirst.frc319.commands.auto.VariousDefencesAutoWeekZero;
 import org.usfirst.frc319.subsystems.*;
 import org.usfirst.frc319.motionProfiles.*;
 import org.usfirst.frc319.RightMotionProfile;
@@ -61,18 +64,17 @@ public class Robot extends IterativeRobot {
         compressor = new Pneumatics();
         
         oi = new OI();
-
-        autonomousCommand = new AutonomousCommand();
         
-        //LoggerServer.startServer();
+        //for now -WEEK ZERO--- this is where you set your auto command.
+        autonomousCommand = new VariousDefencesAutoWeekZero();
         
-       /* try {
-        	// this is the trajectory server url
-			TrajectoryClient.start("10.3.19.191");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+        try{
+        LoggerServer.startServer();
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
+        
+       
         
     }
 

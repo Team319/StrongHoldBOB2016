@@ -178,7 +178,7 @@ public class Shooter extends Subsystem {
   
     _sb.setLength(0);
     }
-
+///----THIS IS NOT WHERE YOU CHANGE THE SHOOTER SPEED
 	public void speedUp() {
 		double speed = 2500;
     	Robot.shooter.setLeftShooterSpeed(speed);

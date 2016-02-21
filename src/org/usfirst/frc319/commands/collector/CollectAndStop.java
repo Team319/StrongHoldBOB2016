@@ -21,13 +21,13 @@ public class CollectAndStop extends Command {
     }
 
     protected void execute() {
-    	double speed = .8;
+    	double speed = .85;
     	
     	if(Robot.collector.getAverageLeftAndRightBoulderIRSensor() <1){
-    		speed=.8;
+    		speed=.85;
     	}
     	else{
-    		speed =.3;
+    		speed =.2;
     	}
     		
     	Robot.collector.collectorGoIn(speed);
@@ -45,7 +45,7 @@ public class CollectAndStop extends Command {
     	//highest distance the ball should go
         //return Robot.collector.loadIsFinished(2.5);
         ///return the isfinished from the IRcollector sensor pass it a smaller value than in the 
-        return Robot.collector.bothIRSensorsCloseEnough(2.5);
+        return Robot.collector.bothIRSensorsCloseEnough(2.3);
     }
 
     protected void end() {

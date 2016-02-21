@@ -26,7 +26,7 @@ public class AutoDriveStraightDistanceUsingRobotDrive extends Command {
 
     protected void execute() {
     	//pass in robot speed
-    	Robot.driveTrain.driveStraight(-.6);
+    	Robot.driveTrain.driveStraight(-1);
    
     }
 

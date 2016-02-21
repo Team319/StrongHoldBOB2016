@@ -37,7 +37,7 @@ public class OI {
     
     public OI() {
 
-    	driverController = new BobController(0);
+    	/*driverController = new BobController(0);
     	//driverController.startButton.whenPressed(new FollowBothMotionProfiles());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
     	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
@@ -47,27 +47,30 @@ public class OI {
     	driverController.yButton.whenPressed(new ArmGoToShootUnderTower());
     	driverController.startButton.whenPressed(new ShiftToggle());
     	driverController.selectButton.whenPressed(new CollectorAndShooterStop());
+    	*/
+    	 
     	
-    	// work in progress
-    	/*
-    	 * driverController = new BobController(0);
-    	driverController.startButton.whenPressed(new FollowBothMotionProfiles());
+    	 driverController = new BobController(0);
+    	//driverController.startButton.whenPressed(new FollowBothMotionProfiles());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
     	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
-    	driverController.yButton.whenPressed(new ShooterGo());
+    	driverController.yButton.whenPressed(new BrakeModeToggle());
     	driverController.aButton.whenPressed(new CollectorOut());
     	driverController.xButton.whenPressed(new ShiftToggle());
-    	 */
+    	 
     	
     	operatorController = new BobController(1);
-    	operatorController.selectButton.whenPressed(new FollowBothMotionProfiles());
+    	//operatorController.selectButton.whenPressed(new FollowBothMotionProfiles());
     	operatorController.startButton.whenPressed(new StopAllMechanisms());
-    	operatorController.aButton.whenPressed(new AutoDriveStraightOverDefenseToDistance(.5, 1000));
-    	operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
-    	operatorController.yButton.whenPressed(new ArmGoToShootUnderTower());
-    	operatorController.xButton.whenPressed(new ArmGoToShootFromBatterCleat());
-    	//operatorController.bButton.whenPressed(new ArmGoToCollect());  
+    	operatorController.selectButton.whenPressed(new AutoDriveStraightOverDefenseToDistance(.5, 1000));
+    	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
+    	operatorController.xButton.whenPressed(new ArmGoToCollectThenShootUnderTower());
+    	operatorController.yButton.whenPressed(new ArmToCollectThenShootFromBatter());
+    	operatorController.aButton.whenPressed(new ArmGoToCollect());  
+    	operatorController.bButton.whenPressed(new ArmGoToStorage());
+    	operatorController.leftBumper.whenPressed(new ShiftDown());
+    	operatorController.rightBumper.whenPressed(new ShiftUp());
     	//operatorController.rightBumper.whenPressed(new CollectorIn());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());
