@@ -7,9 +7,6 @@ import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
 import org.usfirst.frc319.commands.arm.ArmGoToStorage;
-import org.usfirst.frc319.commands.auto.AutoDriveStraightDistanceUsingRobotDrive;
-import org.usfirst.frc319.commands.auto.AutoDriveStraightOverDefenseToDistance;
-import org.usfirst.frc319.commands.auto.DriveAutoSpline;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.camera.CameraDrive;
 import org.usfirst.frc319.commands.collector.CollectAndStop;
@@ -19,6 +16,10 @@ import org.usfirst.frc319.commands.collector.CollectorStop;
 import org.usfirst.frc319.commands.collector.LoadBoulder;
 import org.usfirst.frc319.commands.shooter.ShooterGo;
 import org.usfirst.frc319.commands.commandGroups.*;
+import org.usfirst.frc319.commands.drivetrain.AutoDriveStraightDistanceUsingRobotDrive;
+
+import org.usfirst.frc319.commands.drivetrain.DriveAutoSpline;
+import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -51,19 +52,19 @@ public class OI {
     	 
     	
     	 driverController = new BobController(0);
-    	//driverController.startButton.whenPressed(new FollowBothMotionProfiles());
+    	driverController.startButton.whenPressed(new DriveStraightSpline());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
     	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new BrakeModeToggle());
     	driverController.aButton.whenPressed(new CollectorOut());
     	driverController.xButton.whenPressed(new ShiftToggle());
-    	 
+    	
     	
     	operatorController = new BobController(1);
     	//operatorController.selectButton.whenPressed(new FollowBothMotionProfiles());
     	operatorController.startButton.whenPressed(new StopAllMechanisms());
-    	operatorController.selectButton.whenPressed(new AutoDriveStraightOverDefenseToDistance(.5, 1000));
+    	
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
     	operatorController.xButton.whenPressed(new ArmGoToCollectThenShootUnderTower());
     	operatorController.yButton.whenPressed(new ArmToCollectThenShootFromBatter());

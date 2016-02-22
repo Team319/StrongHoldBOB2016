@@ -7,14 +7,15 @@ import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.subsystems.TowerCamera;
 
 import com.team319.trajectory.CombinedSrxMotionProfile;
-import com.team319.trajectory.PathManager;
-import com.team319.trajectory.TrajectoryChangeListener;
+import com.team319.waypoint.WaypointManager;
+import com.team319.trajectory.ITrajectoryChangeListener;
 import com.team319.trajectory.TrajectoryManager;
-import com.team319.trajectory.Waypoint;
+import com.team319.waypoint.Waypoint;
+import com.team319.web.trajectory.server.TrajectoryServletSocket;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CalculateSpline extends Command implements TrajectoryChangeListener{
+public class CalculateSpline extends Command implements ITrajectoryChangeListener{
 	
 	private static final double BACK_OFF = 3.5;
 	private boolean waitingForTrajectory = true;
@@ -57,7 +58,7 @@ public class CalculateSpline extends Command implements TrajectoryChangeListener
 	}
 	
 	@Override
-	public void onTrajectoryChange(CombinedSrxMotionProfile combined) {
+	public void onTrajectoryChange(CombinedSrxMotionProfile combined, TrajectoryServletSocket source) {
 		Robot.driveTrain.setCurrentProfile(combined);
 		waitingForTrajectory = false;
 	}

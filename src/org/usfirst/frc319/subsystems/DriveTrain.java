@@ -19,7 +19,7 @@ import com.team319.robot.StatefulSubsystem;
 import com.team319.robot.logging.LoggableCanTalon;
 import com.team319.robot.logging.LoggableSensor;
 import com.team319.trajectory.CombinedSrxMotionProfile;
-import com.team319.trajectory.TrajectoryChangeListener;
+import com.team319.trajectory.ITrajectoryChangeListener;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -75,7 +75,7 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	    rightDriveLead.reverseOutput(false);
 	    
 	    rightDriveLead.setF(0.312);
-	    rightDriveLead.setP(0.2);//0.28);
+	    rightDriveLead.setP(0.32);
 	    
 	    leftDriveLead.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 	    leftDriveLead.configEncoderCodesPerRev(1024);
@@ -83,7 +83,7 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	    leftDriveLead.reverseOutput(true);
 	    
 	    leftDriveLead.setF(0.333);
-	    leftDriveLead.setP(0.2);//0.28);
+	    leftDriveLead.setP(0.32);
 		
 		
 		
@@ -108,6 +108,15 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		rightProfile.control();
 		// leftProfile.reset();
 		// rightProfile.reset();
+	}
+	
+	public void reverseArcadeDrive(double moveValue, double rotateValue){
+		
+		drivetrain.arcadeDrive(moveValue, rotateValue, true);
+		
+		leftProfile.control();
+		rightProfile.control();
+		
 	}
 	
 	public void driveStraight(double speed){
@@ -177,6 +186,10 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	public void controlLeftMotionProfile() {
 		leftProfile.control();
 	}
+	public void toggleDrive(){
+	//	drivetrain.arcadeDrive(stick);
+    	
+    }
 	
 	
 	

@@ -30,8 +30,9 @@ import com.ni.vision.NIVision.ImageType;
 import com.ni.vision.NIVision.ShapeMode;
 import com.team319.robot.StatefulSubsystem;
 import com.team319.robot.logging.LoggableSensor;
-import com.team319.trajectory.PathManager;
-import com.team319.trajectory.Waypoint;
+import com.team319.waypoint.WaypointList;
+import com.team319.waypoint.WaypointManager;
+import com.team319.waypoint.Waypoint;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
@@ -338,7 +339,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 					
 					waypoints.add(new Waypoint(distance,0,radians));
 
-					PathManager.getInstance().setWaypoints(waypoints);
+					WaypointManager.getInstance().setWaypointList(new WaypointList (waypoints),null);
 				}
 
 	    	}catch(Exception e){

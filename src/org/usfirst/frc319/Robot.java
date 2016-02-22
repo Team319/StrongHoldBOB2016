@@ -9,18 +9,21 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
-import org.usfirst.frc319.commands.auto.LowBarAutoWeekZero;
+import org.usfirst.frc319.commands.auto.LowBarHighGoalAuto;
 import org.usfirst.frc319.commands.auto.VariousDefencesAutoWeekZero;
+import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 import org.usfirst.frc319.subsystems.*;
 import org.usfirst.frc319.motionProfiles.*;
 import org.usfirst.frc319.RightMotionProfile;
 
 import com.team319.web.LoggerServer;
+import com.team319.web.log.client.LoggerClient;
 import com.team319.web.trajectory.client.TrajectoryClient;
+import com.team319.web.waypoint.client.WaypointClient;
 
 /*--added a package to put all of our Motion Profiles so they don't--
     clutter up the src package (Derrick 2/3/16)
@@ -36,7 +39,7 @@ import com.team319.web.trajectory.client.TrajectoryClient;
 public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
-
+    SendableChooser autoChooser;
     public static OI oi;
 
     public static DriveTrain driveTrain;
@@ -62,14 +65,25 @@ public class Robot extends IterativeRobot {
         climber = new Climber();
         //towerCamera = new TowerCamera();
         compressor = new Pneumatics();
+       // autoChooser = new SendableChooser();
         
         oi = new OI();
         
+        
+      
+        //autoChooser.addDefault("Low bar auto", new LowBarHighGoalAuto());
+        //autoChooser.addObject("Various defenses position 2", new VariousDefencesAutoWeekZero());
+        //autoChooser.addObject("Various defenses position 3", new VariousDefencesAutoWeekZero());
+        //SmartDashboard.putData("autonomousModeChooser", autoChooser);
+        
+        
         //for now -WEEK ZERO--- this is where you set your auto command.
-        autonomousCommand = new VariousDefencesAutoWeekZero();
+        autonomousCommand = new LowBarHighGoalAuto();
         
         try{
-        LoggerServer.startServer();
+       // LoggerServer.startServer();
+        WaypointClient.start("10.3.19.21");
+        TrajectoryClient.start("10.3.19.21");
         }catch(Exception e){
         	e.printStackTrace();
         }
@@ -91,7 +105,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        
+       //autonomousCommand = (Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

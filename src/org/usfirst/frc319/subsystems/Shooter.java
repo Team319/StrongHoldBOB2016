@@ -98,6 +98,7 @@ public class Shooter extends Subsystem {
     	return leftShooter.getBusVoltage();
     }
     
+    
     //---------TUNING PID SHOOTER MOTORS----USED FOR GETTING SHOOTERS TO BE CONSISTENT-----//
     public void rightShooterpIDTest(){
     	double motorOutput = rightShooter.getOutputVoltage()/rightShooter.getBusVoltage();

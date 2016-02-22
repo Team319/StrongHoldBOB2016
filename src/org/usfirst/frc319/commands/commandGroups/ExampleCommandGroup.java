@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc319.commands.FollowBothMotionProfiles;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
-import org.usfirst.frc319.commands.auto.AutoDriveStraightOverDefenseToDistance;
 import org.usfirst.frc319.commands.collector.CollectorIn;
 import org.usfirst.frc319.commands.shooter.ShooterGo;
 import org.usfirst.frc319.subsystems.*;
