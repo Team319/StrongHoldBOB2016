@@ -23,7 +23,7 @@ public class ArmGoToCollectThenShootUnderTower extends CommandGroup {
     public ArmGoToCollectThenShootUnderTower() {
     	
     	addSequential(new ArmGoToCollect());
-    	addSequential(new ArmGoToShootFromBatterCleat());
+    	addSequential(new ArmGoToShootUnderTower());
     	 
     } 
     

@@ -26,12 +26,13 @@ public class AutoDriveStraightDistanceUsingRobotDrive extends Command {
 
     protected void execute() {
     	//pass in robot speed
-    	Robot.driveTrain.driveStraight(-1);
+    	Robot.driveTrain.driveStraight(-.6); //speed
    
     }
 
     protected boolean isFinished() {
-    	if(Robot.driveTrain.getDistanceFromEncoderValues()> 30000){
+    	if(Robot.driveTrain.getDistanceFromEncoderValues()> 40000){ //distance
+    		System.out.println("REached Distance");
     		return true;
     	}
     		else{

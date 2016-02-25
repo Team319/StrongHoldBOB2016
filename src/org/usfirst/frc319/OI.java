@@ -3,11 +3,14 @@
 package org.usfirst.frc319;
 
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.arm.ArmDelayThenGoToCollect;
+import org.usfirst.frc319.commands.arm.ArmGoToAutoShootLowPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
 import org.usfirst.frc319.commands.arm.ArmGoToStorage;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
+import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
 import org.usfirst.frc319.commands.camera.CameraDrive;
 import org.usfirst.frc319.commands.collector.CollectAndStop;
 import org.usfirst.frc319.commands.collector.CollectorIn;
@@ -17,7 +20,6 @@ import org.usfirst.frc319.commands.collector.LoadBoulder;
 import org.usfirst.frc319.commands.shooter.ShooterGo;
 import org.usfirst.frc319.commands.commandGroups.*;
 import org.usfirst.frc319.commands.drivetrain.AutoDriveStraightDistanceUsingRobotDrive;
-
 import org.usfirst.frc319.commands.drivetrain.DriveAutoSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 
@@ -52,7 +54,7 @@ public class OI {
     	 
     	
     	 driverController = new BobController(0);
-    	driverController.startButton.whenPressed(new DriveStraightSpline());
+    	driverController.startButton.whenPressed(new ArmDelayThenGoToCollect());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
     	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
@@ -72,6 +74,7 @@ public class OI {
     	operatorController.bButton.whenPressed(new ArmGoToStorage());
     	operatorController.leftBumper.whenPressed(new ShiftDown());
     	operatorController.rightBumper.whenPressed(new ShiftUp());
+    	operatorController.rightTriggerButton.whenPressed(new ArmGoToAutoShootLowPosition());
     	//operatorController.rightBumper.whenPressed(new CollectorIn());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());

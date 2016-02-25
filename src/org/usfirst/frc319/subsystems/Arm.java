@@ -20,7 +20,7 @@ public class Arm extends Subsystem {
 	private final CANTalon motor = RobotMap.armMotor;
 
 	double p = 24;//
-	double i = .25;
+	double i = .25; //.25
 	double d = 0;
 	double f = 0;
 
@@ -103,11 +103,12 @@ public class Arm extends Subsystem {
 	//------ARM POSITIONS------//
 	
 	public double armStoragePosition = 0;
-	public double armShootFromTowerPosition = 1065;//original-1063//works consistently-1039//
+	public double armShootFromTowerPosition = 1060;//original-1063//works consistently-1039//
 	public double armAutoSearchPosition = 680;
-	public double armAutoShootPosition = 1021;
+	public double armAutoShootHighPosition = 925;
+	public double armAutoShootLowPosition = 617;
 	public double armShootFromCleatPosition = 1025;
-	public double armCollectPosition = 1230;
+	public double armCollectPosition = 1250;
 	
 	
 	public void goToStorage() {
@@ -126,8 +127,12 @@ public class Arm extends Subsystem {
 		setArmPosition(armShootFromTowerPosition);
 	}
 	
-	public void goToAutoShootPosition() {
-		setArmPosition(armAutoShootPosition);
+	public void goToAutoShootHighPosition() {
+		setArmPosition(armAutoShootHighPosition);
+	}
+	
+	public void goToAutoShootLowPosition() {
+		setArmPosition(armAutoShootLowPosition);
 	}
 	
 	public void goToCleatPosition(){

@@ -32,14 +32,14 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 		TrajectoryManager.getInstance().registerListener(this);
 		
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
-		/*waypoints.add(new Waypoint(0,0,0));
+		waypoints.add(new Waypoint(0,0,0));
 		waypoints.add(new Waypoint(10,0,0));
-		waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
-		*/
+		waypoints.add(new Waypoint(20.5,-9,-65*Math.PI/180));
+		
 		
 		//testing
-		waypoints.add(new Waypoint(0,0,0));
-		waypoints.add(new Waypoint (5,0,0));
+		//waypoints.add(new Waypoint(0,0,0));
+		//waypoints.add(new Waypoint (9,-9,0));
 		//waypoints.add(new Waypoint(10,-2,-60*Math.PI/180));
 		//waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
 	/*
@@ -51,7 +51,8 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 		
 		try {
 	    	// this is the trajectory server url
-			TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
+			// THIS IS WHY IT DOESNT WORK!!!!!! -wyatt 2/22/2016
+			//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
 			WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints),null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -80,6 +81,7 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 
 	@Override
 	protected void interrupted() {
+		
 		// TODO Auto-generated method stub
 		
 	}

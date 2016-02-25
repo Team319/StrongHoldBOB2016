@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.auto.LowBarHighGoalAuto;
+import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
+import org.usfirst.frc319.commands.auto.Position2VariousAuto;
+import org.usfirst.frc319.commands.auto.Position3VariousAuto;
 import org.usfirst.frc319.commands.auto.VariousDefencesAutoWeekZero;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 import org.usfirst.frc319.subsystems.*;
@@ -78,7 +81,7 @@ public class Robot extends IterativeRobot {
         
         
         //for now -WEEK ZERO--- this is where you set your auto command.
-        autonomousCommand = new LowBarHighGoalAuto();
+        autonomousCommand = new Position3VariousAuto();
         
         try{
        // LoggerServer.startServer();
@@ -107,6 +110,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
        //autonomousCommand = (Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
+        Robot.driveTrain.setDTEncodersToZero();
     }
 
     /**

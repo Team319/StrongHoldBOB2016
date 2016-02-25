@@ -39,8 +39,8 @@ public class BuildPosition5Spline extends Command implements ITrajectoryChangeLi
 		
 		//testing
 		waypoints.add(new Waypoint(0,0,0));
-		waypoints.add(new Waypoint (5,0,0));
-		waypoints.add(new Waypoint(10,-2,-60*Math.PI/180));
+		waypoints.add(new Waypoint (9,4,0));
+		
 		//waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
 	/*
 		double angle = -60;
@@ -51,7 +51,7 @@ public class BuildPosition5Spline extends Command implements ITrajectoryChangeLi
 		
 		try {
 	    	// this is the trajectory server url
-			TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
+			//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
 			WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints),null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
