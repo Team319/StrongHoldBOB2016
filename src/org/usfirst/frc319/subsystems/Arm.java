@@ -19,8 +19,8 @@ public class Arm extends Subsystem {
 
 	private final CANTalon motor = RobotMap.armMotor;
 
-	double p = 24;//
-	double i = .25; //.25
+	double p = 22;//25
+	double i = 0; //.25
 	double d = 0;
 	double f = 0;
 
@@ -41,8 +41,9 @@ public class Arm extends Subsystem {
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		motor.setPID(p, i, d, f, iZone, rampRate, profile);
-		motor.reverseSensor(false); // needs to be tested
-		motor.reverseOutput(false); // needs to be tested
+		motor.reverseSensor(false); // needs to be tested//changed to true when encoder got moved to non-driven side
+		motor.reverseOutput(true); // needs to be tested//changed to true same as above
+		
 
 		motor.enableLimitSwitch(true, true); 
 		
@@ -51,6 +52,7 @@ public class Arm extends Subsystem {
 
 	public boolean getArmForwardLimit() {
 		return motor.isFwdLimitSwitchClosed();
+		
 
 	}
 
@@ -60,19 +62,21 @@ public class Arm extends Subsystem {
 	}
 
 	public void armManualDrive(double triggerValue) {
-		//System.out.println("forward limit: "+ getArmForwardLimit());
+	    //System.out.println("forward limit: "+ getArmForwardLimit());
 		//System.out.println("reverse limit: "+ getArmReverseLimit());
-
+		//  System.out.println(" ArmHoldPosition:" + armHoldPosition);
+		//  System.out.println(" ArmCurrentPosition:" + armCurrentPosition);
 		if (triggerValue < 0.1 && triggerValue > -0.1) {
 
 			motor.changeControlMode(TalonControlMode.Position);
 			motor.set(armHoldPosition);
+			
 		}
 
 		else {
 			motor.changeControlMode(TalonControlMode.PercentVbus);
 			motor.set(triggerValue);
-			armCurrentPosition = motor.getEncPosition();
+			armCurrentPosition = motor.getPosition();
 			armHoldPosition = armCurrentPosition;
 
 		}
@@ -102,13 +106,13 @@ public class Arm extends Subsystem {
 
 	//------ARM POSITIONS------//
 	
-	public double armStoragePosition = 0;
-	public double armShootFromTowerPosition = 1060;//original-1063//works consistently-1039//
-	public double armAutoSearchPosition = 680;
-	public double armAutoShootHighPosition = 925;
-	public double armAutoShootLowPosition = 617;
-	public double armShootFromCleatPosition = 1025;
-	public double armCollectPosition = 1250;
+	public double armStoragePosition = 0; 
+	public double armShootFromTowerPosition = -394;//original-1063//works consistently-1039//
+	public double armAutoSearchPosition = -253;//680
+	public double armAutoShootHighPosition = -344;//925
+	public double armAutoShootLowPosition = -230;//617
+	public double armShootFromCleatPosition = -381;//1025
+	public double armCollectPosition = -427;//1250*-.372 // all values scaled
 	
 	
 	public void goToStorage() {
@@ -150,6 +154,14 @@ public class Arm extends Subsystem {
 	}
 	public void armStop() {
 		motor.set(0);
+	}
+	
+	//update the armHoldPosition and nothing else.
+	//used in disabledPeriodic to keep track of arm and prevent
+	//sudden movement on enable.
+	public void updateArmPosition()
+	{
+		this.armHoldPosition = motor.getPosition();
 	}
 	
 }

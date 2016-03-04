@@ -6,6 +6,7 @@ import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.arm.ArmDelayThenGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToAutoShootLowPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
+import org.usfirst.frc319.commands.arm.ArmGoToPassedVariablePosition;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
 import org.usfirst.frc319.commands.arm.ArmGoToStorage;
@@ -18,10 +19,12 @@ import org.usfirst.frc319.commands.collector.CollectorOut;
 import org.usfirst.frc319.commands.collector.CollectorStop;
 import org.usfirst.frc319.commands.collector.LoadBoulder;
 import org.usfirst.frc319.commands.shooter.ShooterGo;
+import org.usfirst.frc319.commands.shooter.ShooterPIDTest;
 import org.usfirst.frc319.commands.commandGroups.*;
 import org.usfirst.frc319.commands.drivetrain.AutoDriveStraightDistanceUsingRobotDrive;
 import org.usfirst.frc319.commands.drivetrain.DriveAutoSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
+import org.usfirst.frc319.commands.drivetrain.RotateToAngle;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -71,11 +74,13 @@ public class OI {
     	operatorController.xButton.whenPressed(new ArmGoToCollectThenShootUnderTower());
     	operatorController.yButton.whenPressed(new ArmToCollectThenShootFromBatter());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());  
-    	operatorController.bButton.whenPressed(new ArmGoToStorage());
+    	//operatorController.bButton.whenPressed(new ArmGoToStorage());
     	operatorController.leftBumper.whenPressed(new ShiftDown());
     	operatorController.rightBumper.whenPressed(new ShiftUp());
     	operatorController.rightTriggerButton.whenPressed(new ArmGoToAutoShootLowPosition());
-    	//operatorController.rightBumper.whenPressed(new CollectorIn());
+    	//operatorController.leftTriggerButton.whenPressed(new ArmGoToPassedVariablePosition(-80));
+    	operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
+    	operatorController.selectButton.whenPressed(new ShooterPIDTest());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());
     	

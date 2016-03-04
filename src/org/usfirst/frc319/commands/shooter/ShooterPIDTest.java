@@ -20,8 +20,8 @@ public class ShooterPIDTest extends Command {
     }
 
     protected void execute() {
-
-    	Robot.shooter.rightShooterpIDTest();
+    	//ONLY UNCOMMENT ONE AT A TIME!
+    	//Robot.shooter.rightShooterpIDTest();
     	Robot.shooter.leftShooterpIDTest();
     	
     }

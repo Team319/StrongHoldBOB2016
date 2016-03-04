@@ -68,20 +68,20 @@ public class Robot extends IterativeRobot {
         climber = new Climber();
         //towerCamera = new TowerCamera();
         compressor = new Pneumatics();
-       // autoChooser = new SendableChooser();
+        autoChooser = new SendableChooser();
         
         oi = new OI();
         
         
       
-        //autoChooser.addDefault("Low bar auto", new LowBarHighGoalAuto());
-        //autoChooser.addObject("Various defenses position 2", new VariousDefencesAutoWeekZero());
-        //autoChooser.addObject("Various defenses position 3", new VariousDefencesAutoWeekZero());
-        //SmartDashboard.putData("autonomousModeChooser", autoChooser);
+        autoChooser.addDefault("Low bar auto", new LowBarHighGoalAuto());
+        autoChooser.addObject("Various defenses position 2", new VariousDefencesAutoWeekZero());
+        autoChooser.addObject("Various defenses position 3", new VariousDefencesAutoWeekZero());
+        SmartDashboard.putData("autonomousModeChooser", autoChooser);
         
         
         //for now -WEEK ZERO--- this is where you set your auto command.
-        autonomousCommand = new Position3VariousAuto();
+       // autonomousCommand = new Position3VariousAuto();
         
         try{
        // LoggerServer.startServer();
@@ -105,10 +105,11 @@ public class Robot extends IterativeRobot {
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        Robot.arm.updateArmPosition();
     }
 
     public void autonomousInit() {
-       //autonomousCommand = (Command) autoChooser.getSelected();
+       autonomousCommand = (Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
         Robot.driveTrain.setDTEncodersToZero();
     }
@@ -146,6 +147,8 @@ public class Robot extends IterativeRobot {
         Robot.driveTrain.controlLeftMotionProfile();
         SmartDashboard.putInt("Right Drivevtrain Encoder Position (revs)", Robot.driveTrain.getRightDrivetrainPosition());
         SmartDashboard.putInt("Left Drivevtrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
+        
+        
         
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){

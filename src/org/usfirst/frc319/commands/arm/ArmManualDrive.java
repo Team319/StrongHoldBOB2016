@@ -20,7 +20,8 @@ public class ArmManualDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.arm.armManualDrive(Robot.oi.driverController.getTriggerTwist());
+    	Robot.arm.armManualDrive(-Robot.oi.driverController.getTriggerTwist());
+    							// negative added when encoder on arm moved 3/3/16
     }
 
     protected boolean isFinished() {

@@ -19,7 +19,9 @@ public class SpeedUpShooterTimed extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.shooter.speedUp();;
+		double speed = 2500;
+		Robot.shooter.setLeftShooterSpeed(speed);
+    	Robot.shooter.setRightShooterSpeed(speed);
 	}
 
 	@Override
