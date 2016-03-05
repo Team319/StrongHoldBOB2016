@@ -36,9 +36,9 @@ public class BuildLeftTowerSpline extends Command implements ITrajectoryChangeLi
 		double angle = -60;
 		double radians = (angle * Math.PI)/180;
 		
-		waypoints.add(new Waypoint(11,-9,radians));
+		waypoints.add(new Waypoint(11,-9,angle));
 
-		WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints), null);
+		WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints));
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class BuildLeftTowerSpline extends Command implements ITrajectoryChangeLi
 	}
 	
 	@Override
-	public void onTrajectoryChange(CombinedSrxMotionProfile combined, TrajectoryServletSocket source) {
+	public void onTrajectoryChange(CombinedSrxMotionProfile combined) {
 		Robot.driveTrain.setCurrentProfile(combined);
 		waitingForTrajectory = false;
 	}

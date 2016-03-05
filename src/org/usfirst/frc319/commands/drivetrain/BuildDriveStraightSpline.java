@@ -37,7 +37,7 @@ public class BuildDriveStraightSpline extends Command implements ITrajectoryChan
 		waypoints.add(new Waypoint(16,-2,0));
 		
 		WaypointList waypointList = new WaypointList(waypoints);
-		WaypointManager.getInstance().setWaypointList(waypointList, null);
+		WaypointManager.getInstance().setWaypointList(waypointList);
 	    
 	}
 	@Override
@@ -66,7 +66,7 @@ public class BuildDriveStraightSpline extends Command implements ITrajectoryChan
 	
 	
 	@Override
-	public void onTrajectoryChange(CombinedSrxMotionProfile combined, TrajectoryServletSocket source) {
+	public void onTrajectoryChange(CombinedSrxMotionProfile combined) {
 		System.out.println("Got Trajectory");
 		Robot.driveTrain.setCurrentProfile(combined);
 		waitingForTrajectory = false;

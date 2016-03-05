@@ -34,7 +34,7 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		waypoints.add(new Waypoint(0,0,0));
 		waypoints.add(new Waypoint(10,0,0));
-		waypoints.add(new Waypoint(20.5,-9,-65*Math.PI/180));
+		waypoints.add(new Waypoint(20.5,-9,-65));//-65*Math.PI/180));
 		
 		
 		//testing
@@ -53,7 +53,9 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 	    	// this is the trajectory server url
 			// THIS IS WHY IT DOESNT WORK!!!!!! -wyatt 2/22/2016
 			//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
-			WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints),null);
+			WaypointList waypointList = new WaypointList(waypoints);
+			waypointList.setCachable(true);
+			WaypointManager.getInstance().setWaypointList(waypointList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,7 +89,7 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 	}
 	
 	@Override
-	public void onTrajectoryChange(CombinedSrxMotionProfile combined, TrajectoryServletSocket source) {
+	public void onTrajectoryChange(CombinedSrxMotionProfile combined) {
 		Robot.driveTrain.setCurrentProfile(combined);
 		waitingForTrajectory = false;
 	}

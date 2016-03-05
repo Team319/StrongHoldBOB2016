@@ -13,7 +13,7 @@ import org.usfirst.frc319.Robot;
  */
 public class RotateToAngle extends PIDCommand {
 	double setpoint = 0;
-	static double P = .05;
+	static double P = .036;
 	static double I = 0.0016;
 	static double D = 0;
 	

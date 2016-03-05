@@ -15,6 +15,9 @@ import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.motionProfiles.*;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.team319.pid.IPidChangeListener;
+import com.team319.pid.Pid;
+import com.team319.pid.PidManager;
 import com.team319.robot.StatefulSubsystem;
 import com.team319.robot.logging.LoggableCanTalon;
 import com.team319.robot.logging.LoggableSensor;
@@ -35,7 +38,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
+public class DriveTrain extends Subsystem implements IPidChangeListener{//extends StatefulSubsystem{
 
 	public boolean shift;
 	public boolean isBrakeModeEnabled;
@@ -51,6 +54,8 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
 	private final AnalogGyro gyro = RobotMap.gyro;
 	//public static AHRS imu; 
+	
+	private Pid pid = null;
 
 	
 	
@@ -60,6 +65,8 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 	private CombinedSrxMotionProfile currentProfile;
 
 	public DriveTrain() {
+		
+		PidManager.getInstance().registerListener(this);
 		
 		
 		rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
@@ -330,5 +337,14 @@ public class DriveTrain extends Subsystem{//extends StatefulSubsystem{
 		this.rightDriveFollow.enableBrakeMode(brake);
 		this.isBrakeModeEnabled = brake;
 		
+	}
+	
+	@Override
+		public void onPidChange(Pid pid) {
+			this.pid = pid;
+		}
+	
+	public Pid getPid() {
+		return pid;
 	}
 }

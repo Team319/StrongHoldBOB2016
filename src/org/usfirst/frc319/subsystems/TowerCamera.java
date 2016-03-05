@@ -22,9 +22,12 @@ import java.util.Vector;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.camera.RunTowerCamera;
+import org.usfirst.frc319.commands.camera.Target;
+import org.usfirst.frc319.commands.camera.TargetManager;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
+import com.ni.vision.NIVision.GetImageSizeResult;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
 import com.ni.vision.NIVision.ShapeMode;
@@ -92,12 +95,14 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 	
 	public TowerCamera(){
 		
-		initialize();
+		try{
 		
 		thread = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
+				initialize();
+				
 				while(!thread.isInterrupted()){
 					try{
 						
@@ -141,7 +146,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 			    		System.out.println(e.getMessage());
 			    	}
 					try {
-						Thread.sleep(100);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -151,6 +156,9 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 		});
 		
 		thread.start();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 
@@ -188,7 +196,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 		// the camera name (ex "cam0") can be found through the roborio web interface
         //session = NIVision.IMAQdxOpenCamera("cam1", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        camera = new USBCamera("cam1");
+        camera = new USBCamera("cam0");
         
         camera.setExposureManual(0);
         camera.setBrightness(25);
@@ -301,6 +309,26 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 		    		NIVision.imaqDrawShapeOnImage(frame, frame, rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
 		    		//CameraServer.getInstance().setImage(frame);
 
+		    		GetImageSizeResult size = NIVision.imaqGetImageSize(frame);
+		    		
+		    		double screenWidth = size.width;
+		    		
+		    		double x1 = leftMostTarget.BoundingRectLeft;
+		    		double x2 = leftMostTarget.BoundingRectRight;
+		    		
+		    		double centerOfMass = x1 + ((x2 - x1)/2);
+		    		double offset = centerOfMass - (screenWidth / 2);
+		    		
+		    		SmartDashboard.putNumber("pixel offset", offset);
+		    		
+		    		double fov = 73;
+		    		double ratio = fov / screenWidth;
+		    		double rotation = -1 * offset * ratio;
+		    		
+		    		SmartDashboard.putNumber("Target Offset", rotation);
+		    		
+		    		SmartDashboard.putNumber("Target Y", leftMostTarget.BoundingRectBottom);
+		    		
 		    		//SmartDashboard.putNumber("TARGET X1", leftMostTarget.BoundingRectLeft);
 		    		//SmartDashboard.putNumber("TARGET X2", leftMostTarget.BoundingRectRight);
 
@@ -308,13 +336,16 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 		    		width = leftMostTarget.BoundingRectRight - leftMostTarget.BoundingRectLeft;
 
-		    		
+		    		TargetManager.getInstance().setTarget(new Target(offset,rotation));
 				}
 
 
 				frame.free();
 				binaryFrame.free();
+				
+				
 
+				/**
 				//MWT: IDEALLY WE WOULD PUT A GREEN AROUND THE IMAGE WHEN THE TARGET IS FOUND AND RED WHEN IT IS NOT
 				//Send distance and target status to dashboard. The bounding rect, particularly the horizontal center (left - right) may be useful for rotating/driving towards a target
 				SmartDashboard.putBoolean("Found Target", foundTarget);
@@ -325,7 +356,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 					waypoints.add(new Waypoint(0,0,0));
 					
 					//use a fake 10 degree angle
-					double angle = -10;
+					double angle = 10; //0 - Math.round(Robot.driveTrain.getGyroAngle());
 					double radians = (angle * Math.PI)/180;
 					
 					//0.0068x^2 - 0.989x + 35.592
@@ -339,8 +370,9 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 					
 					waypoints.add(new Waypoint(distance,0,radians));
 
-					WaypointManager.getInstance().setWaypointList(new WaypointList (waypoints),null);
+					WaypointManager.getInstance().setWaypointList(new WaypointList (waypoints));
 				}
+				**/
 
 	    	}catch(Exception e){
 	    		e.printStackTrace();

@@ -203,7 +203,7 @@ public class Shooter extends Subsystem {
 		double leftSpeed = leftShooter.getSpeed();
 		double rightSpeed = rightShooter.getSpeed();
 		double shootingErrorThreshold = 120;
-		
+		/*
 		System.out.println("leftSetPoint: " + leftSetPoint);
 		System.out.println("leftSpeed: " + leftSpeed);
 		System.out.println("leftError: " + leftShooter.getClosedLoopError());
@@ -211,7 +211,7 @@ public class Shooter extends Subsystem {
 		System.out.println("rightSetPoint: " + rightSetPoint);
 		System.out.println("rightSpeed: " + rightSpeed);
 		System.out.println("rightError: " + rightShooter.getClosedLoopError());
-
+		*/
 		if ((Math.abs(leftSpeed - leftSetPoint) < shootingErrorThreshold)
 				&& (Math.abs(rightSpeed - rightSetPoint) < shootingErrorThreshold)) {
 			return true;

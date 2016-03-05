@@ -58,7 +58,7 @@ public class CalculateSpline extends Command implements ITrajectoryChangeListene
 	}
 	
 	@Override
-	public void onTrajectoryChange(CombinedSrxMotionProfile combined, TrajectoryServletSocket source) {
+	public void onTrajectoryChange(CombinedSrxMotionProfile combined) {
 		Robot.driveTrain.setCurrentProfile(combined);
 		waitingForTrajectory = false;
 	}

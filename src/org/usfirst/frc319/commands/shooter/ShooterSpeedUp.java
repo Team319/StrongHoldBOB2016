@@ -30,7 +30,7 @@ public class ShooterSpeedUp extends Command {
     	
     	if(Robot.shooter.isShooterAtSpeed()){
     		atSpeedCounter++;
-    		System.out.println("atSpeedCOunter"+atSpeedCounter);
+    		//System.out.println("atSpeedCOunter"+atSpeedCounter);
     	}
     	//System.out.println("Right Setpoint: " + Robot.shooter.getRightShooterSetpoint());
     	//System.out.println("Left Setpoint: " + Robot.shooter.getLeftShooterSetpoint());
@@ -39,6 +39,7 @@ public class ShooterSpeedUp extends Command {
     	//possibly add an elseif its not at speed reset the counter
     	
     	double speed = 4000;
+    	
     	Robot.shooter.setLeftShooterSpeed(speed);
     	Robot.shooter.setRightShooterSpeed(speed);
     	

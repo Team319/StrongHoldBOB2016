@@ -12,7 +12,10 @@ import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
 import org.usfirst.frc319.commands.arm.ArmGoToStorage;
 import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
+import org.usfirst.frc319.commands.camera.CalculateSpline;
+import org.usfirst.frc319.commands.camera.CameraCalculateOffset;
 import org.usfirst.frc319.commands.camera.CameraDrive;
+import org.usfirst.frc319.commands.camera.TuneCameraRotate;
 import org.usfirst.frc319.commands.collector.CollectAndStop;
 import org.usfirst.frc319.commands.collector.CollectorIn;
 import org.usfirst.frc319.commands.collector.CollectorOut;
@@ -22,6 +25,7 @@ import org.usfirst.frc319.commands.shooter.ShooterGo;
 import org.usfirst.frc319.commands.shooter.ShooterPIDTest;
 import org.usfirst.frc319.commands.commandGroups.*;
 import org.usfirst.frc319.commands.drivetrain.AutoDriveStraightDistanceUsingRobotDrive;
+import org.usfirst.frc319.commands.drivetrain.BuildSingleTowerSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveAutoSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 import org.usfirst.frc319.commands.drivetrain.RotateToAngle;
@@ -57,9 +61,9 @@ public class OI {
     	 
     	
     	 driverController = new BobController(0);
-    	driverController.startButton.whenPressed(new ArmDelayThenGoToCollect());
+    	//driverController.startButton.whenPressed(new ArmDelayThenGoToCollect());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
-    	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
+    	driverController.rightBumper.whenPressed(new AlignThenSpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new BrakeModeToggle());
     	driverController.aButton.whenPressed(new CollectorOut());
@@ -71,8 +75,8 @@ public class OI {
     	operatorController.startButton.whenPressed(new StopAllMechanisms());
     	
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
-    	operatorController.xButton.whenPressed(new ArmGoToCollectThenShootUnderTower());
-    	operatorController.yButton.whenPressed(new ArmToCollectThenShootFromBatter());
+    	operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
+    	operatorController.yButton.whenPressed(new ArmGoToShootFromBatterCleat());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());  
     	//operatorController.bButton.whenPressed(new ArmGoToStorage());
     	operatorController.leftBumper.whenPressed(new ShiftDown());
@@ -80,7 +84,7 @@ public class OI {
     	operatorController.rightTriggerButton.whenPressed(new ArmGoToAutoShootLowPosition());
     	//operatorController.leftTriggerButton.whenPressed(new ArmGoToPassedVariablePosition(-80));
     	operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
-    	operatorController.selectButton.whenPressed(new ShooterPIDTest());
+    	//operatorController.selectButton.whenPressed(new ShooterPIDTest());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());
     	
@@ -88,13 +92,15 @@ public class OI {
     	//  operatorController.startButton.whenPressed(new ExampleCommandGroup());
     	
     	//MIKE'S CODE
+    	driverController.selectButton.whenPressed(new TuneCameraRotate());
+    	driverController.startButton.whenPressed(new ArcadeDrive());
     	/*driverController.selectButton.whenPressed(new DriveAutoSpline());
     	driverController.leftTriggerButton.whileHeld(new ShooterGo());
     	driverController.rightTriggerButton.whileHeld(new CollectorIn());
     	driverController.leftBumper.whileHeld(new CollectorOut());
     	driverController.rightBumper.whileHeld(new CollectorIn());
     	driverController.xButton.whenPressed(new ArmGoToShootUnderTower());
-    	driverController.bButton.whenPressed(new ArmGoToCollect()); 
+    	driverController.bButton.whenPressedoffsetDegrees(new ArmGoToCollect()); 
     	driverController.aButton.whenPressed(new ArmGoToStorage());
     	*/
     }

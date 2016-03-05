@@ -24,8 +24,12 @@ import org.usfirst.frc319.motionProfiles.*;
 import org.usfirst.frc319.RightMotionProfile;
 
 import com.team319.web.LoggerServer;
+import com.team319.web.config.client.ConfigClient;
 import com.team319.web.log.client.LoggerClient;
+import com.team319.web.pid.client.PidClient;
+import com.team319.web.pid.status.client.PidStatusClient;
 import com.team319.web.trajectory.client.TrajectoryClient;
+import com.team319.web.trajectory.progress.client.TrajectoryProgressClient;
 import com.team319.web.waypoint.client.WaypointClient;
 
 /*--added a package to put all of our Motion Profiles so they don't--
@@ -66,7 +70,7 @@ public class Robot extends IterativeRobot {
         shooter = new Shooter();
         arm = new Arm();
         climber = new Climber();
-        //towerCamera = new TowerCamera();
+        towerCamera = new TowerCamera();
         compressor = new Pneumatics();
         autoChooser = new SendableChooser();
         
@@ -87,6 +91,8 @@ public class Robot extends IterativeRobot {
        // LoggerServer.startServer();
         WaypointClient.start("10.3.19.21");
         TrajectoryClient.start("10.3.19.21");
+        PidClient.start("10.3.19.21");
+        //TrajectoryProgressClient.start("10.3.19.21");
         }catch(Exception e){
         	e.printStackTrace();
         }

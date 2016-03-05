@@ -51,7 +51,7 @@ public class BuildPosition3Spline extends Command implements ITrajectoryChangeLi
 		try {
 	    	// this is the trajectory server url
 			//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
-			WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints),null);
+			WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class BuildPosition3Spline extends Command implements ITrajectoryChangeLi
 	}
 	
 	@Override
-	public void onTrajectoryChange(CombinedSrxMotionProfile combined, TrajectoryServletSocket source) {
+	public void onTrajectoryChange(CombinedSrxMotionProfile combined) {
 		Robot.driveTrain.setCurrentProfile(combined);
 		waitingForTrajectory = false;
 	}
