@@ -2,6 +2,7 @@
 
 package org.usfirst.frc319.subsystems;
 
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -18,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Arm extends Subsystem {
 
 	private final CANTalon motor = RobotMap.armMotor;
+	private static final double THRESHOLD = 2; // encoder ticks
 
 	double p_up = 22;// 25
 	double i_up = .05; // .25
@@ -29,13 +32,17 @@ public class Arm extends Subsystem {
 	double d_down = .25;
 	double f_down = 0;
 
-	int iZone = 7;
+	int iZone = 10;// 7;
+
 	double rampRate = 0;
 	int profile_up = 0;
 	int profile_down = 1;
 
 	public double armHoldPosition = 0;
 	public double armCurrentPosition = 0;
+
+	public double currentError = 0;
+	public double prevError = 0;
 
 	public void initDefaultCommand() {
 
@@ -47,6 +54,18 @@ public class Arm extends Subsystem {
 		motor.changeControlMode(TalonControlMode.Position);
 		motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		// store both PIDF sets to their respective profiles.
+		/*
+		 * double p_up = Robot.constants.getConstant("armP_up"); double i_up =
+		 * Robot.constants.getConstant("armI_up"); double d_up =
+		 * Robot.constants.getConstant("armD_up"); double f_up =
+		 * Robot.constants.getConstant("armF_up");
+		 * 
+		 * double p_down = Robot.constants.getConstant("armP_down"); double
+		 * i_down = Robot.constants.getConstant("armI_down"); double d_down =
+		 * Robot.constants.getConstant("armD_down"); double f_down =
+		 * Robot.constants.getConstant("armF_down");
+		 */
+		int iZone = 10;// 7;
 		motor.setPID(p_down, i_down, d_down, f_down, iZone, rampRate,
 				profile_down);
 		motor.setPID(p_up, i_up, d_up, f_up, iZone, rampRate, profile_up);
@@ -72,8 +91,8 @@ public class Arm extends Subsystem {
 	public void armManualDrive(double triggerValue) {
 		// System.out.println("forward limit: "+ getArmForwardLimit());
 		// System.out.println("reverse limit: "+ getArmReverseLimit());
-		//System.out.println(" ArmHoldPosition:" + armHoldPosition);
-		//System.out.println(" ArmCurrentPosition:" + armCurrentPosition);
+		// System.out.println(" ArmHoldPosition:" + armHoldPosition);
+		// System.out.println(" ArmCurrentPosition:" + armCurrentPosition);
 		if (triggerValue < 0.1 && triggerValue > -0.1) {
 			motor.changeControlMode(TalonControlMode.Position);
 			motor.set(armHoldPosition);
@@ -83,51 +102,59 @@ public class Arm extends Subsystem {
 			motor.changeControlMode(TalonControlMode.PercentVbus);
 			motor.set(triggerValue);
 			updateArmPosition();
-			//armHoldPosition = armCurrentPosition;
+			// armHoldPosition = armCurrentPosition;
 		}
 	}
 
 	public boolean isOnTarget() {
-		double error = motor.getEncPosition() - motor.getSetpoint();
-		System.out.println("Arm Enc pos: " + motor.getEncPosition());
-		//System.out.println("Arm pos: " + motor.getPosition());
-		System.out.println("Arm PID setpoint: " + motor.getSetpoint());
-		System.out.println("Arm PID error: " + error);
-		System.out.println("Talon Output Voltage: " + motor.getOutputVoltage());
-		//System.out.println("Talon error: " + motor.getError());
+		currentError = motor.getEncPosition() - motor.getSetpoint();
+		double errorChange = prevError - currentError;
+		prevError = currentError;
 
+		/*
+		 * System.out.println("Arm Enc pos: " + motor.getEncPosition());
+		 * //System.out.println("Arm pos: " + motor.getPosition());
+		 * System.out.println("Arm PID setpoint: " + motor.getSetpoint());
+		 * System.out.println("Arm PID error: " + currentError);
+		 * System.out.println("Talon Output Voltage: " +
+		 * motor.getOutputVoltage()); //System.out.println("Talon error: " +
+		 * motor.getError());
+		 */
 		updateArmPosition();
 		smartSelectPIDConstants();
 
-		if (getArmReverseLimit() && error < 0) {
-			motor.setPosition(0);
-			return true;
-		} else if (error <= 2 && error >= -2) {
-			return true;
-		} else {
-			return false;
+		boolean isActuallyOnTarget = false;
+		/*
+		 * if (getArmReverseLimit() && currentError < 0) { motor.setPosition(0);
+		 * isActuallyOnTarget = true; }
+		 */
+		// else
+		if (Math.abs(currentError) < THRESHOLD && errorChange == 0) {
+			isActuallyOnTarget = true;
 		}
+		SmartDashboard.putBoolean("Arm on Target", isActuallyOnTarget);
+		return isActuallyOnTarget;
 	}
 
 	public void smartSelectPIDConstants() {
 		double error = motor.getError();
 
 		// if on stowed side of vertical
-		if (motor.getEncPosition() > armVerticalPosition) {
+		if (motor.getEncPosition() > Robot.constants.getConstant(BobConstants.ARM_VERTICAL_POS_KEY)){// Robot.constants.getConstant("armVerticalPosition")) {
 			if (error <= 0) {
-				//System.out.println("Selecting Up Constants");
+				// System.out.println("Selecting Up Constants");
 				motor.setProfile(profile_up);
 			} else {
-				//System.out.println("Selecting Down Constants");
+				// System.out.println("Selecting Down Constants");
 				motor.setProfile(profile_down);
 			}
-		// if on ground side of vertical
+			// if on ground side of vertical
 		} else {
 			if (error >= 0) {
-				//System.out.println("Selecting Up Constants");
+				// System.out.println("Selecting Up Constants");
 				motor.setProfile(profile_up);
 			} else {
-				//System.out.println("Selecting Down Constants");
+				// System.out.println("Selecting Down Constants");
 				motor.setProfile(profile_down);
 			}
 		}
@@ -136,13 +163,13 @@ public class Arm extends Subsystem {
 	// ------ARM POSITIONS------//
 
 	public double armStoragePosition = 0;
-	public double armShootFromTowerPosition = -394;// original-1063//works
-													// consistently-1039//
-	public double armAutoSearchPosition = -253;// 680
-	public double armAutoShootHighPosition = -344;// 925
-	public double armAutoShootLowPosition = -230;// 617
-	public double armShootFromCleatPosition = -324;// 1025
-	public double armCollectPosition = -427;// 1250*-.372 // all values scaled
+	public double armShootFromTowerPosition = -394;
+	public double armAutoSearchPosition = -253;//
+	public double armAutoShootHighPosition = -344;//
+	public double armAutoShootLowPosition = -230;// 
+	public double armLowGoalPosition = -366;
+	public double armShootFromCleatPosition = -324; // 
+	double armCollectPosition = -396;// 
 	public double armVerticalPosition = -190;
 
 	public void goToStorage() {
@@ -150,8 +177,8 @@ public class Arm extends Subsystem {
 	}
 
 	public void goToCollect() {
-		setArmPosition(armCollectPosition); // 1250
-	}
+		setArmPosition(armCollectPosition);
+	} 
 
 	public void gotToShootFromTower() {
 		setArmPosition(armShootFromTowerPosition);
@@ -173,6 +200,10 @@ public class Arm extends Subsystem {
 		setArmPosition(armShootFromCleatPosition);
 	}
 
+	public void goToLowGoalPosition() {
+		setArmPosition(armLowGoalPosition);
+	}
+
 	public int getArmPosition() {
 		return motor.getEncPosition();
 	}
@@ -191,13 +222,6 @@ public class Arm extends Subsystem {
 	// sudden movement on enable.
 	public void updateArmPosition() {
 		this.armHoldPosition = motor.getPosition();
-		
-		double prevOutputVoltage = motor.getOutputVoltage();
-		
-		if (getArmReverseLimit() && prevOutputVoltage < 0) {
-			motor.setPosition(0);
-			System.out.println("Home Limit Reached: Reseting Encoder.");
-		}
 	}
 
 }

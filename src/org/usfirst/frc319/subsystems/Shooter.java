@@ -2,6 +2,7 @@
 
 package org.usfirst.frc319.subsystems;
 
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
@@ -35,26 +36,47 @@ public class Shooter extends Subsystem {
 		// when installed check to make sure encoder and voltage are matched
 		rightShooter.configNominalOutputVoltage(+0.0f, +0.0f);
 		rightShooter.configPeakOutputVoltage(+0.0f, -12.0f);
-		rightShooter.setProfile(0);
+		//rightShooter.setProfile(0);
+		
+		double rightF = Robot.constants.getConstant(BobConstants.SHOOTER_RIGHT_F_KEY);
+		double rightP = Robot.constants.getConstant(BobConstants.SHOOTER_RIGHT_P_KEY);
+		double rightI = Robot.constants.getConstant(BobConstants.SHOOTER_RIGHT_I_KEY);
+		double rightD = Robot.constants.getConstant(BobConstants.SHOOTER_RIGHT_D_KEY);
+		
+		int rightIZone = (int)Robot.constants.getConstant(BobConstants.SHOOTER_RIGHT_IZONE_KEY);
+		
+		rightShooter.setPID(rightP, rightI, rightD, rightF, rightIZone, rightShooter.getCloseLoopRampRate(), 0);
+		
+		/*
 		rightShooter.setF(0.02997); // was 0.02997 before weights //0.0611 during burnout testing
 		rightShooter.setP(0.11);//0.11 before weights //1.166 during burnout
 		rightShooter.setI(.0011);// .0011-original//
 		rightShooter.setD(1.1);
 		rightShooter.setIZone(50);// might be increased to 100 (Derrick
 									// -1/29/16)
-
+		*/
+		
 		leftShooter.changeControlMode(TalonControlMode.Speed);
 		leftShooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		leftShooter.reverseSensor(true);
 		// check to make sure encoder and voltage are matched
 		leftShooter.configNominalOutputVoltage(+0.0f, +0.0f);
 		leftShooter.configPeakOutputVoltage(+12.0f, 0.0f);
+		
+		double leftF = Robot.constants.getConstant(BobConstants.SHOOTER_LEFT_F_KEY);
+		double leftP = Robot.constants.getConstant(BobConstants.SHOOTER_LEFT_P_KEY);
+		double leftI = Robot.constants.getConstant(BobConstants.SHOOTER_LEFT_I_KEY);
+		double leftD = Robot.constants.getConstant(BobConstants.SHOOTER_LEFT_D_KEY);
+		int leftIZone = (int)Robot.constants.getConstant(BobConstants.SHOOTER_LEFT_IZONE_KEY);
+		leftShooter.setPID(leftP, leftI, leftD, leftF, leftIZone, leftShooter.getCloseLoopRampRate(), 0);
+		/*
 		leftShooter.setProfile(0);
 		leftShooter.setF(0.0288179); // 0.02997 before weights
 		leftShooter.setP(0.11); // 0.11
 		leftShooter.setI(.0011);
 		leftShooter.setD(1.1); // 1.133
 		leftShooter.setIZone(50);// (Derrick -1/29/16)
+		*/
 
 	}
 

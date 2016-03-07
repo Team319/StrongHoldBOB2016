@@ -17,7 +17,9 @@ public class BobController extends Joystick {
     public JoystickButton leftBumper = new JoystickButton(this, 5);
     public JoystickButton startButton = new JoystickButton(this, 8);
     public JoystickButton selectButton = new JoystickButton(this, 7);
-
+    public JoystickButton leftStickButton = new JoystickButton(this, 9);
+    public JoystickButton rightStickButton = new JoystickButton(this, 10);
+    
     public Button leftTriggerButton = new XboxLeftTrigger(this);
     public Button rightTriggerButton = new XboxRightTrigger(this);
 

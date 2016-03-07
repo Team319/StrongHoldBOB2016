@@ -3,6 +3,8 @@
 package org.usfirst.frc319.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 
 /**
@@ -15,7 +17,7 @@ public class ArmGoToShootFromBatterCleat extends Command {
     }
 
     protected void initialize() {
-    	Robot.arm.goToCleatPosition();
+    	Robot.arm.setArmPosition(Robot.constants.getConstant(BobConstants.ARM_SHOOT_FROM_CLEAT_POS_KEY));//goToCleatPosition();
     }
 
     protected void execute() {

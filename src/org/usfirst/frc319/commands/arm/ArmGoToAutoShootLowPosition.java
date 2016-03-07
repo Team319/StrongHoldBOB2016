@@ -3,6 +3,8 @@
 package org.usfirst.frc319.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 
 /**
@@ -15,7 +17,7 @@ public class ArmGoToAutoShootLowPosition extends Command {
     }
 
     protected void initialize() {
-    	Robot.arm.goToAutoShootLowPosition();
+    	Robot.arm.setArmPosition(Robot.constants.getConstant(BobConstants.ARM_AUTO_SHOOT_LOW_POS_KEY));//goToAutoShootLowPosition();
     }
 
     protected void execute() {

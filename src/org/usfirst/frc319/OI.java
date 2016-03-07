@@ -6,11 +6,11 @@ import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.arm.ArmDelayThenGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToAutoShootLowPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
+import org.usfirst.frc319.commands.arm.ArmGoToLowGoal;
 import org.usfirst.frc319.commands.arm.ArmGoToPassedVariablePosition;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
 import org.usfirst.frc319.commands.arm.ArmGoToStorage;
-import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
 import org.usfirst.frc319.commands.camera.CalculateSpline;
 import org.usfirst.frc319.commands.camera.CameraCalculateOffset;
@@ -41,10 +41,10 @@ import org.usfirst.frc319.subsystems.*;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {    
+public class OI {
     public BobController driverController;
-    public BobController operatorController;  
-    
+    public BobController operatorController;
+
     public OI() {
 
     	/*driverController = new BobController(0);
@@ -58,56 +58,60 @@ public class OI {
     	driverController.startButton.whenPressed(new ShiftToggle());
     	driverController.selectButton.whenPressed(new CollectorAndShooterStop());
     	*/
-    	 
-    	
+
+
     	 driverController = new BobController(0);
     	//driverController.startButton.whenPressed(new ArmDelayThenGoToCollect());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
     	driverController.rightBumper.whenPressed(new AlignThenSpeedUpThenShoot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
-    	driverController.yButton.whenPressed(new BrakeModeToggle());
+    	driverController.yButton.whenPressed(new SpeedUpThenShoot());
     	driverController.aButton.whenPressed(new CollectorOut());
     	driverController.xButton.whenPressed(new ShiftToggle());
-    	
+    	//driverController.rightStickButton.whenPressed(new ());
+    	driverController.leftStickButton.whenPressed(new BrakeModeToggle());
     	
     	operatorController = new BobController(1);
     	//operatorController.selectButton.whenPressed(new FollowBothMotionProfiles());
     	operatorController.startButton.whenPressed(new StopAllMechanisms());
-    	
+
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
-    	operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
-    	operatorController.yButton.whenPressed(new ArmGoToShootFromBatterCleat());
-    	operatorController.aButton.whenPressed(new ArmGoToCollect());  
-    	//operatorController.bButton.whenPressed(new ArmGoToStorage());
-    	operatorController.leftBumper.whenPressed(new ShiftDown());
-    	operatorController.rightBumper.whenPressed(new ShiftUp());
-    	operatorController.rightTriggerButton.whenPressed(new ArmGoToAutoShootLowPosition());
-    	//operatorController.leftTriggerButton.whenPressed(new ArmGoToPassedVariablePosition(-80));
-    	operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
-    	//operatorController.selectButton.whenPressed(new ShooterPIDTest());
+    	//operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
+    	operatorController.yButton.whenPressed(new ArmGoToAutoShootLowPosition());
+    	operatorController.aButton.whenPressed(new ArmGoToCollect());
+    	operatorController.bButton.whenPressed(new ArmGoToStorage());
+    	//operatorController.leftBumper.whenPressed(new ShiftDown());
+    	//operatorController.rightBumper.whenPressed(new ShiftUp());
+    	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootFromBatterCleat());
+    	operatorController.leftTriggerButton.whenPressed(new ArmGoToLowGoal());
+    	//operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
+    	operatorController.selectButton.whenPressed(new GoOverChevalleDeFrise());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());
-    	
-      
+
+
     	//  operatorController.startButton.whenPressed(new ExampleCommandGroup());
-    	
+
     	//MIKE'S CODE
     	driverController.selectButton.whenPressed(new TuneCameraRotate());
     	driverController.startButton.whenPressed(new ArcadeDrive());
-    	/*driverController.selectButton.whenPressed(new DriveAutoSpline());
-    	driverController.leftTriggerButton.whileHeld(new ShooterGo());
-    	driverController.rightTriggerButton.whileHeld(new CollectorIn());
-    	driverController.leftBumper.whileHeld(new CollectorOut());
-    	driverController.rightBumper.whileHeld(new CollectorIn());
-    	driverController.xButton.whenPressed(new ArmGoToShootUnderTower());
-    	driverController.bButton.whenPressedoffsetDegrees(new ArmGoToCollect()); 
-    	driverController.aButton.whenPressed(new ArmGoToStorage());
+    	/*
+    	driverController = new BobController(0);
+    	driverController.leftBumper.whenPressed(new CollectAndStop());
+    	//driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
+    	driverController.aButton.whenPressed(new ArmGoToCollect());
+    	driverController.bButton.whenPressed(new CollectorStop());
+    	driverController.xButton.whenPressed(new ArmGoToShootFromBatterCleat());
+    	driverController.yButton.whenPressed(new ArmGoToStorage());
+    	driverController.startButton.whenPressed(new ShiftToggle());
+    	driverController.selectButton.whenPressed(new CollectorAndShooterStop());
+    	driverController.rightTriggerButton.whenPressed(new AlignThenSpeedUpThenShoot());
     	*/
     }
 
     public Joystick getDriverController() {
         return driverController;
-        
+
     }
 
 }

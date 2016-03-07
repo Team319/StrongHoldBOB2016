@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import org.usfirst.frc319.commands.*;
-import org.usfirst.frc319.commands.auto.LowBarAuto;
 import org.usfirst.frc319.commands.auto.LowBarHighGoalAuto;
 import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
 import org.usfirst.frc319.commands.auto.Position2VariousAuto;
@@ -56,6 +55,10 @@ public class Robot extends IterativeRobot {
     public static Climber climber;
     public static TowerCamera towerCamera;
     public static Pneumatics compressor;
+    public static BobConstants constants;
+    
+    public static final int USE_ORANGE_CONSTANTS = 0;
+    public static final int USE_BLUE_CONSTANTS = 1;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -64,7 +67,8 @@ public class Robot extends IterativeRobot {
     
     public void robotInit() {
     RobotMap.init();
-        
+    	//Change this line depending on which robot you're using
+    	constants = new BobConstants(USE_ORANGE_CONSTANTS);
         driveTrain = new DriveTrain();
         collector = new Collector();
         shooter = new Shooter();
@@ -74,11 +78,12 @@ public class Robot extends IterativeRobot {
         compressor = new Pneumatics();
         autoChooser = new SendableChooser();
         
+        //always do OI Last
         oi = new OI();
         
         
       
-        autoChooser.addDefault("Low bar auto", new LowBarHighGoalAuto());
+        autoChooser.addDefault("Low Bar High Goal auto", new LowBarHighGoalAuto());
         autoChooser.addObject("Various defenses position 2", new VariousDefencesAutoWeekZero());
         autoChooser.addObject("Various defenses position 3", new VariousDefencesAutoWeekZero());
         SmartDashboard.putData("autonomousModeChooser", autoChooser);

@@ -1,20 +1,26 @@
 package org.usfirst.frc319.commands.camera;
 
 public class Target {
-	private double offsetPixels = 0;
-	private double offsetDegrees = 0;
-	
-	
-	public Target(double xOffsetPixels, double xOffsetDegrees){
-		this.offsetDegrees = xOffsetDegrees;
-		this.offsetPixels = xOffsetPixels;
+	private double horizontalOffset = 0;
+	private double verticalOffset = 0;
+	private double distance = 0;
+
+
+	public Target(double horizontalOffset, double verticalOffset, double distance){
+		this.verticalOffset = verticalOffset;
+		this.horizontalOffset = horizontalOffset;
+		this.distance = distance;
 	}
-	
-	public double getOffsetDegrees() {
-		return offsetDegrees;
+
+	public double getHorizontalOffset() {
+		return horizontalOffset;
 	}
-	
-	public double getOffsetPixels() {
-		return offsetPixels;
+
+	public double getVerticalOffset() {
+		return verticalOffset;
+	}
+
+	public double getDistance() {
+		return distance;
 	}
 }

@@ -20,12 +20,13 @@ import org.usfirst.frc319.subsystems.*;
 public class AlignThenSpeedUpThenShoot extends CommandGroup {
 
     public AlignThenSpeedUpThenShoot() {
-    	
+
     	addSequential(new LoadBoulder());
+    	addSequential(new ShooterSpeedUp());
     	addParallel(new ShooterSpeedUp());
     	addSequential(new TuneCameraRotate());
     	addParallel(new ShooterSpeedUp());
-    	addSequential(new CollectorInUntilBallIsGone()); 
-    } 
-    
+    	addSequential(new CollectorInUntilBallIsGone());
+    }
+
 }

@@ -3,6 +3,8 @@
 package org.usfirst.frc319.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 
 /**
@@ -38,10 +40,8 @@ public class ShooterSpeedUp extends Command {
     	//System.out.println("Left Speed: " + Robot.shooter.getLeftShooterSpeed());
     	//possibly add an elseif its not at speed reset the counter
     	
-    	double speed = 4000;
-    	
-    	Robot.shooter.setLeftShooterSpeed(speed);
-    	Robot.shooter.setRightShooterSpeed(speed);
+    	Robot.shooter.setLeftShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
+    	Robot.shooter.setRightShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
     	
     }
 

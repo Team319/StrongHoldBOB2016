@@ -4,6 +4,7 @@ package org.usfirst.frc319.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 
 /**
@@ -17,7 +18,8 @@ public class ArmGoToAutoSearchPosition extends Command {
     }
 
     protected void initialize() {
-    	Robot.arm.goToAutoSearchPosition();
+    	//						 and from the appropriate dictionary, ( select the appropriate constant)
+    	Robot.arm.setArmPosition(Robot.constants.getConstant(BobConstants.ARM_AUTO_SEARCH_POS_KEY));//goToAutoSearchPosition();
     }
 
     protected void execute() {

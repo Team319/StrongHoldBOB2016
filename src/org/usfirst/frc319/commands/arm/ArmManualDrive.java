@@ -21,7 +21,7 @@ public class ArmManualDrive extends Command {
 
     protected void execute() {
     	Robot.arm.armManualDrive(Robot.oi.driverController.getTriggerTwist());
-    							
+
     }
 
     protected boolean isFinished() {
@@ -33,5 +33,5 @@ public class ArmManualDrive extends Command {
 
     protected void interrupted() {
     }
-    
+
 }

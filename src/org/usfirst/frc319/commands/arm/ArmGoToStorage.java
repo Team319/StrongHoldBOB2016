@@ -3,6 +3,8 @@
 package org.usfirst.frc319.commands.arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 
 /**
@@ -17,10 +19,10 @@ public class ArmGoToStorage extends Command {
     }
 
     protected void initialize() {
+    	Robot.arm.setArmPosition(Robot.constants.getConstant(BobConstants.ARM_STORAGE_POS_KEY));//goToStorage();
     }
 
     protected void execute() {
-    	Robot.arm.goToStorage();
     }
 
     protected boolean isFinished() {
