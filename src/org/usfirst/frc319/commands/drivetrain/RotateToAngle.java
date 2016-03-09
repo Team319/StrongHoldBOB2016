@@ -5,13 +5,20 @@ package org.usfirst.frc319.commands.drivetrain;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc319.Robot;
+import org.usfirst.frc319.commands.camera.Target;
+import org.usfirst.frc319.commands.camera.TargetManager;
+
+import com.team319.pid.status.PidStatus;
+import com.team319.pid.status.PidStatusManager;
 
 /**
  *
  */
 public class RotateToAngle extends PIDCommand {
+	
 	double setpoint = 0;
 	static double P = .036;
 	static double I = 0.0016;
@@ -41,9 +48,7 @@ public class RotateToAngle extends PIDCommand {
     
     protected void usePIDOutput(double output) {
     	
-    	/*
     	
-    	*/
     	double limit = .5; //0.8	//lets not do this part to start with
     	if (output < -limit){
     		output = -limit;

@@ -16,7 +16,7 @@ import org.usfirst.frc319.Robot;
 public class ShooterSpeedUp extends Command {
 
 	private static int atSpeedCounter =0;
-	private static int numberOfSamplesAtSpeed= 30;
+	private static int numberOfSamplesAtSpeed= 20;
 	
     public ShooterSpeedUp() {
         requires(Robot.shooter);

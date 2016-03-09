@@ -6,6 +6,7 @@ import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.shooter.ShooterDoNothing;
 import org.usfirst.frc319.commands.shooter.ShooterStop;
 
 import edu.wpi.first.wpilibj.CANTalon;

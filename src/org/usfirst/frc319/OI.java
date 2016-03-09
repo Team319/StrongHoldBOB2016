@@ -29,6 +29,7 @@ import org.usfirst.frc319.commands.drivetrain.BuildSingleTowerSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveAutoSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 import org.usfirst.frc319.commands.drivetrain.RotateToAngle;
+//import org.usfirst.frc319.commands.drivetrain.RotateToSquareWithField;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -72,20 +73,20 @@ public class OI {
     	driverController.leftStickButton.whenPressed(new BrakeModeToggle());
     	
     	operatorController = new BobController(1);
-    	//operatorController.selectButton.whenPressed(new FollowBothMotionProfiles());
+    	//operatorController.selectButton.whenPressed(new RotateToSquareWithField());
     	operatorController.startButton.whenPressed(new StopAllMechanisms());
 
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
     	//operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
-    	operatorController.yButton.whenPressed(new ArmGoToAutoShootLowPosition());
+    	//operatorController.yButton.whenPressed(new ArmGoToAutoShootLowPosition());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());
     	operatorController.bButton.whenPressed(new ArmGoToStorage());
     	//operatorController.leftBumper.whenPressed(new ShiftDown());
-    	//operatorController.rightBumper.whenPressed(new ShiftUp());
+    	operatorController.rightBumper.whenPressed(new LoadAndSpeedUp());
     	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootFromBatterCleat());
     	operatorController.leftTriggerButton.whenPressed(new ArmGoToLowGoal());
     	//operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
-    	operatorController.selectButton.whenPressed(new GoOverChevalleDeFrise());
+    	//operatorController.selectButton.whenPressed(new GoOverChevalleDeFrise());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());
 

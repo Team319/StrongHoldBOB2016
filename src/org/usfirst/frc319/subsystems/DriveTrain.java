@@ -327,4 +327,10 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 		this.leftDriveLead.setVoltageRampRate(rampRate);
 		this.rightDriveLead.setVoltageRampRate(rampRate);
 	}
+	public boolean leftDriveLeadStatus(){
+		return this.leftDriveLead.isAlive();
+	}
+	public boolean rightDriveLeadStatus(){
+		return this.rightDriveLead.isAlive();
+	}
 }

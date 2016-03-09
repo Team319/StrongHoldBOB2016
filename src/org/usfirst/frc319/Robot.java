@@ -159,7 +159,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putInt("Right Drivevtrain Encoder Position (revs)", Robot.driveTrain.getRightDrivetrainPosition());
         SmartDashboard.putInt("Left Drivevtrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         
-        
+        SmartDashboard.putBoolean("Right drivetrain is alive?", Robot.driveTrain.rightDriveLeadStatus());
+        SmartDashboard.putBoolean("Left drivetrain is alive?", Robot.driveTrain.leftDriveLeadStatus());
         
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){

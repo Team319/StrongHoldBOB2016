@@ -28,6 +28,7 @@ public class ShooterGo extends Command {
 
     protected boolean isFinished() {
         return false;
+        
     }
 
     protected void end() {

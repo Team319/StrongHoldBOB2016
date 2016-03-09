@@ -39,7 +39,7 @@ public class BuildPosition4Spline extends Command implements ITrajectoryChangeLi
 		
 		//testing
 		waypoints.add(new Waypoint(0,0,0));
-		waypoints.add(new Waypoint (9,-1,0));
+		waypoints.add(new Waypoint (9,1.1,0));
 		
 		//waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
 	/*

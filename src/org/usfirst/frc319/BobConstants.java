@@ -82,7 +82,7 @@ public class BobConstants {
 			put(SHOOTER_RIGHT_F_KEY, 0.02997);
 			put(SHOOTER_RIGHT_IZONE_KEY, 50.0);
 			put(SHOOTER_HIGH_SPEED_KEY,4000.0);
-			put(SHOOTER_LOW_SPEED_KEY,2000.0);
+			put(SHOOTER_LOW_SPEED_KEY,3000.0);
 		}
 	};
 
@@ -93,11 +93,11 @@ public class BobConstants {
 			put(ARM_VERTICAL_POS_KEY, -190.0);
 			put(ARM_AUTO_SHOOT_LOW_POS_KEY, -230.0);
 			put(ARM_AUTO_SEARCH_POS_KEY, -253.0);
-			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, -324.0);
+			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, -317.0);
 			put(ARM_AUTO_SHOOT_HIGH_POS_KEY, -344.0);
 			put(ARM_LOW_GOAL_POS_KEY, -366.0);
-			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -394.0);
-			put(ARM_COLLECT_POS_KEY, -396.0);
+			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -355.0);
+			put(ARM_COLLECT_POS_KEY, -410.0);
 			put(ARM_P_UP_KEY, 22.0);
 			put(ARM_I_UP_KEY, .05);
 			put(ARM_D_UP_KEY, .25);
@@ -120,7 +120,7 @@ public class BobConstants {
 			put(SHOOTER_RIGHT_F_KEY, 0.02997);
 			put(SHOOTER_RIGHT_IZONE_KEY, 50.0);
 			put(SHOOTER_HIGH_SPEED_KEY,4000.0);
-			put(SHOOTER_LOW_SPEED_KEY,2000.0);
+			put(SHOOTER_LOW_SPEED_KEY,3000.0);
 		}
 	};
 
