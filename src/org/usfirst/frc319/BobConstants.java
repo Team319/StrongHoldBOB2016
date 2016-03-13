@@ -8,7 +8,9 @@ public class BobConstants {
 
 	private int _constantsIndex;
 	private double defaultValue = 0.0;
-
+		
+		/*** ARM CONSTANTS ***/
+	
 	public static final String ARM_STORAGE_POS_KEY = "armStoragePosition";
 	public static final String ARM_VERTICAL_POS_KEY = "armVerticalPosition";
 	public static final String ARM_AUTO_SHOOT_LOW_POS_KEY = "armAutoShootLowPosition";
@@ -28,6 +30,8 @@ public class BobConstants {
 	public static final String ARM_F_DOWN_KEY = "armF_down";
 	public static final String ARM_IZONE_KEY = "armIZone";
 
+		/*** SHOOTER CONSTANTS ***/
+	
 	public static final String SHOOTER_LEFT_P_KEY = "leftShooterP";
 	public static final String SHOOTER_LEFT_I_KEY = "leftShooterI";
 	public static final String SHOOTER_LEFT_D_KEY = "leftShooterD";
@@ -38,11 +42,20 @@ public class BobConstants {
 	public static final String SHOOTER_RIGHT_D_KEY = "rightShooterD";
 	public static final String SHOOTER_RIGHT_F_KEY = "rightShooterF";
 	public static final String SHOOTER_RIGHT_IZONE_KEY = "rightShooterIZone";
-	
 	public static final String SHOOTER_HIGH_SPEED_KEY = "ShooterHighSpeed";
 	public static final String SHOOTER_LOW_SPEED_KEY = "ShooterLowSpeed";
+	public static final String SHOOTER_COLLECT_LOW_SPEED_KEY = "ShooterCollectLowSpeed";
+	public static final String SHOOTER_COLLECT_HIGH_SPEED_KEY = "ShooterCollectHighSpeed";
 	
+		/*** Collector Constants ***/
+	
+	public static final String COLLECTOR_COLLECT_LIMIT_KEY = "collectorCollectLimit";
+	public static final String COLLECTOR_LOW_SPEED_THRESHOLD_KEY = "collectorLowSpeedThreshold";
+	public static final String COLLECTOR_LOAD_LIMIT_KEY = "collectorLoadLimit";
+	public static final String COLLECTOR_LOW_SPEED_KEY = "collectorLowSpeed";
+	public static final String COLLECTOR_HIGH_SPEED_KEY = "collectorHighSpeed";
 
+	
 	public BobConstants(int constantsIndex) {
 		this._constantsIndex = constantsIndex;
 	}
@@ -55,11 +68,11 @@ public class BobConstants {
 			put(ARM_VERTICAL_POS_KEY, -190.0);
 			put(ARM_AUTO_SHOOT_LOW_POS_KEY, -230.0);
 			put(ARM_AUTO_SEARCH_POS_KEY, -253.0);
-			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, -324.0);
+			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, -315.0);
 			put(ARM_AUTO_SHOOT_HIGH_POS_KEY, -344.0);
-			put(ARM_LOW_GOAL_POS_KEY, -366.0);
-			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -394.0);
-			put(ARM_COLLECT_POS_KEY, -396.0);
+			put(ARM_LOW_GOAL_POS_KEY, -374.0);
+			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -350.0);
+			put(ARM_COLLECT_POS_KEY, -407.0);
 			put(ARM_P_UP_KEY, 22.0);
 			put(ARM_I_UP_KEY, .05);
 			put(ARM_D_UP_KEY, .25);
@@ -83,6 +96,16 @@ public class BobConstants {
 			put(SHOOTER_RIGHT_IZONE_KEY, 50.0);
 			put(SHOOTER_HIGH_SPEED_KEY,4000.0);
 			put(SHOOTER_LOW_SPEED_KEY,3000.0);
+			put(SHOOTER_COLLECT_HIGH_SPEED_KEY, 800.0);
+			put(SHOOTER_COLLECT_LOW_SPEED_KEY, 300.0);
+			
+			/*** COLLECTOR CONSTANTS ***/
+			
+			put(COLLECTOR_COLLECT_LIMIT_KEY, 1.5);
+			put(COLLECTOR_HIGH_SPEED_KEY, 0.85);
+			put(COLLECTOR_LOAD_LIMIT_KEY, 1.75);
+			put(COLLECTOR_LOW_SPEED_KEY, 0.3);
+			put(COLLECTOR_LOW_SPEED_THRESHOLD_KEY, 0.6);
 		}
 	};
 
@@ -97,7 +120,7 @@ public class BobConstants {
 			put(ARM_AUTO_SHOOT_HIGH_POS_KEY, -344.0);
 			put(ARM_LOW_GOAL_POS_KEY, -366.0);
 			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -355.0);
-			put(ARM_COLLECT_POS_KEY, -410.0);
+			put(ARM_COLLECT_POS_KEY, -420.0);
 			put(ARM_P_UP_KEY, 22.0);
 			put(ARM_I_UP_KEY, .05);
 			put(ARM_D_UP_KEY, .25);
@@ -121,6 +144,16 @@ public class BobConstants {
 			put(SHOOTER_RIGHT_IZONE_KEY, 50.0);
 			put(SHOOTER_HIGH_SPEED_KEY,4000.0);
 			put(SHOOTER_LOW_SPEED_KEY,3000.0);
+			put(SHOOTER_COLLECT_HIGH_SPEED_KEY, 800.0);
+			put(SHOOTER_COLLECT_LOW_SPEED_KEY, 300.0);
+
+			/*** COLLECTOR CONSTANTS ***/
+			
+			put(COLLECTOR_COLLECT_LIMIT_KEY, 1.75);
+			put(COLLECTOR_HIGH_SPEED_KEY, 0.85);
+			put(COLLECTOR_LOAD_LIMIT_KEY, 1.75);
+			put(COLLECTOR_LOW_SPEED_KEY, 0.5);
+			put(COLLECTOR_LOW_SPEED_THRESHOLD_KEY, 0.6);
 		}
 	};
 

@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     RobotMap.init();
     	//Change this line depending on which robot you're using
-    	constants = new BobConstants(USE_ORANGE_CONSTANTS);
+    	constants = new BobConstants(USE_BLUE_CONSTANTS);
         driveTrain = new DriveTrain();
         collector = new Collector();
         shooter = new Shooter();
@@ -82,21 +82,22 @@ public class Robot extends IterativeRobot {
         oi = new OI();
         
         
-      
+      /*
         autoChooser.addDefault("Low Bar High Goal auto", new LowBarHighGoalAuto());
         autoChooser.addObject("Various defenses position 2", new VariousDefencesAutoWeekZero());
         autoChooser.addObject("Various defenses position 3", new VariousDefencesAutoWeekZero());
         SmartDashboard.putData("autonomousModeChooser", autoChooser);
-        
+        */
         
         //for now -WEEK ZERO--- this is where you set your auto command.
        // autonomousCommand = new Position3VariousAuto();
         
         try{
        // LoggerServer.startServer();
-        WaypointClient.start("10.3.19.21");
-        TrajectoryClient.start("10.3.19.21");
-        PidClient.start("10.3.19.21");
+        	String ip = "10.3.19.19";
+        WaypointClient.start(ip);
+        TrajectoryClient.start(ip);
+        PidClient.start(ip);
         //TrajectoryProgressClient.start("10.3.19.21");
         }catch(Exception e){
         	e.printStackTrace();
@@ -120,7 +121,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-       autonomousCommand = (Command) autoChooser.getSelected();
+       autonomousCommand = new LowBarHighGoalAuto();//(Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
         Robot.driveTrain.setDTEncodersToZero();
     }
@@ -135,6 +136,8 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
         
         if (autonomousCommand != null) autonomousCommand.cancel();
+        Robot.shooter.setLeftShooterStop();
+        Robot.shooter.setRightShooterStop();
     }
 
     /**
@@ -148,8 +151,8 @@ public class Robot extends IterativeRobot {
         //SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
         //SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
-        SmartDashboard.putDouble("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIRSensor());
-        SmartDashboard.putDouble("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIRSensor());
+        SmartDashboard.putDouble("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIrSensorVoltage());
+        SmartDashboard.putDouble("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIrSensorVoltage());
         SmartDashboard.putDouble("Gyro Angle", Robot.driveTrain.getGyroAngle());
         
         

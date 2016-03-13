@@ -55,7 +55,8 @@ public class CameraCalculateOffset extends Command implements ITargetListener{
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-
+		TargetManager.getInstance().unregisterListener(this);
+		waitingForTarget = true;
 	}
 
 	@Override

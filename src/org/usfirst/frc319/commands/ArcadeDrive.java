@@ -2,8 +2,11 @@
 
 package org.usfirst.frc319.commands;
 
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc319.Robot;
+import org.usfirst.frc319.RobotMap;
 
 /**
  *
@@ -18,6 +21,12 @@ public class ArcadeDrive extends Command {
     }
 
     protected void initialize() {
+    	RobotMap.driveTrainrightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.driveTrainrightDriveFollow.changeControlMode(TalonControlMode.Follower);
+    	RobotMap.driveTrainrightDriveFollow.set(RobotMap.driveTrainrightDriveLead.getDeviceID());
+     	RobotMap.driveTrainleftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+     	RobotMap.driveTrainleftDriveFollow.changeControlMode(TalonControlMode.Follower);
+     	RobotMap.driveTrainleftDriveFollow.set(RobotMap.driveTrainleftDriveLead.getDeviceID());
     }
 
     protected void execute() {

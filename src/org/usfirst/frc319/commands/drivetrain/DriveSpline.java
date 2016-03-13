@@ -120,6 +120,22 @@ public class DriveSpline extends Command{
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
+		RobotMap.driveTrainrightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.driveTrainrightDriveFollow.changeControlMode(TalonControlMode.Follower);
+    	RobotMap.driveTrainrightDriveFollow.set(RobotMap.driveTrainrightDriveLead.getDeviceID());
+     	RobotMap.driveTrainleftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+     	RobotMap.driveTrainleftDriveFollow.changeControlMode(TalonControlMode.Follower);
+     	RobotMap.driveTrainleftDriveFollow.set(RobotMap.driveTrainleftDriveLead.getDeviceID());
+    	
+    	
+    	RobotMap.driveTrainleftDriveLead.set(0);
+    	RobotMap.driveTrainrightDriveLead.set(0);
+    	
+    	rightProfile.reset();
+    	leftProfile.reset();
+    	
+    	//Our profile has been run, so let's empty it
+    	Robot.driveTrain.setCurrentProfile(null);
 	}
 
 }

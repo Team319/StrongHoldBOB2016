@@ -16,10 +16,12 @@ import org.usfirst.frc319.commands.camera.CalculateSpline;
 import org.usfirst.frc319.commands.camera.CameraCalculateOffset;
 import org.usfirst.frc319.commands.camera.CameraDrive;
 import org.usfirst.frc319.commands.camera.TuneCameraRotate;
+import org.usfirst.frc319.commands.collector.CenterBoulder;
 import org.usfirst.frc319.commands.collector.CollectAndStop;
 import org.usfirst.frc319.commands.collector.CollectorIn;
 import org.usfirst.frc319.commands.collector.CollectorOut;
 import org.usfirst.frc319.commands.collector.CollectorStop;
+import org.usfirst.frc319.commands.collector.ForcedShot;
 import org.usfirst.frc319.commands.collector.LoadBoulder;
 import org.usfirst.frc319.commands.shooter.ShooterGo;
 import org.usfirst.frc319.commands.shooter.ShooterPIDTest;
@@ -30,6 +32,11 @@ import org.usfirst.frc319.commands.drivetrain.DriveAutoSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 import org.usfirst.frc319.commands.drivetrain.RotateToAngle;
 //import org.usfirst.frc319.commands.drivetrain.RotateToSquareWithField;
+
+
+
+
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
@@ -62,9 +69,9 @@ public class OI {
 
 
     	 driverController = new BobController(0);
-    	//driverController.startButton.whenPressed(new ArmDelayThenGoToCollect());
+    	driverController.startButton.whenPressed(new ForcedShot());
     	driverController.leftBumper.whenPressed(new CollectAndStop());
-    	driverController.rightBumper.whenPressed(new AlignThenSpeedUpThenShoot());
+    	driverController.rightBumper.whenPressed(new TowerShot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new SpeedUpThenShoot());
     	driverController.aButton.whenPressed(new CollectorOut());
@@ -73,17 +80,17 @@ public class OI {
     	driverController.leftStickButton.whenPressed(new BrakeModeToggle());
     	
     	operatorController = new BobController(1);
-    	//operatorController.selectButton.whenPressed(new RotateToSquareWithField());
+    	operatorController.selectButton.whenPressed(new ArcadeDrive());
     	operatorController.startButton.whenPressed(new StopAllMechanisms());
 
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
-    	//operatorController.xButton.whenPressed(new ArmGoToShootUnderTower());
+    	operatorController.xButton.whenPressed(new CenterBoulderRoutine());
     	//operatorController.yButton.whenPressed(new ArmGoToAutoShootLowPosition());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());
     	operatorController.bButton.whenPressed(new ArmGoToStorage());
-    	//operatorController.leftBumper.whenPressed(new ShiftDown());
+    	operatorController.leftBumper.whenPressed(new CameraCalculateOffset());
     	operatorController.rightBumper.whenPressed(new LoadAndSpeedUp());
-    	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootFromBatterCleat());
+    	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootUnderTower());
     	operatorController.leftTriggerButton.whenPressed(new ArmGoToLowGoal());
     	//operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
     	//operatorController.selectButton.whenPressed(new GoOverChevalleDeFrise());

@@ -28,38 +28,33 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 
 	@Override
 	protected void initialize() {
-		//this line say, that when we get the trajectory back run `onTrajectoryChange`
+		//this line says, that when we get the trajectory back run `onTrajectoryChange`
 		TrajectoryManager.getInstance().registerListener(this);
 		
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		waypoints.add(new Waypoint(0,0,0));
 		waypoints.add(new Waypoint(10,0,0));
-		waypoints.add(new Waypoint(20.5,-9,-65));//-65*Math.PI/180));
+		waypoints.add(new Waypoint(21.5,-8.5,-65));
+		//waypoints.add(new Waypoint(20.5,-9,-65));//-65*Math.PI/180)); first run practice match reading -wyatt 
+	
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+			    	// this is the trajectory server url
+					// THIS IS WHY IT DOESNT WORK!!!!!! -wyatt 2/22/2016
+					//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
+					WaypointList waypointList = new WaypointList(waypoints);
+					waypointList.setCachable(true);
+					WaypointManager.getInstance().setWaypointList(waypointList);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
 		
-		
-		//testing
-		//waypoints.add(new Waypoint(0,0,0));
-		//waypoints.add(new Waypoint (9,-9,0));
-		//waypoints.add(new Waypoint(10,-2,-60*Math.PI/180));
-		//waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
-	/*
-		double angle = -60;
-		double radians = (angle * Math.PI)/180;
-		
-		waypoints.add(new Waypoint(21,-9,radians));
-	*/
-		
-		try {
-	    	// this is the trajectory server url
-			// THIS IS WHY IT DOESNT WORK!!!!!! -wyatt 2/22/2016
-			//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
-			WaypointList waypointList = new WaypointList(waypoints);
-			waypointList.setCachable(true);
-			WaypointManager.getInstance().setWaypointList(waypointList);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 

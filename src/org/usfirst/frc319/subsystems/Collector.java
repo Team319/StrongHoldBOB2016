@@ -54,11 +54,11 @@ public class Collector extends Subsystem {
 		motor.set(speed);
 	}
 
-	public double getleftBoulderIRSensor() {
+	public double getleftBoulderIrSensorVoltage() {
 		return leftBoulderIRSensor.getVoltage();
 	}
 
-	public double getrightBoulderIRSensor() {
+	public double getrightBoulderIrSensorVoltage() {
 		return rightBoulderIRSensor.getVoltage();
 	}
 

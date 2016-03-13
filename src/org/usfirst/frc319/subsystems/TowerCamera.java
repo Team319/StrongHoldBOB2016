@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.Vector;
 
 import org.usfirst.frc319.Robot;
@@ -69,11 +70,15 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 	//Flexible Constants
 
 	private boolean SHOW_MASK = false;
+	
+	private NIVision.Range GREEN_TARGET_H_RANGE = new NIVision.Range(31, 94);	//Default hue range for the green target
+	private NIVision.Range GREEN_TARGET_S_RANGE = new NIVision.Range(46, 205);		//Default saturation range for the green target
+	private NIVision.Range GREEN_TARGET_V_RANGE = new NIVision.Range(90, 255);		//Default value range for the green target
 
-	private NIVision.Range GREEN_TARGET_H_RANGE = new NIVision.Range(60, 150);	//Default hue range for the green target
+/*	private NIVision.Range GREEN_TARGET_H_RANGE = new NIVision.Range(60, 150);	//Default hue range for the green target
 	private NIVision.Range GREEN_TARGET_S_RANGE = new NIVision.Range(0, 255);		//Default saturation range for the green target
 	private NIVision.Range GREEN_TARGET_V_RANGE = new NIVision.Range(10, 200);		//Default value range for the green target
-
+*/
 	int MAX_PARTICLES = 5; //The maximum number of particles to iterate over
 	double AREA_MINIMUM = 0.1; //Default Area minimum for particle as a percentage of total image area
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a target
@@ -101,9 +106,10 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 			@Override
 			public void run() {
+				SmartDashboard.putBoolean("GOT IMAGE", false);
 				initialize();
 
-				SmartDashboard.putBoolean("GOT IMAGE", false);
+				
 
 				while(!thread.isInterrupted()){
 					try{
@@ -113,7 +119,6 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 			    			return;
 			    		}
 			    		**/
-
 			    		frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
 
 
@@ -139,7 +144,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 				    	//CameraServer.getInstance().setImage(frame);
 
 				    	SmartDashboard.putBoolean("GOT IMAGE", true);
-						//CameraServer.getInstance().setImage(binaryFrame);
+						//CameraServer.getInstance().setImage(frame);
 
 						frame.free();
 
@@ -198,10 +203,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 		// the camera name (ex "cam0") can be found through the roborio web interface
         //session = NIVision.IMAQdxOpenCamera("cam1", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        camera = new USBCamera("cam0");
-
-        camera.setExposureManual(0);
-        camera.setBrightness(25);
+        camera = new USBCamera("cam2");
 
         camera.openCamera();
         camera.startCapture();
@@ -241,6 +243,8 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 				//Send particle count to dashboard
 				int numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
 				SmartDashboard.putNumber("PARTICLES FROM FILTER 2 (RGB)", numParticles);
+				
+				//CameraServer.getInstance().setImage(frame);
 
 				//filter out small particles
 				//MWT: IN 2014 WE USED A WIDTH FILTER INSTEAD OF AREA
@@ -329,7 +333,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 			    		SmartDashboard.putNumber("X pixel offset", offset);
 
-			    		double fov = 56;//73;
+			    		double fov = 70;//56;//73;
 			    		double ratio = fov / screenWidth;
 			    		double rotation = -1 * offset * ratio;
 
@@ -384,7 +388,8 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 		    		TargetManager.getInstance().setTarget(new Target(horizontalDegrees, verticalDegrees, distance));
 				}
-
+				
+				//NIVision.imaqWriteFile(frame, "/home/lvuser/field_images/"+System.currentTimeMillis()+".jpg", new NIVision.RGBValue(255, 255, 255, 1));
 
 				frame.free();
 				binaryFrame.free();

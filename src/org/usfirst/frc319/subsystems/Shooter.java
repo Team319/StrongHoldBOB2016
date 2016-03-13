@@ -6,6 +6,7 @@ import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.shooter.MaintainSpeed;
 import org.usfirst.frc319.commands.shooter.ShooterDoNothing;
 import org.usfirst.frc319.commands.shooter.ShooterStop;
 
@@ -87,7 +88,7 @@ public class Shooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ShooterStop());
+		setDefaultCommand(new MaintainSpeed());
 	}
 
 	public void setRightShooterSpeed(double speed) {
@@ -98,12 +99,12 @@ public class Shooter extends Subsystem {
 		leftShooter.set(speed);
 	}
 
-	public void setRightShooterStop(double speed) {
-		rightShooter.set(speed);
+	public void setRightShooterStop() {
+		rightShooter.set(0);
 	}
 
-	public void setLeftShooterStop(double speed) {
-		leftShooter.set(speed);
+	public void setLeftShooterStop() {
+		leftShooter.set(0);
 	}
 
 	public double getLeftShooterSpeed() {

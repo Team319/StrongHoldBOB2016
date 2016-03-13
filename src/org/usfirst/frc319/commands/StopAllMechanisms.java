@@ -19,7 +19,7 @@ public class StopAllMechanisms extends CommandGroup {
     	addParallel(new CollectorStop());
     	addParallel(new ArmStop());
     	addParallel(new ShooterStop());
- 
+    	
     } 
     
 }

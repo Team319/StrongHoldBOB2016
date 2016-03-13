@@ -3,56 +3,93 @@
 package org.usfirst.frc319.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc319.BobConstants;
+import org.usfirst.frc319.BobController;
 import org.usfirst.frc319.Robot;
 
 /**
  *
  */
 public class CollectAndStop extends Command {
+	
+	double collectorSpeed;
+	double shooterSpeed;
+	
+	double collectHighSpeed;
+	double collectLowSpeed;
+	
+	double shooterCollectHighSpeed;
+	double shooterCollectLowSpeed;
+	
+	double collectThreshold;
+	double speedThreshold;
 
-    public CollectAndStop() {
+	public CollectAndStop() {
 
-        requires(Robot.collector);
-        requires(Robot.shooter);
+		requires(Robot.collector);
+		requires(Robot.shooter);
 
-    }
+	}
 
-    protected void initialize() {
-    }
+	protected void initialize() {
+		collectorSpeed = 0;
+		shooterSpeed = 0;
+		
+		collectHighSpeed = Robot.constants.getConstant(BobConstants.COLLECTOR_HIGH_SPEED_KEY);
+		collectLowSpeed = Robot.constants.getConstant(BobConstants.COLLECTOR_LOW_SPEED_KEY);
+		
+		shooterCollectHighSpeed = Robot.constants.getConstant(BobConstants.SHOOTER_COLLECT_HIGH_SPEED_KEY);
+		shooterCollectLowSpeed = Robot.constants.getConstant(BobConstants.SHOOTER_COLLECT_LOW_SPEED_KEY);
+		
+		collectThreshold = Robot.constants.getConstant(BobConstants.COLLECTOR_COLLECT_LIMIT_KEY);
+		speedThreshold = Robot.constants.getConstant(BobConstants.COLLECTOR_LOW_SPEED_THRESHOLD_KEY);
+	}
 
-    protected void execute() {
-    	double speed = .85;
-    	
-    	if(Robot.collector.getAverageLeftAndRightBoulderIRSensor() <1){
-    		speed=.85;
-    	}
-    	else{
-    		speed =.2;
-    	}
-    		
-    	Robot.collector.collectorGoIn(speed);
-    	
-    	Robot.shooter.setLeftShooterSpeed(800);
-    	Robot.shooter.setRightShooterSpeed(800);
-    	
-    	
-    	
-    
-    }
+	protected void execute() {		
+		
+		double rightIrValue = Robot.collector.getrightBoulderIrSensorVoltage();
+		double leftIrValue = Robot.collector.getleftBoulderIrSensorVoltage();
+		
+		if (rightIrValue < speedThreshold && leftIrValue < speedThreshold) {
+			collectorSpeed = collectHighSpeed;
+			shooterSpeed = shooterCollectHighSpeed;
+		} else {
 
-    protected boolean isFinished() {
-    	
-    	//highest distance the ball should go
-        //return Robot.collector.loadIsFinished(2.5);
-        ///return the isfinished from the IRcollector sensor pass it a smaller value than in the 
-        return Robot.collector.bothIRSensorsCloseEnough(2.3);
-    }
+			collectorSpeed = collectLowSpeed;
+			shooterSpeed = shooterCollectLowSpeed;
+		}
 
-    protected void end() {
-    	//default command is CollectorStop
-    }
+		if (rightIrValue < collectThreshold) {
+			Robot.shooter.setLeftShooterSpeed(shooterSpeed);
 
-    protected void interrupted() {
-    }
-    
+		} else {
+			Robot.shooter.setLeftShooterStop();
+		}
+		if (leftIrValue < collectThreshold) {
+			Robot.shooter.setRightShooterSpeed(shooterSpeed);
+
+		} else {
+			Robot.shooter.setRightShooterStop();
+		}
+		Robot.collector.collectorGoIn(collectorSpeed);
+
+	}
+
+	protected boolean isFinished() {
+
+		// highest distance the ball should go
+		// return Robot.collector.loadIsFinished(2.5);
+		// /return the isfinished from the IRcollector sensor pass it a smaller
+		// value than in the
+		return Robot.collector.bothIRSensorsCloseEnough(collectThreshold);
+	}
+
+	protected void end() {
+		// default command is CollectorStop
+	}
+
+	protected void interrupted() {
+	}
+
 }

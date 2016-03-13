@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Arm extends Subsystem {
 
 	private final CANTalon motor = RobotMap.armMotor;
-	private static final double THRESHOLD = 2; // encoder ticks
+	private static final double THRESHOLD = 3; // encoder ticks
 
 	double p_up = 22;// 25
 	double i_up = .05; // .25
@@ -65,10 +65,11 @@ public class Arm extends Subsystem {
 		 * Robot.constants.getConstant("armD_down"); double f_down =
 		 * Robot.constants.getConstant("armF_down");
 		 */
-		int iZone = 10;// 7;
+		int iZone = 20;// 7;
 		motor.setPID(p_down, i_down, d_down, f_down, iZone, rampRate,
 				profile_down);
 		motor.setPID(p_up, i_up, d_up, f_up, iZone, rampRate, profile_up);
+		motor.setAllowableClosedLoopErr(2);
 		motor.reverseSensor(false); // needs to be tested//changed to true when
 									// encoder got moved to non-driven side
 		motor.reverseOutput(true); // needs to be tested//changed to true same

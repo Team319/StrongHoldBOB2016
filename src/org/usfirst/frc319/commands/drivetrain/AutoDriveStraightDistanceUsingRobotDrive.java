@@ -2,9 +2,11 @@
 
 package org.usfirst.frc319.commands.drivetrain;
 
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc319.Robot;
+import org.usfirst.frc319.RobotMap;
 
 /**
  *
@@ -18,7 +20,13 @@ public class AutoDriveStraightDistanceUsingRobotDrive extends Command {
     }
 
     protected void initialize() {
-    
+    	RobotMap.driveTrainrightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+    	RobotMap.driveTrainrightDriveFollow.changeControlMode(TalonControlMode.Follower);
+    	RobotMap.driveTrainrightDriveFollow.set(RobotMap.driveTrainrightDriveLead.getDeviceID());
+     	RobotMap.driveTrainleftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+     	RobotMap.driveTrainleftDriveFollow.changeControlMode(TalonControlMode.Follower);
+     	RobotMap.driveTrainleftDriveFollow.set(RobotMap.driveTrainleftDriveLead.getDeviceID());
+     	
     Robot.driveTrain.setDTEncodersToZero();
     Robot.driveTrain.resetGyro();
     Robot.driveTrain.shiftDown();
@@ -26,12 +34,12 @@ public class AutoDriveStraightDistanceUsingRobotDrive extends Command {
 
     protected void execute() {
     	//pass in robot speed
-    	Robot.driveTrain.driveStraight(-.6); //speed
+    	Robot.driveTrain.driveStraight(-.85); //speed
    
     }
 
     protected boolean isFinished() {
-    	if(Robot.driveTrain.getDistanceFromEncoderValues()> 40000){ //distance
+    	if(Robot.driveTrain.getDistanceFromEncoderValues()> 60000){ //distance
     		System.out.println("REached Distance");
     		return true;
     	}
