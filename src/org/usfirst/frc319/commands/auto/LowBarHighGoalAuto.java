@@ -22,8 +22,8 @@ public class LowBarHighGoalAuto extends CommandGroup {
 		addParallel(new ArmGoToCollect());//OPEN TO CHANGING THIS TO SEQUENTIAL Derrick 3/7/16
 		addSequential(new BuildSingleTowerSpline());
 		addSequential(new DriveSpline());
-		addParallel(new LoadAndSpeedUpAuto());
-		addSequential(new ArmGoToShootFromBatterCleat());
-		addSequential (new SpeedUpThenShoot());
+	//	addParallel(new LoadAndSpeedUpAuto());
+		//addSequential(new ArmGoToShootFromBatterCleat());
+	//	addSequential (new SpeedUpThenShoot());
 	}
 }

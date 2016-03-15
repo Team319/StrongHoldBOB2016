@@ -34,7 +34,7 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		waypoints.add(new Waypoint(0,0,0));
 		waypoints.add(new Waypoint(10,0,0));
-		waypoints.add(new Waypoint(21.5,-8.5,-65));
+		waypoints.add(new Waypoint(21,-7.5,-65));
 		//waypoints.add(new Waypoint(20.5,-9,-65));//-65*Math.PI/180)); first run practice match reading -wyatt 
 	
 		new Thread(new Runnable() {
