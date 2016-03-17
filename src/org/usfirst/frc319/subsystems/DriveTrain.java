@@ -150,8 +150,21 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 	}
 
 	public void setDTEncodersToZero() {
-		rightDriveLead.setEncPosition(0);
+		rightDriveLead.changeControlMode(TalonControlMode.Position);
+		leftDriveLead.changeControlMode(TalonControlMode.Position);
+		System.out.println("setDTencoders to Zero phase 1 Right: " +rightDriveLead.getEncPosition());
+		System.out.println("setDTencoders to Zero phase 1 Left: " +leftDriveLead.getEncPosition());
+		leftDriveLead.setPosition(0);
+		rightDriveLead.setPosition(0);
+		System.out.println("setDTencoders to Zero phase 2 Right: " +rightDriveLead.getEncPosition());
+		System.out.println("setDTencoders to Zero phase 2 Left: " +leftDriveLead.getEncPosition());
 		leftDriveLead.setEncPosition(0);
+		rightDriveLead.setEncPosition(0);
+		System.out.println("setDTencoders to Zero phase 3 Right: " +rightDriveLead.getEncPosition());
+		System.out.println("setDTencoders to Zero phase 3 Left: " +leftDriveLead.getEncPosition());
+		rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+		leftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+		System.out.println("setDTencoders to Zero");
 	}
 
 	// ------used for drive straight command-----//
