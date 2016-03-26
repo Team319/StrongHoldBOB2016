@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc319.Robot;
-import org.usfirst.frc319.commands.camera.TargetManager;
+import org.usfirst.frc319.commands.camera.OldTargetManager;
 
 /**
  *
@@ -22,9 +22,9 @@ public class ArmAutoAdjust extends Command {
     	//ticks to degrees
     	//y = -0.3642 * x - 68.759;
 
-    	double degreeChange = TargetManager.getInstance().getTarget().getVerticalOffset();
+    	double degreeChange = OldTargetManager.getInstance().getTarget().getVerticalOffset();
 
-    	double distance = TargetManager.getInstance().getTarget().getDistance();
+    	double distance = OldTargetManager.getInstance().getTarget().getDistance();
 
     	//degree offset from distance
     	//y = -1.8106x + 5.3007

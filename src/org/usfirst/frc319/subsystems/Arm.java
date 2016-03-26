@@ -28,7 +28,7 @@ public class Arm extends Subsystem {
 	double f_up = 0;
 
 	double p_down = 11;// 25
-	double i_down = .05; // .25
+	double i_down = .015; // .25
 	double d_down = .25;
 	double f_down = 0;
 
@@ -72,7 +72,7 @@ public class Arm extends Subsystem {
 		motor.setAllowableClosedLoopErr(2);
 		motor.reverseSensor(false); // needs to be tested//changed to true when
 									// encoder got moved to non-driven side
-		motor.reverseOutput(true); // needs to be tested//changed to true same
+		motor.reverseOutput(false); // needs to be tested//changed to true same
 									// as above
 
 		motor.enableLimitSwitch(true, true);
@@ -133,6 +133,10 @@ public class Arm extends Subsystem {
 		if (Math.abs(currentError) < THRESHOLD && errorChange == 0) {
 			isActuallyOnTarget = true;
 		}
+		//if the limit switch is hit then you can't go further anyway
+		//if(Robot.arm.getArmReverseLimit()&& errorChange>0){
+			//isActuallyOnTarget = true;
+		
 		SmartDashboard.putBoolean("Arm on Target", isActuallyOnTarget);
 		return isActuallyOnTarget;
 	}
@@ -162,7 +166,7 @@ public class Arm extends Subsystem {
 	}
 
 	// ------ARM POSITIONS------//
-
+/*
 	public double armStoragePosition = 0;
 	public double armShootFromTowerPosition = -394;
 	public double armAutoSearchPosition = -253;//
@@ -204,7 +208,7 @@ public class Arm extends Subsystem {
 	public void goToLowGoalPosition() {
 		setArmPosition(armLowGoalPosition);
 	}
-
+*/
 	public int getArmPosition() {
 		return motor.getEncPosition();
 	}

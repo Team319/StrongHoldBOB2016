@@ -12,16 +12,33 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.auto.AutoDictionary;
+import org.usfirst.frc319.commands.auto.AutoMapFactory;
 import org.usfirst.frc319.commands.auto.LowBarHighGoalAuto;
 import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
 import org.usfirst.frc319.commands.auto.Position2VariousAuto;
 import org.usfirst.frc319.commands.auto.Position3VariousAuto;
 import org.usfirst.frc319.commands.auto.VariousDefencesAutoWeekZero;
+import org.usfirst.frc319.commands.drivetrain.BuildLeftTowerSpline;
+import org.usfirst.frc319.commands.drivetrain.BuildPosition2Spline;
+import org.usfirst.frc319.commands.drivetrain.BuildPosition3Spline;
+import org.usfirst.frc319.commands.drivetrain.BuildPosition4Spline;
+import org.usfirst.frc319.commands.drivetrain.BuildPosition5Spline;
+import org.usfirst.frc319.commands.drivetrain.BuildSingleTowerSpline;
 import org.usfirst.frc319.commands.drivetrain.DriveStraightSpline;
 import org.usfirst.frc319.subsystems.*;
 import org.usfirst.frc319.motionProfiles.*;
 import org.usfirst.frc319.RightMotionProfile;
 
+import com.team319.auto.AutoConfig;
+import com.team319.auto.AutoConfigException;
+import com.team319.auto.AutoManager;
+import com.team319.auto.AutoModes;
+import com.team319.auto.IAutoConfigChangeListener;
+import com.team319.auto.SelectedAuto;
+import com.team319.auto.web.client.AutoClient;
+import com.team319.vision.ITargetListener;
+import com.team319.vision.web.client.TargetClient;
 import com.team319.web.LoggerServer;
 import com.team319.web.config.client.ConfigClient;
 import com.team319.web.log.client.LoggerClient;
@@ -42,7 +59,7 @@ import com.team319.web.waypoint.client.WaypointClient;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
 
     Command autonomousCommand;
     SendableChooser autoChooser;
@@ -59,6 +76,8 @@ public class Robot extends IterativeRobot {
     
     public static final int USE_ORANGE_CONSTANTS = 0;
     public static final int USE_BLUE_CONSTANTS = 1;
+    
+    private SelectedAuto selectedAuto = null;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -66,7 +85,7 @@ public class Robot extends IterativeRobot {
      */
     
     public void robotInit() {
-    RobotMap.init();
+    	RobotMap.init();
     	//Change this line depending on which robot you're using
     	constants = new BobConstants(USE_BLUE_CONSTANTS);
         driveTrain = new DriveTrain();
@@ -95,10 +114,22 @@ public class Robot extends IterativeRobot {
         try{
        // LoggerServer.startServer();
         	String ip = "10.3.19.19";
-        WaypointClient.start(ip);
-        TrajectoryClient.start(ip);
-        PidClient.start(ip);
-        //TrajectoryProgressClient.start("10.3.19.21");
+	        WaypointClient.start(ip);
+	        TrajectoryClient.start(ip);
+	        PidClient.start(ip);
+	        TargetClient.start(ip);
+	        //TrajectoryProgressClient.start("10.3.19.21");
+	        /**
+	        //AutoMapFactory.getInstance().buildMap();
+	        AutoModes autoModes = new AutoModes();
+	        autoModes.setDefenses(AutoDictionary.getDefenses());
+	        autoModes.setModes(AutoDictionary.getModes());
+	        autoModes.setPositions(AutoDictionary.getPositions());
+	        AutoManager.getInstance().setModes(autoModes);
+	        AutoManager.getInstance().registerListener(this);
+	        AutoClient.start(ip);
+	        **/
+        
         }catch(Exception e){
         	e.printStackTrace();
         }
@@ -121,9 +152,10 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
-       autonomousCommand = new LowBarHighGoalAuto();//(Command) autoChooser.getSelected();
+       //autonomousCommand = new LowBarHighGoalAuto();
+    	autonomousCommand = new Position3VariousAuto();//(Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
-        Robot.driveTrain.setDTEncodersToZero();
+        //Robot.driveTrain.setDTEncodersToZero();
     }
 
     /**
@@ -150,9 +182,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
         //SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
         //SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
-        SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
-        SmartDashboard.putDouble("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIrSensorVoltage());
-        SmartDashboard.putDouble("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIrSensorVoltage());
+        //SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
+        SmartDashboard.putNumber("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIrSensorAverageVoltage());
+        SmartDashboard.putNumber("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIrSensorAverageVoltage());
         SmartDashboard.putDouble("Gyro Angle", Robot.driveTrain.getGyroAngle());
         
         
@@ -181,5 +213,56 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+   
+    }
+    
+    @Override
+    public void onChange(AutoConfig auto) {
+    	// TODO Auto-generated method stub
+    	
+    	if(auto.getSelectedAuto().equals(selectedAuto)){
+    		//the auto hasn't changed
+    		return;
+    	}
+    	
+    	Command builtAuto = AutoMapFactory.getInstance().buildAuto(auto.getSelectedAuto());
+    	
+    	if(builtAuto == null){
+    		autonomousCommand = null;
+    		AutoManager.getInstance().throwAutoConfigException(new AutoConfigException(AutoConfigException.UNDEFINED_AUTO));
+    	}else{
+    		selectedAuto = auto.getSelectedAuto();
+    		autonomousCommand = builtAuto;
+    	}
+    	
+    	/**
+    	if (AutoMapFactory.getInstance().hasAuto(auto.getSelectedAuto())){
+    		//the autos been defined
+    		autonomousCommand = AutoMapFactory.getInstance().getAuto(auto.getSelectedAuto());
+    		String position = auto.getSelectedAuto().getSelectedPosition();
+    				
+			if(position.equalsIgnoreCase(AutoDictionary.POS_POSITION_1)){
+				new BuildSingleTowerSpline().buildSpline();
+			}else if(position.equalsIgnoreCase(AutoDictionary.POS_POSITION_2)){
+				new BuildPosition2Spline().buildSpline();
+			}else if(position.equalsIgnoreCase(AutoDictionary.POS_POSITION_3)){
+				new BuildPosition3Spline().buildSpline();
+			}else if(position.equalsIgnoreCase(AutoDictionary.POS_POSITION_4)){
+				new BuildPosition4Spline().buildSpline();
+			}else if(position.equalsIgnoreCase(AutoDictionary.POS_POSITION_5)){
+				new BuildPosition5Spline().buildSpline();
+			}
+    	}else{
+    		autonomousCommand = null;
+    		AutoManager.getInstance().throwAutoConfigException(new AutoConfigException(AutoConfigException.UNDEFINED_AUTO));
+    	}
+    	**/
+    	
+    }
+    
+    @Override
+    public void onConfigException(AutoConfigException autoException) {
+    	// TODO Auto-generated method stub
+    	
     }
 }

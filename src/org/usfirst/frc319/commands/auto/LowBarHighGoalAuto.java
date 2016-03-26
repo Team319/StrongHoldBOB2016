@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class LowBarHighGoalAuto extends CommandGroup {
 	public LowBarHighGoalAuto(){
-		addParallel(new ArmGoToCollect());//OPEN TO CHANGING THIS TO SEQUENTIAL Derrick 3/7/16
 		addSequential(new BuildSingleTowerSpline());
+		addParallel(new ArmGoToCollect());//OPEN TO CHANGING THIS TO SEQUENTIAL Derrick 3/7/16
 		addSequential(new DriveSpline());
 	//	addParallel(new LoadAndSpeedUpAuto());
 		//addSequential(new ArmGoToShootFromBatterCleat());

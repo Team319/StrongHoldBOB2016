@@ -242,5 +242,14 @@ public class Shooter extends Subsystem {
 		} else
 			return false;
 	}
+	
+	public boolean hasShooterReachedSetpoint(){
+		double leftSetPoint = leftShooter.getSetpoint();
+		double rightSetPoint = rightShooter.getSetpoint();
+		double leftSpeed = leftShooter.getSpeed();
+		double rightSpeed = rightShooter.getSpeed();
+		
+		return (rightSpeed >= rightSetPoint) && (leftSpeed >= leftSetPoint);
+	}
 
 }

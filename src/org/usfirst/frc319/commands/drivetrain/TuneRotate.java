@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc319.Robot;
-import org.usfirst.frc319.commands.camera.Target;
-import org.usfirst.frc319.commands.camera.TargetManager;
+import org.usfirst.frc319.commands.camera.OldTarget;
+import org.usfirst.frc319.commands.camera.OldTargetManager;
 
 import com.team319.pid.IPidChangeListener;
 import com.team319.pid.Pid;
@@ -82,7 +82,7 @@ public class TuneRotate extends PIDCommand {
     protected void initialize() {
     	Robot.driveTrain.resetGyro();
     	//Robot.driveTrain.setVoltageRampRate(36.0);
-    	Target target = TargetManager.getInstance().getTarget();
+    	OldTarget target = OldTargetManager.getInstance().getTarget();
 
     	setpoint = target.getHorizontalOffset();
 

@@ -20,6 +20,7 @@ public class BobConstants {
 	public static final String ARM_LOW_GOAL_POS_KEY = "armLowGoalPosition";
 	public static final String ARM_SHOOT_FROM_TOWER_POS_KEY = "armShootFromTowerPosition";
 	public static final String ARM_COLLECT_POS_KEY = "armCollectPosition";
+	public static final String ARM_OUTERWORKS_POS_KEY = "armOuterworksPosition";
 	public static final String ARM_P_UP_KEY = "armP_up";
 	public static final String ARM_I_UP_KEY = "armI_up";
 	public static final String ARM_D_UP_KEY = "armD_up";
@@ -29,6 +30,7 @@ public class BobConstants {
 	public static final String ARM_D_DOWN_KEY = "armD_down";
 	public static final String ARM_F_DOWN_KEY = "armF_down";
 	public static final String ARM_IZONE_KEY = "armIZone";
+	
 
 		/*** SHOOTER CONSTANTS ***/
 	
@@ -64,15 +66,17 @@ public class BobConstants {
 
 		{
 			/*** ARM CONSTANTS ***/
-			put(ARM_STORAGE_POS_KEY, 0.0);
-			put(ARM_VERTICAL_POS_KEY, -190.0);
-			put(ARM_AUTO_SHOOT_LOW_POS_KEY, -230.0);
-			put(ARM_AUTO_SEARCH_POS_KEY, -253.0);
-			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, -315.0);
-			put(ARM_AUTO_SHOOT_HIGH_POS_KEY, -344.0);
-			put(ARM_LOW_GOAL_POS_KEY, -374.0);
-			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -350.0);
-			put(ARM_COLLECT_POS_KEY, -407.0);
+				
+			put(ARM_STORAGE_POS_KEY, 13.0); //ArmGoToStrorage
+			put(ARM_VERTICAL_POS_KEY,120.0);//ArmGoToVertical
+			put(ARM_AUTO_SHOOT_LOW_POS_KEY, 230.0); //ArmGoToAutoLowPosition
+			put(ARM_AUTO_SEARCH_POS_KEY, 291.0); //ArmGoToSearchPosition
+			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, 312.0);//ArmGoToShootFromBatterCleat
+			put(ARM_AUTO_SHOOT_HIGH_POS_KEY, 344.0); //ArmGoToAutoShootHighPosition
+			put(ARM_LOW_GOAL_POS_KEY, 374.0); //ArmGoToLowGoal
+			put(ARM_SHOOT_FROM_TOWER_POS_KEY, 350.0); //ArmGoToShootUnderTower
+			put(ARM_COLLECT_POS_KEY, 419.0); //ArmGoToCollect
+			put(ARM_OUTERWORKS_POS_KEY, 300.0);
 			put(ARM_P_UP_KEY, 22.0);
 			put(ARM_I_UP_KEY, .05);
 			put(ARM_D_UP_KEY, .25);
@@ -87,40 +91,42 @@ public class BobConstants {
 			put(SHOOTER_LEFT_P_KEY, 0.11);
 			put(SHOOTER_LEFT_I_KEY, 0.0011);
 			put(SHOOTER_LEFT_D_KEY, 1.1);
-			put(SHOOTER_LEFT_F_KEY, 0.0288179);
+			put(SHOOTER_LEFT_F_KEY, 0.02775);
 			put(SHOOTER_LEFT_IZONE_KEY, 50.0);
-			put(SHOOTER_RIGHT_P_KEY, .11);
-			put(SHOOTER_RIGHT_I_KEY, 0.0011);
+			
+			put(SHOOTER_RIGHT_P_KEY, 0.11);//0.11);//0.0845);
+			put(SHOOTER_RIGHT_I_KEY, 0.0);//0.0011);
 			put(SHOOTER_RIGHT_D_KEY, 1.1);
-			put(SHOOTER_RIGHT_F_KEY, 0.02997);
+			put(SHOOTER_RIGHT_F_KEY, 0.02725);//0.02997);
 			put(SHOOTER_RIGHT_IZONE_KEY, 50.0);
-			put(SHOOTER_HIGH_SPEED_KEY,4000.0);
-			put(SHOOTER_LOW_SPEED_KEY,3000.0);
-			put(SHOOTER_COLLECT_HIGH_SPEED_KEY, 800.0);
-			put(SHOOTER_COLLECT_LOW_SPEED_KEY, 300.0);
+			
+			put(SHOOTER_HIGH_SPEED_KEY,4000.0); //ShooterGoAuto,ShooterSpeedUp
+			put(SHOOTER_LOW_SPEED_KEY,3300.0); //ShooterSpeedUpSlow
+			put(SHOOTER_COLLECT_HIGH_SPEED_KEY, 800.0); //CollectAndStop
+			put(SHOOTER_COLLECT_LOW_SPEED_KEY, 300.0); //CollectAndStop
 			
 			/*** COLLECTOR CONSTANTS ***/
-			
-			put(COLLECTOR_COLLECT_LIMIT_KEY, 1.5);
-			put(COLLECTOR_HIGH_SPEED_KEY, 0.85);
-			put(COLLECTOR_LOAD_LIMIT_KEY, 1.75);
-			put(COLLECTOR_LOW_SPEED_KEY, 0.3);
-			put(COLLECTOR_LOW_SPEED_THRESHOLD_KEY, 0.6);
+			put(COLLECTOR_COLLECT_LIMIT_KEY, 1.5); //CollectAndStop
+			put(COLLECTOR_HIGH_SPEED_KEY, 0.85); //CollectAndStop
+			put(COLLECTOR_LOAD_LIMIT_KEY, 1.75); //???
+			put(COLLECTOR_LOW_SPEED_KEY, 0.3);//CollectAndStop
+			put(COLLECTOR_LOW_SPEED_THRESHOLD_KEY, 0.6);//CollectAndStop
 		}
 	};
 
 	private HashMap<String, Double> orangeConstants = new HashMap<String, Double>() {
 		{
 			/*** ARM CONSTANTS ***/
-			put(ARM_STORAGE_POS_KEY, 0.0);
-			put(ARM_VERTICAL_POS_KEY, -190.0);
-			put(ARM_AUTO_SHOOT_LOW_POS_KEY, -230.0);
-			put(ARM_AUTO_SEARCH_POS_KEY, -253.0);
-			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, -317.0);
-			put(ARM_AUTO_SHOOT_HIGH_POS_KEY, -344.0);
-			put(ARM_LOW_GOAL_POS_KEY, -366.0);
-			put(ARM_SHOOT_FROM_TOWER_POS_KEY, -355.0);
-			put(ARM_COLLECT_POS_KEY, -420.0);
+			put(ARM_STORAGE_POS_KEY, 0.0); //ArmGoToStrorage
+			put(ARM_VERTICAL_POS_KEY, 120.0); //ArmGoToVertical
+			put(ARM_AUTO_SHOOT_LOW_POS_KEY, 230.0);//ArmGoToAutoLowPosition
+			put(ARM_AUTO_SEARCH_POS_KEY, 291.0); //ArmGoToSearchPosition
+			put(ARM_SHOOT_FROM_CLEAT_POS_KEY, 331.0);
+			put(ARM_AUTO_SHOOT_HIGH_POS_KEY,344.0);
+			put(ARM_LOW_GOAL_POS_KEY, 366.0);
+			put(ARM_SHOOT_FROM_TOWER_POS_KEY,355.0);
+			put(ARM_COLLECT_POS_KEY, 420.0);
+			put(ARM_OUTERWORKS_POS_KEY, 300.0);
 			put(ARM_P_UP_KEY, 22.0);
 			put(ARM_I_UP_KEY, .05);
 			put(ARM_D_UP_KEY, .25);
@@ -135,13 +141,15 @@ public class BobConstants {
 			put(SHOOTER_LEFT_P_KEY, 0.11);
 			put(SHOOTER_LEFT_I_KEY, 0.0011);
 			put(SHOOTER_LEFT_D_KEY, 1.1);
-			put(SHOOTER_LEFT_F_KEY, 0.0288179);
+			put(SHOOTER_LEFT_F_KEY, 0.02775);
 			put(SHOOTER_LEFT_IZONE_KEY, 50.0);
-			put(SHOOTER_RIGHT_P_KEY, 0.11);
-			put(SHOOTER_RIGHT_I_KEY, 0.0011);
+			
+			put(SHOOTER_RIGHT_P_KEY, 0.11);//0.11);//0.0845);
+			put(SHOOTER_RIGHT_I_KEY, 0.0);//0.0011);
 			put(SHOOTER_RIGHT_D_KEY, 1.1);
-			put(SHOOTER_RIGHT_F_KEY, 0.02997);
+			put(SHOOTER_RIGHT_F_KEY, 0.02725);//0.02997);
 			put(SHOOTER_RIGHT_IZONE_KEY, 50.0);
+			
 			put(SHOOTER_HIGH_SPEED_KEY,4000.0);
 			put(SHOOTER_LOW_SPEED_KEY,3000.0);
 			put(SHOOTER_COLLECT_HIGH_SPEED_KEY, 800.0);

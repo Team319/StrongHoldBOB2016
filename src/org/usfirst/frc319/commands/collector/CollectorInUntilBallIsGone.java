@@ -9,6 +9,8 @@ import org.usfirst.frc319.Robot;
  *
  */
 public class CollectorInUntilBallIsGone extends Command {
+	
+	long startTime = 0;
 
     public CollectorInUntilBallIsGone() {
 
@@ -17,6 +19,7 @@ public class CollectorInUntilBallIsGone extends Command {
     }
 
     protected void initialize() {
+    	startTime = System.currentTimeMillis();
     }
 
     protected void execute() {
@@ -25,6 +28,10 @@ public class CollectorInUntilBallIsGone extends Command {
     }
 
     protected boolean isFinished() {
+    	if(System.currentTimeMillis() - startTime > 2000){
+    		//we've been shooting for over two seconds
+    		//return true;
+    	}
         return false;
         //implement bellow when bouldersensor is working		
         //Robot.collector.ballIsGone(20);

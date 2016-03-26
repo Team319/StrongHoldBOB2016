@@ -3,9 +3,11 @@ package org.usfirst.frc319.commands.auto;
 import org.usfirst.frc319.commands.FollowBothMotionProfiles;
 import org.usfirst.frc319.commands.arm.ArmGoToAutoSearchPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
+import org.usfirst.frc319.commands.arm.ArmGoToPassedVariablePosition;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
 import org.usfirst.frc319.commands.camera.CameraDrive;
 import org.usfirst.frc319.commands.commandGroups.AlignThenSpeedUpThenShoot;
+import org.usfirst.frc319.commands.commandGroups.AutoAimShoot;
 import org.usfirst.frc319.commands.commandGroups.LoadAndSpeedUpAuto;
 import org.usfirst.frc319.commands.commandGroups.SpeedUpThenShoot;
 import org.usfirst.frc319.commands.drivetrain.AutoDriveStraightDistanceUsingRobotDrive;
@@ -26,8 +28,10 @@ public class Position3VariousAuto extends CommandGroup {
 		//addSequential(new RotateToSquareWithField());
 		//addSequential(new BuildPosition3Spline());
 		//addSequential(new DriveSpline());
-		//addSequential(new ArmGoToShootFromBatterCleat());
-		//addSequential(new AlignThenSpeedUpThenShoot());
+		//addSequential(new ArmGoToPassedVariablePosition(-310));
+		addSequential(new ArmGoToShootFromBatterCleat());
+		//addSequential(new SpeedUpThenShoot());
+		addSequential(new AutoAimShoot());
 		
 		/**
 		 * addSequential(new RotateToSquareWithField());

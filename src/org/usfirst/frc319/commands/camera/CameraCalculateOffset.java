@@ -16,7 +16,7 @@ import com.team319.web.trajectory.server.TrajectoryServletSocket;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CameraCalculateOffset extends Command implements ITargetListener{
+public class CameraCalculateOffset extends Command implements IOldTargetListener{
 
 	private static final double BACK_OFF = 3.5;
 	private boolean waitingForTarget = true;
@@ -28,7 +28,7 @@ public class CameraCalculateOffset extends Command implements ITargetListener{
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		TargetManager.getInstance().registerListener(this);
+		OldTargetManager.getInstance().registerListener(this);
 
 		//gets the distance and sends it to the Trajectory Server
 		Robot.towerCamera.processFrame();
@@ -48,19 +48,19 @@ public class CameraCalculateOffset extends Command implements ITargetListener{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		TargetManager.getInstance().unregisterListener(this);
+		OldTargetManager.getInstance().unregisterListener(this);
 		waitingForTarget = true;
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		TargetManager.getInstance().unregisterListener(this);
+		OldTargetManager.getInstance().unregisterListener(this);
 		waitingForTarget = true;
 	}
 
 	@Override
-	public void onTargetChange(Target target) {
+	public void onTargetChange(OldTarget target) {
 		waitingForTarget = false;
 	}
 

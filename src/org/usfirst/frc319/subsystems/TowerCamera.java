@@ -23,8 +23,8 @@ import java.util.Vector;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.camera.RunTowerCamera;
-import org.usfirst.frc319.commands.camera.Target;
-import org.usfirst.frc319.commands.camera.TargetManager;
+import org.usfirst.frc319.commands.camera.OldTarget;
+import org.usfirst.frc319.commands.camera.OldTargetManager;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
@@ -386,7 +386,7 @@ public class TowerCamera extends Subsystem{//extends StatefulSubsystem{
 
 		    		SmartDashboard.putNumber("Distance to Target", distance);
 
-		    		TargetManager.getInstance().setTarget(new Target(horizontalDegrees, verticalDegrees, distance));
+		    		OldTargetManager.getInstance().setTarget(new OldTarget(horizontalDegrees, verticalDegrees, distance));
 				}
 				
 				//NIVision.imaqWriteFile(frame, "/home/lvuser/field_images/"+System.currentTimeMillis()+".jpg", new NIVision.RGBValue(255, 255, 255, 1));

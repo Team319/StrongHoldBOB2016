@@ -16,7 +16,7 @@ import com.team319.web.trajectory.server.TrajectoryServletSocket;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CameraOffsetCorrect extends Command implements ITargetListener{
+public class CameraOffsetCorrect extends Command implements IOldTargetListener{
 
 	private static final double BACK_OFF = 3.5;
 	private boolean waitingForTarget = true;
@@ -28,7 +28,7 @@ public class CameraOffsetCorrect extends Command implements ITargetListener{
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		TargetManager.getInstance().registerListener(this);
+		OldTargetManager.getInstance().registerListener(this);
 
 		//gets the distance and sends it to the Trajectory Server
 		Robot.towerCamera.processFrame();
@@ -48,7 +48,7 @@ public class CameraOffsetCorrect extends Command implements ITargetListener{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		TargetManager.getInstance().unregisterListener(this);
+		OldTargetManager.getInstance().unregisterListener(this);
 		waitingForTarget = true;
 	}
 
@@ -59,7 +59,7 @@ public class CameraOffsetCorrect extends Command implements ITargetListener{
 	}
 
 	@Override
-	public void onTargetChange(Target target) {
+	public void onTargetChange(OldTarget target) {
 		//SmartDashboard.putNumber("Target X Offset", target.getOffsetDegrees());
 		//SmartDashboard.putNumber("Target X Offset Degrees", target.getOffsetPixels());
 		waitingForTarget = false;

@@ -3,6 +3,8 @@
 package org.usfirst.frc319.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc319.BobConstants;
 import org.usfirst.frc319.Robot;
 
 /**
@@ -20,9 +22,9 @@ public class ShooterGoAuto extends Command {
     }
 
     protected void execute() {
-    	double speed = 4000;
-    	Robot.shooter.setLeftShooterSpeed(speed);
-    	Robot.shooter.setRightShooterSpeed(speed);
+    	
+    	Robot.shooter.setLeftShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
+    	Robot.shooter.setRightShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
     	
     }
 

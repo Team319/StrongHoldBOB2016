@@ -23,6 +23,9 @@ import com.team319.robot.logging.LoggableCanTalon;
 import com.team319.robot.logging.LoggableSensor;
 import com.team319.trajectory.CombinedSrxMotionProfile;
 import com.team319.trajectory.ITrajectoryChangeListener;
+import com.team319.vision.ITargetListener;
+import com.team319.vision.Target;
+import com.team319.vision.TargetManager;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -38,7 +41,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveTrain extends Subsystem implements IPidChangeListener {// extends
+public class DriveTrain extends Subsystem implements IPidChangeListener, ITargetListener{// extends
 																			// StatefulSubsystem{
 
 	public boolean shift;
@@ -62,10 +65,12 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 	RightMotionProfile rightProfile = new RightMotionProfile(rightDriveLead);
 
 	private CombinedSrxMotionProfile currentProfile;
+	private double horizontalOffset = 0d;;
 
 	public DriveTrain() {
 
 		PidManager.getInstance().registerListener(this);
+		TargetManager.getInstance().registerListener(this);
 
 		rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
 		rightDriveFollow.changeControlMode(TalonControlMode.Follower);
@@ -100,6 +105,8 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 	public void arcadeDrive(double moveValue, double rotateValue) {
 
 		drivetrain.arcadeDrive(-moveValue, rotateValue, true);
+		SmartDashboard.putNumber("moveValue", moveValue);
+		SmartDashboard.putNumber("rotateValue", rotateValue);
 
 		// true is a boolean for "squared inputs" - derrick 1/20/16
 
@@ -150,10 +157,14 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 	}
 
 	public void setDTEncodersToZero() {
-		rightDriveLead.changeControlMode(TalonControlMode.Position);
-		leftDriveLead.changeControlMode(TalonControlMode.Position);
+		//rightDriveLead.changeControlMode(TalonControlMode.Position);
+		//leftDriveLead.changeControlMode(TalonControlMode.Position);
 		System.out.println("setDTencoders to Zero phase 1 Right: " +rightDriveLead.getEncPosition());
 		System.out.println("setDTencoders to Zero phase 1 Left: " +leftDriveLead.getEncPosition());
+		//leftDriveLead.reset();
+		//rightDriveLead.reset();
+		System.out.println("Is the left drive reset?");
+		System.out.println("Is the left drive Reset?");
 		leftDriveLead.setPosition(0);
 		rightDriveLead.setPosition(0);
 		System.out.println("setDTencoders to Zero phase 2 Right: " +rightDriveLead.getEncPosition());
@@ -162,8 +173,8 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 		rightDriveLead.setEncPosition(0);
 		System.out.println("setDTencoders to Zero phase 3 Right: " +rightDriveLead.getEncPosition());
 		System.out.println("setDTencoders to Zero phase 3 Left: " +leftDriveLead.getEncPosition());
-		rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
-		leftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+		//rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
+		//leftDriveLead.changeControlMode(TalonControlMode.PercentVbus);
 		System.out.println("setDTencoders to Zero");
 	}
 
@@ -279,6 +290,16 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 		leftDriveFollow.changeControlMode(TalonControlMode.Follower);
 		leftDriveFollow.set(leftDriveLead.getDeviceID());
 	}
+	
+	public void setModeToVelocity(){
+		rightDriveLead.changeControlMode(TalonControlMode.Speed);
+		leftDriveLead.changeControlMode(TalonControlMode.Speed);		
+	}
+	
+	public void setLeftRightSpeeds(double leftSpeed, double rightSpeed){
+		rightDriveLead.set(rightSpeed);
+		leftDriveLead.set(leftSpeed);
+	}
 
 	// @Override
 	public Map<String, Object> getCustomProperties() {
@@ -345,5 +366,18 @@ public class DriveTrain extends Subsystem implements IPidChangeListener {// exte
 	}
 	public boolean rightDriveLeadStatus(){
 		return this.rightDriveLead.isAlive();
+	}
+
+	public void setTargetOffset(double horizontalOffset) {
+		this.horizontalOffset = horizontalOffset;
+	}
+	
+	public double getHorizontalOffset() {
+		return horizontalOffset;
+	}
+	
+	@Override
+	public void onTargetChange(Target target) {
+		this.horizontalOffset = target.getHorizontalOffset();
 	}
 }

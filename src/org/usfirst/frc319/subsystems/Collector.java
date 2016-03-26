@@ -62,6 +62,14 @@ public class Collector extends Subsystem {
 		return rightBoulderIRSensor.getVoltage();
 	}
 
+	public double getleftBoulderIrSensorAverageVoltage() {
+		return leftBoulderIRSensor.getAverageVoltage();
+	}
+
+	public double getrightBoulderIrSensorAverageVoltage() {
+		return rightBoulderIRSensor.getAverageVoltage();
+	}
+	
 	public double getAverageLeftAndRightBoulderIRSensor() {
 		return (leftBoulderIRSensor.getVoltage() + rightBoulderIRSensor
 				.getVoltage()) / 2;

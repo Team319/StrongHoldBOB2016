@@ -24,7 +24,8 @@ public class CollectAndStop extends Command {
 	
 	double collectThreshold;
 	double speedThreshold;
-
+	double centerThreshold;
+	
 	public CollectAndStop() {
 
 		requires(Robot.collector);
@@ -44,12 +45,13 @@ public class CollectAndStop extends Command {
 		
 		collectThreshold = Robot.constants.getConstant(BobConstants.COLLECTOR_COLLECT_LIMIT_KEY);
 		speedThreshold = Robot.constants.getConstant(BobConstants.COLLECTOR_LOW_SPEED_THRESHOLD_KEY);
+		centerThreshold = 2.0;
 	}
 
 	protected void execute() {		
 		
-		double rightIrValue = Robot.collector.getrightBoulderIrSensorVoltage();
-		double leftIrValue = Robot.collector.getleftBoulderIrSensorVoltage();
+		double rightIrValue = Robot.collector.getrightBoulderIrSensorAverageVoltage();
+		double leftIrValue = Robot.collector.getleftBoulderIrSensorAverageVoltage();
 		
 		if (rightIrValue < speedThreshold && leftIrValue < speedThreshold) {
 			collectorSpeed = collectHighSpeed;
@@ -60,13 +62,13 @@ public class CollectAndStop extends Command {
 			shooterSpeed = shooterCollectLowSpeed;
 		}
 
-		if (rightIrValue < collectThreshold) {
+		if (rightIrValue < centerThreshold) {
 			Robot.shooter.setLeftShooterSpeed(shooterSpeed);
 
 		} else {
 			Robot.shooter.setLeftShooterStop();
 		}
-		if (leftIrValue < collectThreshold) {
+		if (leftIrValue < centerThreshold) {
 			Robot.shooter.setRightShooterSpeed(shooterSpeed);
 
 		} else {
@@ -86,7 +88,8 @@ public class CollectAndStop extends Command {
 	}
 
 	protected void end() {
-		// default command is CollectorStop
+		Robot.shooter.setRightShooterStop();
+		Robot.shooter.setLeftShooterStop();
 	}
 
 	protected void interrupted() {

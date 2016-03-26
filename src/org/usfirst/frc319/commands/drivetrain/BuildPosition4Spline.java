@@ -25,38 +25,28 @@ public class BuildPosition4Spline extends Command implements ITrajectoryChangeLi
 	public BuildPosition4Spline() {
 		requires(Robot.driveTrain);
 	}
+	
+	public void buildSpline(){
+		List<Waypoint> waypoints = new ArrayList<Waypoint>();
+		//testing
+		waypoints.add(new Waypoint(0,0,0));
+		waypoints.add(new Waypoint (9,1.1,0));
+		
+		try {
+			WaypointList waypointList = new WaypointList(waypoints);
+			waypointList.setCachable(true);
+			WaypointManager.getInstance().setWaypointList(waypointList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	protected void initialize() {
 		//this line say, that when we get the trajectory back run `onTrajectoryChange`
 		TrajectoryManager.getInstance().registerListener(this);
 		
-		List<Waypoint> waypoints = new ArrayList<Waypoint>();
-		/*waypoints.add(new Waypoint(0,0,0));
-		waypoints.add(new Waypoint(10,0,0));
-		waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
-		*/
-		
-		//testing
-		waypoints.add(new Waypoint(0,0,0));
-		waypoints.add(new Waypoint (9,1.1,0));
-		
-		//waypoints.add(new Waypoint(21.5,-9,-60*Math.PI/180));
-	/*
-		double angle = -60;
-		double radians = (angle * Math.PI)/180;
-		
-		waypoints.add(new Waypoint(21,-9,radians));
-	*/
-		
-		try {
-	    	// this is the trajectory server url
-			//TrajectoryClient.start("10.3.19.20");//"10.3.19.20");//"169.254.189.192");//"10.3.19.20");
-			WaypointManager.getInstance().setWaypointList(new WaypointList(waypoints));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		buildSpline();
 		
 	}
 

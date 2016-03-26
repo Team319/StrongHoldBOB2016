@@ -40,8 +40,8 @@ public class ShooterSpeedUpSlow extends Command {
     	//System.out.println("Left Speed: " + Robot.shooter.getLeftShooterSpeed());
     	//possibly add an elseif its not at speed reset the counter
     	
-    	Robot.shooter.setLeftShooterSpeed(3300);
-    	Robot.shooter.setRightShooterSpeed(3300);
+    	Robot.shooter.setLeftShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_LOW_SPEED_KEY));
+    	Robot.shooter.setRightShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_LOW_SPEED_KEY));
     	
     }
 

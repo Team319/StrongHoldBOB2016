@@ -23,7 +23,7 @@ public class LoadAndSpeedUp extends CommandGroup {
     public LoadAndSpeedUp() {
     	
     	addSequential(new LoadBoulder());
-    	addSequential(new ShooterGo());
+    	addSequential(new ShooterSpeedUp());
     	//addParallel(new ShooterGo());
     	 
     } 
