@@ -70,7 +70,7 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 	public DriveTrain() {
 
 		PidManager.getInstance().registerListener(this);
-		TargetManager.getInstance().registerListener(this);
+		//TargetManager.getInstance().registerListener(this);
 
 		rightDriveLead.changeControlMode(TalonControlMode.PercentVbus);
 		rightDriveFollow.changeControlMode(TalonControlMode.Follower);
@@ -379,5 +379,6 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 	@Override
 	public void onTargetChange(Target target) {
 		this.horizontalOffset = target.getHorizontalOffset();
+		
 	}
 }

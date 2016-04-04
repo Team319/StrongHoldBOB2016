@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Position3VariousAuto extends CommandGroup {
 	public Position3VariousAuto(){
-	
+		
 		addSequential(new AutoDriveStraightDistanceUsingRobotDrive());
 		//addSequential(new RotateToSquareWithField());
 		//addSequential(new BuildPosition3Spline());

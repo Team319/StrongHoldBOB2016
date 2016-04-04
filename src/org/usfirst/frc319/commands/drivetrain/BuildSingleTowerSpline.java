@@ -31,8 +31,8 @@ public class BuildSingleTowerSpline extends Command implements ITrajectoryChange
 		//testing
 		waypoints.add(new Waypoint(0,0,0));
 		waypoints.add(new Waypoint(10,0,0));
-		waypoints.add(new Waypoint(21,-7.5,-65));
-		
+		//waypoints.add(new Waypoint(21,-7.5,-65));
+		waypoints.add(new Waypoint(22,-5,-65));
 		try {
 			WaypointList waypointList = new WaypointList(waypoints);
 			waypointList.setCachable(true);

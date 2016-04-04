@@ -31,7 +31,7 @@ public class LoadBoulder extends Command {
     protected boolean isFinished() {
     	
     	//higher number is closer to shooter wheels
-    	double loadDistance = 1.6;
+    	double loadDistance = 1.75;
         return Robot.collector.CenterBoulderIsFinished(loadDistance);
         
         //Call the isfinished from the Collector Subsystem pass it the loadDelta

@@ -152,8 +152,8 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
     }
 
     public void autonomousInit() {
-       //autonomousCommand = new LowBarHighGoalAuto();
-    	autonomousCommand = new Position3VariousAuto();//(Command) autoChooser.getSelected();
+    	autonomousCommand = new LowBarHighGoalAuto();
+    	//autonomousCommand = new Position3VariousAuto();//(Command) autoChooser.getSelected();
         if (autonomousCommand != null) autonomousCommand.start();
         //Robot.driveTrain.setDTEncodersToZero();
     }
@@ -180,6 +180,7 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.getLeftShooterSpeed());
         SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRightShooterSpeed());
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
+        SmartDashboard.putBoolean("Ball Collected", Robot.collector.ballCollected);
         //SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
         //SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         //SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
@@ -196,7 +197,9 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         
         SmartDashboard.putBoolean("Right drivetrain is alive?", Robot.driveTrain.rightDriveLeadStatus());
         SmartDashboard.putBoolean("Left drivetrain is alive?", Robot.driveTrain.leftDriveLeadStatus());
+        SmartDashboard.putNumber("Target Offset", Robot.driveTrain.getHorizontalOffset());
         
+        SmartDashboard.putNumber("Climber Encoder Value", Robot.climber.getClimberDistanceFromEncoderValue());
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
         	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);

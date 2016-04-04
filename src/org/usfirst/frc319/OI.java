@@ -3,6 +3,10 @@
 package org.usfirst.frc319;
 
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.Climber.ClimberGoDown;
+import org.usfirst.frc319.commands.Climber.ClimberGoUp;
+import org.usfirst.frc319.commands.Climber.ClimberGoUpDistanceUsingEncoderPosition;
+import org.usfirst.frc319.commands.Climber.ClimberStop;
 import org.usfirst.frc319.commands.arm.ArmDelayThenGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToAutoShootLowPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
@@ -88,9 +92,13 @@ public class OI {
     	driverController.leftStickButton.whenPressed(new BrakeModeToggle());
     	
     	operatorController = new BobController(1);
-    	operatorController.selectButton.whenPressed(new ArcadeDrive());
-    	operatorController.startButton.whenPressed(new StopAllMechanisms());
+    	//operatorController.selectButton.whenPressed(new ArcadeDrive());
+    	//operatorController.startButton.whenPressed(new StopAllMechanisms());
 
+    	operatorController.selectButton.whileHeld(new ClimberGoUp());
+    	operatorController.startButton.whenPressed(new ClimberGoUpDistanceUsingEncoderPosition());
+    	operatorController.leftBumper.whenPressed(new ClimberStop());
+    	
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
     	operatorController.xButton.whenPressed(new CenterBoulderRoutine());
     	operatorController.yButton.whenPressed(new ArmGoToVertical());

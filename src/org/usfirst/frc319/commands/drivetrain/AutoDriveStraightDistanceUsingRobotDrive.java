@@ -39,8 +39,8 @@ public class AutoDriveStraightDistanceUsingRobotDrive extends Command {
 
     protected void execute() {
     	//pass in robot speed
-    	
-    	Robot.driveTrain.driveStraight(-1); //speed
+    	Robot.driveTrain.driveStraight(-1);
+    	//Robot.driveTrain.driveStraight(-1); //speed
     	System.out.println("Driving and distance is  : " + Robot.driveTrain.getDistanceFromEncoderValues());
    
     }

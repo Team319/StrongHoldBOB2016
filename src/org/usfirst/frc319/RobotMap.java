@@ -28,6 +28,7 @@ public class RobotMap {
     public static CANTalon driveTrainrightDriveFollow;
     public static RobotDrive driveTraindriveTrain;
     public static DoubleSolenoid driveTrainshifter;
+    public static DoubleSolenoid climberSolenoid;
     public static CANTalon collectorcollectorMotor;
     public static DigitalInput collectorboulderSensor;
     public static AnalogInput leftBoulderIRSensor;
@@ -35,7 +36,8 @@ public class RobotMap {
     public static CANTalon shooterleftShooter;
     public static CANTalon shooterrightShooter;
     public static CANTalon armMotor;
-    public static CANTalon climberMotor;
+    public static CANTalon climberMotorLead;
+    public static CANTalon climberMotorFollow;
     public static Relay towerCameratowerRelay;
     public static Compressor compressorcompressor;
     public static AnalogInput compressorpressureSensor;
@@ -66,12 +68,16 @@ public class RobotMap {
         driveTrainshifter = new DoubleSolenoid(0, 0, 1);
         LiveWindow.addActuator("driveTrain", "shifter", driveTrainshifter);
         
+        climberSolenoid = new DoubleSolenoid(0, 2, 3);
+        
         gyro= new AnalogGyro(0);// Must be on input 0!
         gyro.setSensitivity(0.0067);//tuned to 360 for gyro on blue bot
         
         
         //-----   Collector   -----
-        collectorcollectorMotor = new CANTalon(8);
+        
+        
+        collectorcollectorMotor = new CANTalon(9);//moved to 9 from 8
         LiveWindow.addActuator("collector", "collectorMotor", collectorcollectorMotor);
         
         collectorboulderSensor = new DigitalInput(0);
@@ -92,12 +98,16 @@ public class RobotMap {
         LiveWindow.addActuator("shooter", "rightShooter", shooterrightShooter);
         
         //-----   Arm   -----
-        armMotor = new CANTalon(1);
+        //moved to 0 when installing climber from 1
+        armMotor = new CANTalon(0);
         LiveWindow.addActuator("arm", "armMotor", armMotor);
         
         //-----   Climber   -----
-        climberMotor = new CANTalon(8);//changing to 0
-        LiveWindow.addActuator("climber", "climberMotor", climberMotor);
+        climberMotorLead = new CANTalon(8);//moved climber to 8 from 9
+        LiveWindow.addActuator("climber", "climberMotorLead", climberMotorLead);
+        
+        climberMotorFollow = new CANTalon(1);//moved climber follow to 1 from 0
+        LiveWindow.addActuator("climber", "climberMotorFollow", climberMotorFollow);
         
         //-----   Camera   -----
         towerCameratowerRelay = new Relay(0);

@@ -115,12 +115,13 @@ public class AutoAimRotate extends PIDCommand {
 
     	//setpoint = 10;
 
-    	SmartDashboard.putNumber("Rotation Setpoint", setpoint);
+    	SmartDashboard.putNumber("Turn to Angle", setpoint);
 
     	startTime = System.currentTimeMillis();
     	numSamplesOnTarget = 0;
 
-    	this.setSetpoint(Robot.driveTrain.getGyroAngle() + setpoint);
+    	this.setSetpoint(setpoint);
+    	//this.setSetpoint(Robot.driveTrain.getGyroAngle() + setpoint);
     	this.getPIDController().enable();
     	System.out.println("I have the setpoint and its"+ setpoint);
     }

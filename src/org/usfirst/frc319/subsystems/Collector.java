@@ -24,6 +24,7 @@ public class Collector extends Subsystem {
 	private final DigitalInput boulderSensor = RobotMap.collectorboulderSensor;
 	private final AnalogInput leftBoulderIRSensor = RobotMap.leftBoulderIRSensor;
 	private final AnalogInput rightBoulderIRSensor = RobotMap.rightBoulderIRSensor;
+	public boolean ballCollected;
 
 	// link the AnalogInput to the RobotMap
 
@@ -110,8 +111,10 @@ public class Collector extends Subsystem {
 	public boolean bothIRSensorsCloseEnough(double threshold) {
 		if (rightBoulderIRSensor.getVoltage() > threshold
 				&& leftBoulderIRSensor.getVoltage() > threshold) {
+			ballCollected = true;
 			return true;
 		} else {
+			ballCollected = false;
 			return false;
 		}
 	}

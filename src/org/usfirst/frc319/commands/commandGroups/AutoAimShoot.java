@@ -23,9 +23,9 @@ public class AutoAimShoot extends CommandGroup {
     public AutoAimShoot() {
 
     	addSequential(new LoadBoulder());
-    	addSequential(new ShooterSpeedUp());
-    	//addParallel(new ShooterSpeedUp());
-    	//addSequential(new CameraGetTarget());
+    	//addSequential(new ShooterSpeedUp());
+    	addParallel(new ShooterSpeedUp());
+    	addSequential(new CameraGetTarget());
     	addSequential(new AutoAimRotate());
     	//addParallel(new ShooterSpeedUp());
     	addSequential(new CollectorInUntilBallIsGone());
