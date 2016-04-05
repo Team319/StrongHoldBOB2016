@@ -28,6 +28,7 @@ import com.team319.vision.Target;
 import com.team319.vision.TargetManager;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.MotionProfileStatus;
@@ -57,7 +58,7 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 	private final CANTalon leftDriveFollow = RobotMap.driveTrainleftDriveFollow;
 	private final RobotDrive drivetrain = RobotMap.driveTraindriveTrain;
 	private final AnalogGyro gyro = RobotMap.gyro;
-	// public static AHRS imu;
+	private final BuiltInAccelerometer rioAccelerometer = RobotMap.rioAccelerometer;
 
 	private Pid pid = null;
 
@@ -139,7 +140,11 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 	public void resetGyro() {
 		gyro.reset();
 	}
-
+	public double getTilt(){
+		return rioAccelerometer.getZ();
+	}
+	
+	
 	public int getLeftDrivetrainPosition() {
 		return leftDriveLead.getEncPosition();
 	}

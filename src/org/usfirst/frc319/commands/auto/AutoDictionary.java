@@ -6,6 +6,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AutoDictionary {
+	
+	
+	public static final String AUTO_POSITION_1 = "auto position 1";
+	public static final String AUTO_POSITION_2 = "auto position 2";
+	public static final String AUTO_POSITION_3 = "auto position 3";
+	public static final String AUTO_POSITION_4 = "auto position 4";
+	public static final String AUTO_POSITION_5 = "auto position 5";
+	
+	
 	public static final String POS_POSITION_1 = "Position 1";
 	public static final String POS_POSITION_2 = "Position 2";
 	public static final String POS_POSITION_3 = "Position 3";
@@ -36,7 +45,7 @@ public class AutoDictionary {
 	}
 
 	public static List<String> getModes(){
-		return Arrays.asList(MODE_DRIVE_STRAIGHT,  MODE_DRIVE_AND_SHOOT_HIGH);
+		return Arrays.asList(AUTO_POSITION_1,AUTO_POSITION_2,AUTO_POSITION_3,AUTO_POSITION_4,AUTO_POSITION_5);
 	}
 
 	public static List<String> getDefenses(){

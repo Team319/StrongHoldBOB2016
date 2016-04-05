@@ -119,16 +119,16 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
 	        PidClient.start(ip);
 	        TargetClient.start(ip);
 	        //TrajectoryProgressClient.start("10.3.19.21");
-	        /**
+	        
 	        //AutoMapFactory.getInstance().buildMap();
 	        AutoModes autoModes = new AutoModes();
-	        autoModes.setDefenses(AutoDictionary.getDefenses());
+	        /**autoModes.setDefenses(AutoDictionary.getDefenses());
 	        autoModes.setModes(AutoDictionary.getModes());
-	        autoModes.setPositions(AutoDictionary.getPositions());
+	        autoModes.setPositions(AutoDictionary.getPositions());**/
 	        AutoManager.getInstance().setModes(autoModes);
 	        AutoManager.getInstance().registerListener(this);
 	        AutoClient.start(ip);
-	        **/
+	        
         
         }catch(Exception e){
         	e.printStackTrace();
@@ -200,6 +200,9 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         SmartDashboard.putNumber("Target Offset", Robot.driveTrain.getHorizontalOffset());
         
         SmartDashboard.putNumber("Climber Encoder Value", Robot.climber.getClimberDistanceFromEncoderValue());
+        
+        SmartDashboard.putNumber("tilt angle", Robot.driveTrain.getTilt());
+        
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){
         	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);

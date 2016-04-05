@@ -5,6 +5,7 @@ package org.usfirst.frc319;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -42,7 +43,8 @@ public class RobotMap {
     public static Compressor compressorcompressor;
     public static AnalogInput compressorpressureSensor;
     public static AnalogGyro gyro;
-
+    public static BuiltInAccelerometer rioAccelerometer;
+    
     public static void init() {
         
     	//-----   Drive Train   -----
@@ -70,8 +72,9 @@ public class RobotMap {
         
         climberSolenoid = new DoubleSolenoid(0, 2, 3);
         
-        gyro= new AnalogGyro(0);// Must be on input 0!
+        gyro = new AnalogGyro(0);// Must be on input 0!
         gyro.setSensitivity(0.0067);//tuned to 360 for gyro on blue bot
+        rioAccelerometer = new BuiltInAccelerometer();
         
         
         //-----   Collector   -----

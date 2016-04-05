@@ -69,16 +69,25 @@ public class AutoMapFactory {
 	public Command buildAuto(SelectedAuto auto){
 		if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.POS_POSITION_1)){
 			return new LowBarHighGoalAuto();
-		}else{
-			if(auto.getSelectedMode().equalsIgnoreCase(AutoDictionary.MODE_DRIVE_AND_SHOOT_HIGH)){
-				return new AutoDriveStraightThenSplineThenShoot(auto.getSelectedDefense(), auto.getSelectedPosition());
-			}else if(auto.getSelectedMode().equalsIgnoreCase(AutoDictionary.MODE_DRIVE_STRAIGHT)){
-				return new AutoDriveStraightThenSplineThenShoot(auto.getSelectedDefense(), auto.getSelectedPosition());
-			}
+		}else if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_2)){
+			return new Position2VariousAuto();
+		}else if (auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_3)){
+			return new Position3VariousAuto();
+		}else if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_4)){
+			return new Position4VariousAuto();
+		}else if (auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_5)){
+			return new Position5VariousAuto();
 		}
 		return null;
 	}
-
+	//-------removed to make auto chooser simpler--------
+	/*if(auto.getSelectedMode().equalsIgnoreCase(AutoDictionary.MODE_DRIVE_AND_SHOOT_HIGH)){
+		return new AutoDriveStraightThenSplineThenShoot(auto.getSelectedDefense(), auto.getSelectedPosition());
+	}else if(auto.getSelectedMode().equalsIgnoreCase(AutoDictionary.MODE_DRIVE_STRAIGHT)){
+		return new AutoDriveStraightThenSplineThenShoot(auto.getSelectedDefense(), auto.getSelectedPosition());
+	}*/
+	
+	
 	/**
 	private void addAuto(String position, String defense, String mode, Command auto){
 		this.map.put(new SelectedAuto(position, defense, mode), auto);
