@@ -35,8 +35,8 @@ public class CenterBoulder extends Command {
 		rightIrValue = Robot.collector.getrightBoulderIrSensorVoltage();
 		leftIrValue = Robot.collector.getleftBoulderIrSensorVoltage();
 
-		if (rightIrValue < 2.2 || leftIrValue < 2.2) {
-			Robot.collector.collectorGoIn(.3);
+		if (rightIrValue < 2.3 || leftIrValue < 2.3) {
+			Robot.collector.collectorGoIn(.2);
 		}
 		/*
 		 * if ((rightIrValue < 1.9 || leftIrValue < 1.9) && loopCount < 5) {
@@ -55,7 +55,7 @@ public class CenterBoulder extends Command {
 		// return Robot.collector.loadIsFinished(2.5);
 		// /return the isfinished from the IRcollector sensor pass it a smaller
 		// value than in the
-		return (rightIrValue >= 2.2 || leftIrValue > 2.2);
+		return (rightIrValue >= 2.3 || leftIrValue > 2.3);
 	}
 
 	protected void end() {

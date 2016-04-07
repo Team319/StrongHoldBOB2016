@@ -7,6 +7,8 @@ import org.usfirst.frc319.commands.Climber.ClimberGoDown;
 import org.usfirst.frc319.commands.Climber.ClimberGoUp;
 import org.usfirst.frc319.commands.Climber.ClimberGoUpDistanceUsingEncoderPosition;
 import org.usfirst.frc319.commands.Climber.ClimberStop;
+import org.usfirst.frc319.commands.Climber.DeployClimber;
+import org.usfirst.frc319.commands.Climber.RetractClimber;
 import org.usfirst.frc319.commands.arm.ArmDelayThenGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToAutoShootLowPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
@@ -81,7 +83,7 @@ public class OI {
     	 driverController.startButton.whenPressed(new RotateToAngle(5));
     	 driverController.selectButton.whenPressed(new RotateToAngle(-5));
     	//driverController.startButton.whenPressed(new ShooterPIDTest());
-    	driverController.leftBumper.whenPressed(new CollectAndStop());
+    	driverController.leftBumper.whenPressed(new CenterBoulderRoutine());
     	driverController.rightBumper.whenPressed(new AutoAimShoot());
     	//driverController.rightBumper.whenPressed(new TowerShot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
@@ -95,16 +97,16 @@ public class OI {
     	//operatorController.selectButton.whenPressed(new ArcadeDrive());
     	//operatorController.startButton.whenPressed(new StopAllMechanisms());
 
-    	operatorController.selectButton.whileHeld(new ClimberGoUp());
+    	operatorController.selectButton.whileHeld(new RetractClimber());
     	operatorController.startButton.whenPressed(new ClimberGoUpDistanceUsingEncoderPosition());
-    	operatorController.leftBumper.whenPressed(new ClimberStop());
+    	//operatorController.leftBumper.whenPressed(new ClimberStop());
     	
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
-    	operatorController.xButton.whenPressed(new CenterBoulderRoutine());
+    	operatorController.xButton.whenPressed(new ClimberGoUp());
     	operatorController.yButton.whenPressed(new ArmGoToVertical());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());
     	operatorController.bButton.whenPressed(new ArmGoToStorage());
-    	operatorController.leftBumper.whenPressed(new CameraCalculateOffset());
+    	operatorController.leftBumper.whenPressed(new ClimberStop());
     	operatorController.rightBumper.whenPressed(new LoadAndSpeedUp());
     	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootFromBatterCleat());
     	operatorController.leftTriggerButton.whenPressed(new ArmGoToLowGoal());

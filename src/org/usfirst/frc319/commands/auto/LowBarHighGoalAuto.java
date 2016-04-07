@@ -21,7 +21,7 @@ import org.usfirst.frc319.commands.drivetrain.DriveSpline;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class LowBarHighGoalAuto extends CommandGroup {
-	public LowBarHighGoalAuto(){
+	public LowBarHighGoalAuto(){  
 		//addSequential(new BuildSingleTowerSpline());
 		addParallel(new ArmGoToCollect());
 		addSequential(new AutoDriveStraightSlow());

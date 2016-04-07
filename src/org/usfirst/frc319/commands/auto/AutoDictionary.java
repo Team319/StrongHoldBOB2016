@@ -8,17 +8,22 @@ import java.util.List;
 public class AutoDictionary {
 	
 	
-	public static final String AUTO_POSITION_1 = "auto position 1";
+	public static final String AUTO_POSITION_1 = "auto Low Bar";
 	public static final String AUTO_POSITION_2 = "auto position 2";
 	public static final String AUTO_POSITION_3 = "auto position 3";
 	public static final String AUTO_POSITION_4 = "auto position 4";
 	public static final String AUTO_POSITION_5 = "auto position 5";
+	public static final String AUTO_DO_NOTHING = "auto do nothing";
 	
-	
+	@Deprecated
 	public static final String POS_POSITION_1 = "Position 1";
+	@Deprecated
 	public static final String POS_POSITION_2 = "Position 2";
+	@Deprecated
 	public static final String POS_POSITION_3 = "Position 3";
+	@Deprecated
 	public static final String POS_POSITION_4 = "Position 4";
+	@Deprecated
 	public static final String POS_POSITION_5 = "Position 5";
 
 	public static final String MODE_DRIVE_STRAIGHT = "Drive Straight";
@@ -45,7 +50,7 @@ public class AutoDictionary {
 	}
 
 	public static List<String> getModes(){
-		return Arrays.asList(AUTO_POSITION_1,AUTO_POSITION_2,AUTO_POSITION_3,AUTO_POSITION_4,AUTO_POSITION_5);
+		return Arrays.asList(AUTO_POSITION_1,AUTO_POSITION_2,AUTO_POSITION_3,AUTO_POSITION_4,AUTO_POSITION_5, AUTO_DO_NOTHING);
 	}
 
 	public static List<String> getDefenses(){

@@ -140,10 +140,12 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 	public void resetGyro() {
 		gyro.reset();
 	}
-	public double getTilt(){
-		return rioAccelerometer.getZ();
+	public double getZAxis(){
+		return (rioAccelerometer.getZ()-1);
 	}
-	
+	public double getYAxis(){
+		return (rioAccelerometer.getY());
+	}
 	
 	public int getLeftDrivetrainPosition() {
 		return leftDriveLead.getEncPosition();

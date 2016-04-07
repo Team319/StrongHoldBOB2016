@@ -201,7 +201,8 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         
         SmartDashboard.putNumber("Climber Encoder Value", Robot.climber.getClimberDistanceFromEncoderValue());
         
-        SmartDashboard.putNumber("tilt angle", Robot.driveTrain.getTilt());
+        SmartDashboard.putNumber("tilt angle", Robot.driveTrain.getZAxis());
+        SmartDashboard.putNumber("Y axis", Robot.driveTrain.getYAxis());
         
         //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
         /*if(Robot.driveTrain.shift){

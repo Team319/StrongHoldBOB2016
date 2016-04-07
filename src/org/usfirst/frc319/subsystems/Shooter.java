@@ -251,5 +251,13 @@ public class Shooter extends Subsystem {
 		
 		return (rightSpeed >= rightSetPoint) && (leftSpeed >= leftSetPoint);
 	}
+	
+	public double getLeftShooterPosition(){
+		return leftShooter.getEncPosition();
+	}
+	public double getRightShooterPosition(){
+		return rightShooter.getEncPosition();
+	}
+	
 
 }

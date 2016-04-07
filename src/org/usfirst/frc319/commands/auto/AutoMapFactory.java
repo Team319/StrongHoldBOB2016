@@ -67,7 +67,7 @@ public class AutoMapFactory {
 	**/
 	
 	public Command buildAuto(SelectedAuto auto){
-		if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.POS_POSITION_1)){
+		if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_1)){
 			return new LowBarHighGoalAuto();
 		}else if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_2)){
 			return new Position2VariousAuto();
@@ -77,6 +77,8 @@ public class AutoMapFactory {
 			return new Position4VariousAuto();
 		}else if (auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_5)){
 			return new Position5VariousAuto();
+		}else if(auto.getSelectedPosition().equalsIgnoreCase(AutoDictionary.AUTO_DO_NOTHING)){
+			return new DoNothing();
 		}
 		return null;
 	}
