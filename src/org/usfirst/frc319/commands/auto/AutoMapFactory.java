@@ -11,6 +11,15 @@ import com.team319.auto.SelectedAuto;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ * The AutoMapFactory is used to retrieve an Autonomous Command
+ * based on the selections made in the Chrome Dashboard
+ *
+ * @author Michael Tidd
+ * @author Joe Derrick
+ * @author Wyatt Siegler
+ *
+ */
 public class AutoMapFactory {
 	private Map<SelectedAuto, Command> map;
 
@@ -26,7 +35,7 @@ public class AutoMapFactory {
 	private AutoMapFactory(){
 		map = new HashMap<SelectedAuto, Command>();
 	}
-	
+
 	public Command buildAuto(SelectedAuto auto){
 		if(auto.getSelectedMode().equalsIgnoreCase(AutoDictionary.AUTO_POSITION_1)){
 			return new LowBarHighGoalAuto();
@@ -51,8 +60,8 @@ public class AutoMapFactory {
 	}else if(auto.getSelectedMode().equalsIgnoreCase(AutoDictionary.MODE_DRIVE_STRAIGHT)){
 		return new AutoDriveStraightThenSplineThenShoot(auto.getSelectedDefense(), auto.getSelectedPosition());
 	}*/
-	
-	
+
+
 	/**
 	private void addAuto(String position, String defense, String mode, Command auto){
 		this.map.put(new SelectedAuto(position, defense, mode), auto);
