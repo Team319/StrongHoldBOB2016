@@ -70,19 +70,8 @@ public class OI {
     public BobController operatorController;
 
     public OI() {
-
-    	/*driverController = new BobController(0);
-    	//driverController.startButton.whenPressed(new FollowBothMotionProfiles());
-    	driverController.leftBumper.whenPressed(new CollectAndStop());
-    	driverController.rightBumper.whenPressed(new SpeedUpThenShoot());
-    	driverController.aButton.whenPressed(new CollectorOut());
-    	driverController.bButton.whenPressed(new ArmGoToCollect());
-    	driverController.xButton.whenPressed(new ArmGoToStorage());
-    	driverController.yButton.whenPressed(new ArmGoToShootUnderTower());
-    	driverController.startButton.whenPressed(new ShiftToggle());
-    	driverController.selectButton.whenPressed(new CollectorAndShooterStop());
-    	*/
-
+    	//deleted and re-arranged - test github synch
+ 
 
     	 driverController = new BobController(0);
     	 //driverController.startButton.whenPressed(new RotateToAngle(5));
