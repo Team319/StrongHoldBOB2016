@@ -17,6 +17,7 @@ public class ArmGoToShootUnderTower extends Command {
     }
 
     protected void initialize() {
+    	Robot.shooter.setSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_UNDER_TOWER_SPEED_KEY));
     	Robot.arm.setArmPosition(Robot.constants.getConstant(BobConstants.ARM_SHOOT_FROM_TOWER_POS_KEY));//gotToShootFromTower();
     }
 

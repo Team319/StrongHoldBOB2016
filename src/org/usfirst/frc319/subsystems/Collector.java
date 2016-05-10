@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Collector extends Subsystem {
 
 	private final CANTalon motor = RobotMap.collectorcollectorMotor;
-	private final DigitalInput boulderSensor = RobotMap.collectorboulderSensor;
+
 	private final AnalogInput leftBoulderIRSensor = RobotMap.leftBoulderIRSensor;
 	private final AnalogInput rightBoulderIRSensor = RobotMap.rightBoulderIRSensor;
 	public boolean ballCollected;
@@ -38,10 +38,6 @@ public class Collector extends Subsystem {
 		motor.changeControlMode(TalonControlMode.PercentVbus);
 	}
 
-	public boolean getBoulderSensor() {
-
-		return boulderSensor.get();
-	}
 
 	public void collectorGoIn(double speed) {
 		motor.set(-speed);
@@ -140,5 +136,13 @@ public class Collector extends Subsystem {
 	public void shoot() {
 		motor.set(1);
 	}
+	public double getCollectorCurrent(){
+		return	motor.getOutputCurrent();
+	}
+	
+	public void enableBrakeMode(boolean brake){
+		motor.enableBrakeMode(brake);
+	}
+	
 
 }

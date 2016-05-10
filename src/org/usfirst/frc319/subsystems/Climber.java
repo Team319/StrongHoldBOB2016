@@ -5,6 +5,7 @@ package org.usfirst.frc319.subsystems;
 import org.usfirst.frc319.Robot;
 import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
+import org.usfirst.frc319.commands.Climber.ClimberMotorStopAndRetract;
 import org.usfirst.frc319.commands.Climber.ClimberStop;
 import org.usfirst.frc319.commands.Climber.ManualClimb;
 
@@ -84,11 +85,11 @@ public class Climber extends Subsystem {
     	this.climberMotorLead.enableBrakeMode(brakeClimb);
     }
     public void deployClimber(){
-    	Robot.climber.climberSolenoid.set(DoubleSolenoid.Value.kForward);
+    	Robot.climber.climberSolenoid.set(DoubleSolenoid.Value.kReverse);
     //	Robot.climber.
     }
     public void retractClimber(){
-    	Robot.climber.climberSolenoid.set(DoubleSolenoid.Value.kReverse);
+    	Robot.climber.climberSolenoid.set(DoubleSolenoid.Value.kForward);
     }
     
     public double getClimberLeadCurrent(){

@@ -19,6 +19,7 @@ public class ArmGoToAutoSearchPosition extends Command {
 
     protected void initialize() {
     	//						 and from the appropriate dictionary, ( select the appropriate constant)
+    	Robot.shooter.setSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
     	Robot.arm.setArmPosition(Robot.constants.getConstant(BobConstants.ARM_AUTO_SEARCH_POS_KEY));//goToAutoSearchPosition();
     }
 

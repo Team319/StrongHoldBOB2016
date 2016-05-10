@@ -17,9 +17,11 @@ public class CollectorAndShooterStop extends Command {
     }
 
     protected void initialize() {
+    	
     }
 
     protected void execute() {
+    	Robot.arm.turnOffFlashLight();
     	Robot.collector.stop();
     	Robot.shooter.stop();
     }

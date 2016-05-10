@@ -1,4 +1,3 @@
-
 // Strong Hold BOB 2016 Robot
 
 
@@ -48,9 +47,7 @@ import com.team319.web.trajectory.client.TrajectoryClient;
 import com.team319.web.trajectory.progress.client.TrajectoryProgressClient;
 import com.team319.web.waypoint.client.WaypointClient;
 
-/*--added a package to put all of our Motion Profiles so they don't--
-    clutter up the src package (Derrick 2/3/16)
-*/
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -62,7 +59,7 @@ import com.team319.web.waypoint.client.WaypointClient;
 public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
 
     Command autonomousCommand;
-    SendableChooser autoChooser;
+    SendableChooser autoChooser; // Do we use this? (5/6/2016)
     public static OI oi;
 
     public static DriveTrain driveTrain;
@@ -77,8 +74,6 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
     public static final int USE_ORANGE_CONSTANTS = 0;
     public static final int USE_BLUE_CONSTANTS = 1;
     
-    private SelectedAuto selectedAuto = null;
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -100,19 +95,12 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         //always do OI Last
         oi = new OI();
         
-        
-      /*
-        autoChooser.addDefault("Low Bar High Goal auto", new LowBarHighGoalAuto());
-        autoChooser.addObject("Various defenses position 2", new VariousDefencesAutoWeekZero());
-        autoChooser.addObject("Various defenses position 3", new VariousDefencesAutoWeekZero());
-        SmartDashboard.putData("autonomousModeChooser", autoChooser);
-        */
-        
-        //for now -WEEK ZERO--- this is where you set your auto command.
-       // autonomousCommand = new Position3VariousAuto();
-        
+        Robot.climber.retractClimber();
+       
+        /* The code below connects the roborio to a coprocessor which has a web page that runs 
+         autonomous selection, vision processing, and trajectory building */
         try{
-       // LoggerServer.startServer();
+        	SmartDashboard.putBoolean("Connected to CoPro", false);
         	String ip = "10.3.19.19";
 	        WaypointClient.start(ip);
 	        TrajectoryClient.start(ip);
@@ -122,16 +110,19 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
 	        
 	        //AutoMapFactory.getInstance().buildMap();
 	        AutoModes autoModes = new AutoModes();
-	        /**autoModes.setDefenses(AutoDictionary.getDefenses());
-	        autoModes.setModes(AutoDictionary.getModes());
-	        autoModes.setPositions(AutoDictionary.getPositions());**/
 	        AutoManager.getInstance().setModes(autoModes);
+	        autoModes.setModes(AutoDictionary.getModes());
+	        autoModes.setDefenses(AutoDictionary.getDefenses());
+	        autoModes.setPositions(AutoDictionary.getPositions());
 	        AutoManager.getInstance().registerListener(this);
 	        AutoClient.start(ip);
+	        
+	        SmartDashboard.putBoolean("Connected to CoPro", true);
 	        
         
         }catch(Exception e){
         	e.printStackTrace();
+        	SmartDashboard.putBoolean("Connected to CoPro", false);
         }
         
        
@@ -148,14 +139,18 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
 
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
-        Robot.arm.updateArmPosition();
+        /*The line below calls a method which allows us to move our arm when disabled and continue to change
+        the current position of the arm so that when we use hold position can re-enable does not move 
+        the arm back to where it was */
+        Robot.arm.updateArmPosition(); 
     }
 
     public void autonomousInit() {
-    	autonomousCommand = new LowBarHighGoalAuto();
-    	//autonomousCommand = new Position3VariousAuto();//(Command) autoChooser.getSelected();
+    	// The line below is the default way to choose an autonomous routine instead of through the server
+    	//autonomousCommand = new LowBarHighGoalAuto();
         if (autonomousCommand != null) autonomousCommand.start();
-        //Robot.driveTrain.setDTEncodersToZero();
+        // Make sure the default state of the climber is retracted
+        Robot.climber.retractClimber();
     }
 
     /**
@@ -170,6 +165,7 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         if (autonomousCommand != null) autonomousCommand.cancel();
         Robot.shooter.setLeftShooterStop();
         Robot.shooter.setRightShooterStop();
+        Robot.climber.retractClimber();
     }
 
     /**
@@ -180,39 +176,17 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
         SmartDashboard.putNumber("Left Shooter Speed", Robot.shooter.getLeftShooterSpeed());
         SmartDashboard.putNumber("Right Shooter Speed", Robot.shooter.getRightShooterSpeed());
         SmartDashboard.putBoolean("Gear", Robot.driveTrain.shift);
-        SmartDashboard.putBoolean("Ball Collected", Robot.collector.ballCollected);
-        //SmartDashboard.putBoolean("bouldersensor",Robot.collector.getBoulderSensor());
-        //SmartDashboard.putInt("Left Drivetrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
         //SmartDashboard.putDouble("Average Boulder IR Sensor ", Robot.collector.getAverageLeftAndRightBoulderIRSensor());
         SmartDashboard.putNumber("Left Boulder IR Sensor ", Robot.collector.getleftBoulderIrSensorAverageVoltage());
         SmartDashboard.putNumber("Right Boulder IR Sensor ", Robot.collector.getrightBoulderIrSensorAverageVoltage());
-        SmartDashboard.putDouble("Gyro Angle", Robot.driveTrain.getGyroAngle());
-        
-        
+        SmartDashboard.putDouble("Current To Motor", Robot.collector.getCollectorCurrent());
         SmartDashboard.putInt("arm position",Robot.arm.getArmPosition());
         Robot.driveTrain.controlRightMotionProfile();
-        Robot.driveTrain.controlLeftMotionProfile();
-        SmartDashboard.putInt("Right Drivevtrain Encoder Position (revs)", Robot.driveTrain.getRightDrivetrainPosition());
-        SmartDashboard.putInt("Left Drivevtrain Encoder Position (revs)", Robot.driveTrain.getLeftDrivetrainPosition());
-        
-        SmartDashboard.putBoolean("Right drivetrain is alive?", Robot.driveTrain.rightDriveLeadStatus());
-        SmartDashboard.putBoolean("Left drivetrain is alive?", Robot.driveTrain.leftDriveLeadStatus());
-        SmartDashboard.putNumber("Target Offset", Robot.driveTrain.getHorizontalOffset());
-        
-        SmartDashboard.putNumber("Climber Encoder Value", Robot.climber.getClimberDistanceFromEncoderValue());
-        
+        Robot.driveTrain.controlLeftMotionProfile();    
+        SmartDashboard.putNumber("Target Offset", Robot.driveTrain.getHorizontalOffset()); 
         SmartDashboard.putNumber("tilt angle", Robot.driveTrain.getZAxis());
         SmartDashboard.putNumber("Y axis", Robot.driveTrain.getYAxis());
         
-        //-----attempting to put a string into smartdashboard to out put high/low instead of red/green - Derrick 1/29/16 - LOW priority
-        /*if(Robot.driveTrain.shift){
-        	SmartDashboard.putString("Gear", Robot.driveTrain.highGear);
-        
-        }else{
-        	SmartDashboard.putString("Gear", Robot.driveTrain.lowGear);
-        }
-        // SmartDashboard.putString("Gear", value);
-  		*/
     }
 
     /**
@@ -224,13 +198,9 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
     }
     
     @Override
+    
+    // How does this work?
     public void onChange(AutoConfig auto) {
-    	// TODO Auto-generated method stub
-    	
-    	if(auto.getSelectedAuto().equals(selectedAuto)){
-    		//the auto hasn't changed
-    		return;
-    	}
     	
     	Command builtAuto = AutoMapFactory.getInstance().buildAuto(auto.getSelectedAuto());
     	
@@ -238,7 +208,6 @@ public class Robot extends IterativeRobot implements IAutoConfigChangeListener{
     		autonomousCommand = null;
     		AutoManager.getInstance().throwAutoConfigException(new AutoConfigException(AutoConfigException.UNDEFINED_AUTO));
     	}else{
-    		selectedAuto = auto.getSelectedAuto();
     		autonomousCommand = builtAuto;
     	}
     	

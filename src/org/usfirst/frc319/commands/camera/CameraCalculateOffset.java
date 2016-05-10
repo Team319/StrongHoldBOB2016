@@ -11,7 +11,6 @@ import com.team319.waypoint.WaypointManager;
 import com.team319.trajectory.ITrajectoryChangeListener;
 import com.team319.trajectory.TrajectoryManager;
 import com.team319.waypoint.Waypoint;
-import com.team319.web.trajectory.server.TrajectoryServletSocket;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

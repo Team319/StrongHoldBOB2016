@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
+import org.usfirst.frc319.commands.arm.FlashLightOn;
 import org.usfirst.frc319.commands.collector.CenterBoulder;
 import org.usfirst.frc319.commands.collector.CollectAndStop;
 import org.usfirst.frc319.commands.collector.CollectorIn;
@@ -22,6 +23,7 @@ public class LoadAndSpeedUp extends CommandGroup {
 
     public LoadAndSpeedUp() {
     	
+    	addSequential(new FlashLightOn());
     	addSequential(new LoadBoulder());
     	addSequential(new ShooterSpeedUp());
     	//addParallel(new ShooterGo());

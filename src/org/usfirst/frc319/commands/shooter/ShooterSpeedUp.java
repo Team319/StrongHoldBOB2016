@@ -24,8 +24,11 @@ public class ShooterSpeedUp extends Command {
     }
 
     protected void initialize() {
+    	Robot.shooter.setSpeed(5000);
     	atSpeedCounter = 0;
-    	
+    	Robot.shooter.setLeftShooterSpeed(Robot.shooter.getSpeed());
+    	Robot.shooter.setRightShooterSpeed(Robot.shooter.getSpeed());
+    	System.out.println("Target shooter speed:" + Robot.shooter.getSpeed());
     }
 
     protected void execute() {
@@ -40,8 +43,10 @@ public class ShooterSpeedUp extends Command {
     	//System.out.println("Left Speed: " + Robot.shooter.getLeftShooterSpeed());
     	//possibly add an elseif its not at speed reset the counter
     	
-    	Robot.shooter.setLeftShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
-    	Robot.shooter.setRightShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
+    	
+    	
+    	//Robot.shooter.setLeftShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
+    	//Robot.shooter.setRightShooterSpeed(Robot.constants.getConstant(BobConstants.SHOOTER_HIGH_SPEED_KEY));
     	
     }
 

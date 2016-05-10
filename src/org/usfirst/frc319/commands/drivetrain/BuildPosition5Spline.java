@@ -13,7 +13,6 @@ import com.team319.trajectory.ITrajectoryChangeListener;
 import com.team319.trajectory.TrajectoryManager;
 import com.team319.waypoint.Waypoint;
 import com.team319.web.trajectory.client.TrajectoryClient;
-import com.team319.web.trajectory.server.TrajectoryServletSocket;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -29,8 +28,11 @@ public class BuildPosition5Spline extends Command implements ITrajectoryChangeLi
 	public void buildSpline(){
 		List<Waypoint> waypoints = new ArrayList<Waypoint>();
 		//testing
-		waypoints.add(new Waypoint(0,0,0));
-		waypoints.add(new Waypoint (9,4,0));
+		//waypoints.add(new Waypoint(17,-20,0));
+		//waypoints.add(new Waypoint (23,-19,65));
+		
+		waypoints.add(new Waypoint (16,-20,0));
+		waypoints.add(new Waypoint (23,-19,50));
 		
 		try {
 			WaypointList waypointList = new WaypointList(waypoints);

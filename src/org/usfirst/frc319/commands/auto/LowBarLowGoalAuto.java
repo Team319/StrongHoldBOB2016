@@ -2,6 +2,7 @@ package org.usfirst.frc319.commands.auto;
 
 import org.usfirst.frc319.commands.FollowBothMotionProfiles;
 import org.usfirst.frc319.commands.arm.ArmDelayThenGoToCollect;
+import org.usfirst.frc319.commands.arm.ArmGoToAutoSearchPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToAutoShootLowPosition;
 import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
@@ -19,7 +20,8 @@ public class LowBarLowGoalAuto extends CommandGroup {
 		addSequential(new BuildSingleTowerSpline());
 		addParallel(new ArmGoToCollect());
 		addSequential(new DriveSpline());
-		addSequential(new ArmGoToAutoShootLowPosition());
+		addSequential(new ArmGoToAutoSearchPosition());
+		//addSequential(new ArmGoToAutoShootLowPosition());
 		addSequential(new SpeedUpThenShoot());
 		
 		

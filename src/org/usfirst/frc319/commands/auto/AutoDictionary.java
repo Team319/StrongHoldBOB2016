@@ -14,6 +14,7 @@ public class AutoDictionary {
 	public static final String AUTO_POSITION_4 = "auto position 4";
 	public static final String AUTO_POSITION_5 = "auto position 5";
 	public static final String AUTO_DO_NOTHING = "auto do nothing";
+	public static final String AUTO_DRIVE_STAIGHT = "auto drive straight";
 	
 	@Deprecated
 	public static final String POS_POSITION_1 = "Position 1";
@@ -31,7 +32,6 @@ public class AutoDictionary {
 	public static final String MODE_DRIVE_AND_SHOOT_HIGH = "Drive and Shoot High";
 	//public static final String MODE_DRIVE_AND_SHOOT_LOW = "Drive and Shoot Low";
 	//public static final String MODE_DRIVE_TURN_AND_SHOOT_HIGH = "Drive Turn and Shoot High";
-
 	public static final String DEF_LOW_BAR = "Low Bar";
 	public static final String DEF_PORTCULLIS = "Portcullis";
 	public static final String DEF_CHEVAL = "Cheval de Frise";
@@ -50,7 +50,7 @@ public class AutoDictionary {
 	}
 
 	public static List<String> getModes(){
-		return Arrays.asList(AUTO_POSITION_1,AUTO_POSITION_2,AUTO_POSITION_3,AUTO_POSITION_4,AUTO_POSITION_5, AUTO_DO_NOTHING);
+		return Arrays.asList(AUTO_POSITION_1,AUTO_POSITION_2,AUTO_POSITION_3,AUTO_POSITION_4,AUTO_POSITION_5, AUTO_DRIVE_STAIGHT, AUTO_DO_NOTHING);
 	}
 
 	public static List<String> getDefenses(){

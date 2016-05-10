@@ -8,6 +8,7 @@ import org.usfirst.frc319.RobotMap;
 import org.usfirst.frc319.commands.*;
 import org.usfirst.frc319.commands.shooter.MaintainSpeed;
 import org.usfirst.frc319.commands.shooter.ShooterDoNothing;
+import org.usfirst.frc319.commands.shooter.ShooterPIDTest;
 import org.usfirst.frc319.commands.shooter.ShooterStop;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -22,6 +23,8 @@ public class Shooter extends Subsystem {
 
 	private final CANTalon leftShooter = RobotMap.shooterleftShooter;
 	private final CANTalon rightShooter = RobotMap.shooterrightShooter;
+	
+	private double speed = 5000.0;
 
 	// ---- used IN PID TUNING----//
 	StringBuilder _sb = new StringBuilder();
@@ -89,6 +92,7 @@ public class Shooter extends Subsystem {
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new MaintainSpeed());
+		//setDefaultCommand(new ShooterPIDTest());
 	}
 
 	public void setRightShooterSpeed(double speed) {
@@ -226,7 +230,7 @@ public class Shooter extends Subsystem {
 		double rightSetPoint = rightShooter.getSetpoint();
 		double leftSpeed = leftShooter.getSpeed();
 		double rightSpeed = rightShooter.getSpeed();
-		double shootingErrorThreshold = 120;
+		double shootingErrorThreshold = 50;
 		/*
 		System.out.println("leftSetPoint: " + leftSetPoint);
 		System.out.println("leftSpeed: " + leftSpeed);
@@ -257,6 +261,14 @@ public class Shooter extends Subsystem {
 	}
 	public double getRightShooterPosition(){
 		return rightShooter.getEncPosition();
+	}
+	
+	public double getSpeed() {
+		return speed;
+	}
+	
+	public void setSpeed(double speed) {
+		this.speed = speed;
 	}
 	
 

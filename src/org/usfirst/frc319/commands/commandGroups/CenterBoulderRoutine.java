@@ -15,11 +15,16 @@ public class CenterBoulderRoutine extends CommandGroup {
     public CenterBoulderRoutine() {
     	
     	addSequential(new CollectAndStop());
+    	//addSequential(new LoadBoulder());
+    	addSequential(new CenterBoulderAfterCollected(.35));
     	addSequential(new LoadBoulder());
-    	addSequential(new CenterBoulderAfterCollected());
+    	addSequential(new CenterBoulderAfterCollected(.2));
     	addSequential(new LoadBoulder());
-    	addSequential(new CenterBoulderAfterCollected());
-    	addSequential(new CollectAndStop());
+    	addSequential(new CenterBoulderAfterCollected(.2));
+    	addSequential(new LoadBoulder());
+    	addSequential(new CenterBoulderAfterCollected(.2));
+    	
+    	//addSequential(new CollectAndStop());
     	/*
     	addSequential(new LoadBoulder());
     	addSequential(new CenterBoulder());

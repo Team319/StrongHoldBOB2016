@@ -23,7 +23,7 @@ import com.team319.vision.TargetManager;
 public class AutoAimRotate extends PIDCommand {
 	public static final double IZONE = 25.0;
 	public static final int NUM_SAMPLES_REQUIRED = 10;
-	public static final double TOLERANCE = 0.5;
+	public static final double TOLERANCE = 1;
 
 	/**
 	 * orange bot
@@ -35,7 +35,7 @@ public class AutoAimRotate extends PIDCommand {
 	
 	//blue bot
 	double setpoint = 0;
-	static double P = .025;
+	static double P = .035;//.025;
 	static double I = 0.0023;
 	static double D = 0.0;
 	
@@ -111,7 +111,7 @@ public class AutoAimRotate extends PIDCommand {
     	//Robot.driveTrain.setVoltageRampRate(36.0);
     	//Target target = TargetManager.getInstance().getTarget();
 
-    	setpoint = Robot.driveTrain.getHorizontalOffset() - 3;
+    	setpoint = Robot.driveTrain.getHorizontalOffset();
 
     	//setpoint = 10;
 

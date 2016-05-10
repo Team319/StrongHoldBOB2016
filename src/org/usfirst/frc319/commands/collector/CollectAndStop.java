@@ -46,6 +46,8 @@ public class CollectAndStop extends Command {
 		collectThreshold = Robot.constants.getConstant(BobConstants.COLLECTOR_COLLECT_LIMIT_KEY);
 		speedThreshold = Robot.constants.getConstant(BobConstants.COLLECTOR_LOW_SPEED_THRESHOLD_KEY);
 		centerThreshold = 2.0;
+		
+		Robot.collector.enableBrakeMode(true);
 	}
 
 	protected void execute() {		
@@ -55,16 +57,17 @@ public class CollectAndStop extends Command {
 		
 		if (rightIrValue < speedThreshold && leftIrValue < speedThreshold) {
 			collectorSpeed = collectHighSpeed;
-			shooterSpeed = shooterCollectHighSpeed;
+			//shooterSpeed = shooterCollectHighSpeed;
+			
 		} else {
 
 			collectorSpeed = collectLowSpeed;
-			shooterSpeed = shooterCollectLowSpeed;
+			//shooterSpeed = shooterCollectLowSpeed;
 		}
-
+		/*
 		if (rightIrValue < centerThreshold) {
 			Robot.shooter.setLeftShooterSpeed(shooterSpeed);
-
+			
 		} else {
 			Robot.shooter.setLeftShooterStop();
 		}
@@ -74,8 +77,10 @@ public class CollectAndStop extends Command {
 		} else {
 			Robot.shooter.setRightShooterStop();
 		}
+		*/
 		Robot.collector.collectorGoIn(collectorSpeed);
-
+		
+	
 	}
 
 	protected boolean isFinished() {
@@ -88,8 +93,8 @@ public class CollectAndStop extends Command {
 	}
 
 	protected void end() {
-		Robot.shooter.setRightShooterStop();
-		Robot.shooter.setLeftShooterStop();
+		Robot.collector.stop();
+		
 	}
 
 	protected void interrupted() {

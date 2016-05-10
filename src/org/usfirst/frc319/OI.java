@@ -15,9 +15,14 @@ import org.usfirst.frc319.commands.arm.ArmGoToCollect;
 import org.usfirst.frc319.commands.arm.ArmGoToLowGoal;
 import org.usfirst.frc319.commands.arm.ArmGoToPassedVariablePosition;
 import org.usfirst.frc319.commands.arm.ArmGoToShootFromBatterCleat;
+import org.usfirst.frc319.commands.arm.ArmGoToShootFromOuterworks;
+import org.usfirst.frc319.commands.arm.ArmGoToShootFromTape;
 import org.usfirst.frc319.commands.arm.ArmGoToShootUnderTower;
 import org.usfirst.frc319.commands.arm.ArmGoToStorage;
 import org.usfirst.frc319.commands.arm.ArmGoToVertical;
+import org.usfirst.frc319.commands.arm.FlashLightOff;
+import org.usfirst.frc319.commands.arm.FlashLightOn;
+import org.usfirst.frc319.commands.arm.FlashLightToggle;
 import org.usfirst.frc319.commands.auto.LowBarLowGoalAuto;
 import org.usfirst.frc319.commands.camera.CalculateSpline;
 import org.usfirst.frc319.commands.camera.CameraCalculateOffset;
@@ -80,11 +85,12 @@ public class OI {
 
 
     	 driverController = new BobController(0);
-    	 driverController.startButton.whenPressed(new RotateToAngle(5));
-    	 driverController.selectButton.whenPressed(new RotateToAngle(-5));
-    	//driverController.startButton.whenPressed(new ShooterPIDTest());
+    	 //driverController.startButton.whenPressed(new RotateToAngle(5));
+    	// driverController.selectButton.whenPressed(new RotateToAngle(-5));
+    	 driverController.selectButton.whenPressed(new FlashLightOn());
+    	driverController.startButton.whenPressed(new FlashLightOff());
     	driverController.leftBumper.whenPressed(new CenterBoulderRoutine());
-    	driverController.rightBumper.whenPressed(new AutoAimShoot());
+    	driverController.rightBumper.whenPressed(new Fire());
     	//driverController.rightBumper.whenPressed(new TowerShot());
     	driverController.bButton.whenPressed(new CollectorAndShooterStop());
     	driverController.yButton.whenPressed(new ForcedShot());
@@ -92,34 +98,39 @@ public class OI {
     	driverController.xButton.whenPressed(new ShiftToggle());
     	//driverController.rightStickButton.whenPressed(new ());
     	driverController.leftStickButton.whenPressed(new BrakeModeToggle());
+    	//driverController.dPadUp.whenPressed(new ShiftUp());
+    	//.dPadDown.whenPressed(new ShiftDown());
+    	
     	
     	operatorController = new BobController(1);
     	//operatorController.selectButton.whenPressed(new ArcadeDrive());
     	//operatorController.startButton.whenPressed(new StopAllMechanisms());
 
-    	operatorController.selectButton.whileHeld(new RetractClimber());
-    	operatorController.startButton.whenPressed(new ClimberGoUpDistanceUsingEncoderPosition());
+    	operatorController.selectButton.whenPressed(new DeployClimber());
+    	operatorController.startButton.whenPressed(new RetractClimber());
     	//operatorController.leftBumper.whenPressed(new ClimberStop());
     	
     	//operatorController.bButton.whenPressed(new AutoDriveStraightDistanceUsingRobotDrive());
-    	operatorController.xButton.whenPressed(new ClimberGoUp());
-    	operatorController.yButton.whenPressed(new ArmGoToVertical());
+    	operatorController.xButton.whenPressed(new CollectorAndShooterStop());
+    	operatorController.yButton.whenPressed(new ArmGoToShootFromBatterCleat());
     	operatorController.aButton.whenPressed(new ArmGoToCollect());
     	operatorController.bButton.whenPressed(new ArmGoToStorage());
     	operatorController.leftBumper.whenPressed(new ClimberStop());
     	operatorController.rightBumper.whenPressed(new LoadAndSpeedUp());
-    	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootFromBatterCleat());
+    	operatorController.rightTriggerButton.whenPressed(new ArmGoToShootFromOuterworks());
     	operatorController.leftTriggerButton.whenPressed(new ArmGoToLowGoal());
     	//operatorController.leftTriggerButton.whenPressed(new RotateToAngle(10));
     	//operatorController.selectButton.whenPressed(new GoOverChevalleDeFrise());
     	//operatorController.leftBumper.whenPressed(new CollectorOut());
     	//operatorController.aButton.whenPressed(new CollectorStop());
+    	
 
 
     	//  operatorController.startButton.whenPressed(new ExampleCommandGroup());
 
     	//MIKE'S CODE
-    	driverController.selectButton.whenPressed(new TuneCameraRotate());
+    	//driverController.selectButton.whenPressed(new TuneCameraRotate());
+    	//
     	driverController.startButton.whenPressed(new ArcadeDrive());
     	/*
     	driverController = new BobController(0);

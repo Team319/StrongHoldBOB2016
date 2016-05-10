@@ -131,6 +131,7 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 		double angle = gyro.getAngle();
 		double angleCorrectionFactor = .05;
 		drivetrain.drive(speed, -angle * angleCorrectionFactor);
+		
 	}
 
 	public double getGyroAngle() {
@@ -375,9 +376,10 @@ public class DriveTrain extends Subsystem implements IPidChangeListener, ITarget
 		return this.rightDriveLead.isAlive();
 	}
 
-	public void setTargetOffset(double horizontalOffset) {
+	public void setTargetHorizontalOffset(double horizontalOffset) {
 		this.horizontalOffset = horizontalOffset;
 	}
+	
 	
 	public double getHorizontalOffset() {
 		return horizontalOffset;

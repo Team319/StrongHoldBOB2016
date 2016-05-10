@@ -23,19 +23,20 @@ public class CenterBoulderAfterCollected extends Command {
 	double rightShooterInitialPosition = 0;
 	double leftDelta;
 	double rightDelta;
-	
+	double collectSpeed =0;
 
-	public CenterBoulderAfterCollected() {
+	public CenterBoulderAfterCollected(double collectSpeed) {
 
 		requires(Robot.collector);
 		requires(Robot.shooter);
-
+		this.collectSpeed = collectSpeed;
 	}
 
 	protected void initialize() {
 		loopCount = 0;
 		leftShooterInitialPosition= Robot.shooter.getLeftShooterPosition();
 		rightShooterInitialPosition = Robot.shooter.getRightShooterPosition();
+		//Robot.collector.enableBrakeMode(false);
 		
 	}
 
@@ -43,15 +44,15 @@ public class CenterBoulderAfterCollected extends Command {
 		//System.out.println("leftShooterInitialPosition" + leftShooterInitialPosition);
 		//System.out.println("turnAMount = " +turnAmount);
 		leftDelta = Robot.shooter.getLeftShooterPosition()-leftShooterInitialPosition;
-		System.out.println("left Delta = " +leftDelta);
+		//System.out.println("left Delta = " +leftDelta);
 		rightDelta = Robot.shooter.getRightShooterPosition()-rightShooterInitialPosition;
-		System.out.println("right Delta = " +rightDelta);
+		//System.out.println("right Delta = " +rightDelta);
 		
 		
 		
 		if (-1*leftDelta < turnAmount && rightDelta< turnAmount){
-			Robot.collector.collectorGoIn(.2);
-			System.out.println("executing centering and not touching both wheels yet");
+			Robot.collector.collectorGoIn(this.collectSpeed);
+			//System.out.println("executing centering and not touching both wheels yet");
 		}
 		/*
 		 * if ((rightIrValue < 1.9 || leftIrValue < 1.9) && loopCount < 5) {
@@ -70,7 +71,7 @@ public class CenterBoulderAfterCollected extends Command {
 		// return Robot.collector.loadIsFinished(2.5);
 		// /return the isfinished from the IRcollector sensor pass it a smaller
 		// value than in the
-		return (-1*leftDelta > turnAmount && Robot.shooter.getRightShooterPosition()-rightShooterInitialPosition > turnAmount);
+		return (-1*leftDelta > turnAmount && rightDelta > turnAmount);
 	}
 
 	protected void end() {

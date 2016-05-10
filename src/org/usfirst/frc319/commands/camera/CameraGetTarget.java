@@ -16,13 +16,13 @@ import com.team319.trajectory.TrajectoryManager;
 import com.team319.waypoint.Waypoint;
 import com.team319.waypoint.WaypointList;
 import com.team319.waypoint.WaypointManager;
-import com.team319.web.trajectory.server.TrajectoryServletSocket;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CameraGetTarget extends Command implements ITargetListener{
 	
 	private boolean waitingForTarget = true;
+	private long startTime = 0;
 	
 	public CameraGetTarget() {
 		requires(Robot.driveTrain);
@@ -32,6 +32,7 @@ public class CameraGetTarget extends Command implements ITargetListener{
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		TargetManager.getInstance().registerListener(this);
+		startTime = System.currentTimeMillis();
 	    
 	}
 	@Override
@@ -40,7 +41,7 @@ public class CameraGetTarget extends Command implements ITargetListener{
 		System.out.println("Waiting for Target");
 	}
 
-	@Override
+	@Override 
 	protected boolean isFinished() {
 		return !waitingForTarget;
 	}
@@ -62,8 +63,12 @@ public class CameraGetTarget extends Command implements ITargetListener{
 	@Override
 	public void onTargetChange(Target target) {
 		// TODO Auto-generated method stub
+		if(System.currentTimeMillis() - startTime < 500){
+			return;
+		}
 		System.out.println("Adjust " + target.getHorizontalOffset());
-		Robot.driveTrain.setTargetOffset(target.getHorizontalOffset());
+		Robot.driveTrain.setTargetHorizontalOffset(target.getHorizontalOffset());
+		//Robot.arm.setTargetVerticalOffset(target.getVerticalOffset());
 		waitingForTarget = false;
 	}
 

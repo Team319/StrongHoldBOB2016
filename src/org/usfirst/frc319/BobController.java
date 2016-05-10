@@ -22,6 +22,9 @@ public class BobController extends Joystick {
     
     public Button leftTriggerButton = new XboxLeftTrigger(this);
     public Button rightTriggerButton = new XboxRightTrigger(this);
+    
+    public DPadUp dPadUp = new DPadUp(this);
+    public DPadDown dPadDown = new DPadDown(this);
 
 
 	public BobController(int joystickNumber)
@@ -31,7 +34,7 @@ public class BobController extends Joystick {
 
 	public double getTriggerTwist()
 	{
-		double leftTriggerValue =   this.getRawAxis(2); //derrick would prefer to not use "this."
+		double leftTriggerValue =   this.getRawAxis(2);
     	double rightTriggerValue = -1 * this.getRawAxis(3);
 
     	return leftTriggerValue + rightTriggerValue;
