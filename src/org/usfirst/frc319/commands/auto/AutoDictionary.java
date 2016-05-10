@@ -5,9 +5,18 @@ package org.usfirst.frc319.commands.auto;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The AutoDictionary is used to store the various auto modes, starting positions and defenses
+ * It provides a list of selections to be used in the Chrome Dashboard
+ *
+ * @author Michael Tidd
+ * @author Joe Derrick
+ * @author Wyatt Sieglar
+ *
+ */
 public class AutoDictionary {
-	
-	
+
+
 	public static final String AUTO_POSITION_1 = "auto Low Bar";
 	public static final String AUTO_POSITION_2 = "auto position 2";
 	public static final String AUTO_POSITION_3 = "auto position 3";
@@ -15,7 +24,7 @@ public class AutoDictionary {
 	public static final String AUTO_POSITION_5 = "auto position 5";
 	public static final String AUTO_DO_NOTHING = "auto do nothing";
 	public static final String AUTO_DRIVE_STAIGHT = "auto drive straight";
-	
+
 	@Deprecated
 	public static final String POS_POSITION_1 = "Position 1";
 	@Deprecated
